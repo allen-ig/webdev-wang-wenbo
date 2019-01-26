@@ -1,3 +1,10 @@
+# This repo is for CS5610 Spring 2019 NEU Seattle 
+
+# Wenbo Wang
+
+2017 MS in CS Align student
+
+
 # WebdevWangWenbo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
