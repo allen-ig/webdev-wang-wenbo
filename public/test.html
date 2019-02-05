@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Page Title: Hello World</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+<h1>This is h1 heading</h1>
+<h2>This is h2 heading</h2>
+<p>Hello World!</p>
+<p></p>
+
+<p>The test list</p>
+<h2>Courses Spring 2019</h2>
+<ul>
+  <li>CS5610</li>
+  <li>CS5620</li>
+  <li>CS5630</li>
+</ul>
+
+<h2>Some ordered list</h2>
+<ol>
+  <li>1</li>
+  <li>2</li>
+  <li>3</li>
+</ol>
+
+<h2>Here is some table test</h2>
+<table border="1">
+  <thead>
+  <tr>
+    <th>Username</th><th>Password</th><th>First Name</th><th>Last Name</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>alice</td><td>*****</td><td>Alice</td><td>Wonderland</td><td>haha</td>
+  </tr>
+  </tbody>
+</table>
+
+<p></p>
+<h2>Some input fields</h2>
+<label for="usernameFld">Username</label>
+<input id="usernameFld" type="text" title="Username" placeholder="alice">
+<p></p>
+<label for="firstNameFld">First Name</label>
+<input id="firstNameFld" value="Alice">
+<p></p>
+<label for="dobFld">Date of Birth</label>
+<input type="date" id="dobFld" value="2011-11-22">
+
+<p></p>
+<h2>Some test for drop down list</h2>
+<select name="role">
+  <option value="FACULTY">
+    Faculty
+  </option>
+  <option value="STUDENT">
+    Student
+  </option>
+  <option value="ADMIN">
+    Admin
+  </option>
+</select>
+
+<p></p>
+<h2>Some buttons</h2>
+<button type="button">Delete</button>
+<button type="button">Edit</button>
+<button type="submit">Update</button>
+
+<p></p>
+<h2>Some links</h2>
+<a href="https://www.google.com">Google</a>
+
+<p></p>
+<h2>Test some styles</h2>
+<p style="background-color: yellow">This paragraph is yellow</p>
+<p style="background-color: blue;color:white">This paragraph is blue with white text</p>
+<p style="background-color: red;color:white">This paragraph is red with white text</p>
+
+<p></p>
+<h2>After linking elements from css file...</h2>
+<p class="background-yellow">This paragraph is yellow</p>
+<p class="background-blue color-white">This paragraph is blue background and white letters</p>
+<p class="background-red color-white">This paragraph is red background and red letters</p>
+
+<p></p>
+<div class="container-fluid">
+  <h1>Hello World!</h1>
+  <p>Lorem...</p>
+</div>
+
+<p></p>
+<div class="row">
+  <div class="col-md-1">.col-md-1</div>
+  <div class="col-md-1">.col-md-1</div>
+  <div class="col-md-1">.col-md-1</div>
+</div>
+<div class="row">
+  <div class="col-md-8">.col-md-8</div>
+  <div class="col-md-4">.col-md-4</div>
+</div>
+<div class="row">
+  <div class="col-md-4">.col-md-4</div>
+  <div class="col-md-4">.col-md-4</div>
+  <div class="col-md-4">.col-md-4</div>
+</div>
+<div class="row">
+  <div class="col-md-6">.col-md-6</div>
+  <div class="col-md-6">.col-md-6</div>
+</div>
+<div class="row">
+  <div class="col-6">.col-6</div>
+  <div class="col-6">.col-6</div>
+</div>
+<div class="row">
+  <div class="col-sm-6">.col-sm-6</div>
+  <div class="col-sm-6">.col-sm-6</div>
+</div>
+<div class="row">
+  <div class="col-md-6">.col-md-6</div>
+  <div class="col-md-6">.col-md-6</div>
+</div>
+<div class="row">
+  <div class="col-lg-6">.col-lg-6</div>
+  <div class="col-lg-6">.col-lg-6</div>
+</div>
+
+<p></p>
+<h2>Split view</h2>
+<div class="row">
+  <div class="col-2">Left Side</div>
+  <div class="col-10">Right Side</div>
+</div>
+
+<p></p>
+<h2>Bootstrap Tables</h2>
+<table class="table">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Owned by</th>
+    <th>Last modified</th>
+    <th>&nbsp;</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>CS5500</td>
+    <td>me</td>
+    <td>6:45 PM</td>
+    <td>Delete</td>
+  </tr>
+  </tbody>
+</table>
+
+<p></p>
+<h2>Hide left on small screen</h2>
+<div class="row">
+  <div class="col-2 d-none d-md-block">
+    <ul class="nav flex-column nav-pills">
+      <a class="nav-link active" href="#">Module 123</a>
+      <a class="nav-link" href="#">Module 2</a>
+      <a class="nav-link" href="#">Module 3</a>
+      <a class="nav-link" href="#">Module 4</a>
+    </ul>
+  </div>
+</div>
+
+<p></p>
+<h2>Expand on small screen</h2>
+<div class="col-md-10 col-12">
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a class="nav-link" href="#">Part 1</a>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
