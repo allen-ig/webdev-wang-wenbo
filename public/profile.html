@@ -1,56 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Profile Page</title>
-
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
   <!-- Meta tags for making website for mobile-->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="css/style.css" rel="stylesheet">
 
+  <title>Profile Page</title>
+  <base href="/">
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="#">
-        Fixed Top
-      </a>
-      <p class="navbar-text pull-right">
-        <a href="#" class="navbar-link">
-          <span class="fas fa-plus fontawsome_icon">
-          </span>
-        </a>
-      </p>
-    </div>
+
+<nav class="navbar fixed-top cl-blue-navbar">
+  <div class="container">
+    <a class="cl-text-white navbar-brand cl-text-bold" href="profile.html">
+      Profile
+    </a>
+    <a href="profile.html" class="navbar-link">
+      <span class="fas fa-check fontawsome_icon color-white"></span>
+    </a>
   </div>
 </nav>
 
 
 <div class="container">
-  <h1 style="background: #337ab7; color:white">Profile</h1>
+  <!--<h1 class="text-white bg-primary">Profile</h1>-->
 
   <form>
     <div class="form-group">
-      <label for="username">Username</label>
+      <label for="username" class="cl-text-bold">Username</label>
       <input type="text" class="form-control" id="username" placeholder="Username">
     </div>
     <div class="form-group">
-      <label for="email">Email address</label>
+      <label for="email" class="cl-text-bold">Email address</label>
       <input type="email" class="form-control" id="email" placeholder="example@example.com">
     </div>
     <div class="form-group">
-      <label for="first-name">First Name</label>
+      <label for="first-name" class="cl-text-bold">First Name</label>
       <input type="text" class="form-control" id="first-name" placeholder="First name">
     </div>
     <div class="form-group">
-      <label for="last-name">Last Name</label>
+      <label for="last-name" class="cl-text-bold">Last Name</label>
       <input type="text" class="form-control" id="last-name" placeholder="Last name">
     </div>
   </form>
@@ -61,31 +61,35 @@
      href="login.html">Logout</a>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container">
-    <div class="row navbar-text">
-      <div class="col-xs-3 text-center">
-        <a href="#">
-          <span class="fas fa-check fontawsome_icon"></span>
-        </a>
-      </div>
-      <div class="col-xs-3 text-center">
-        <a href="#">
-          <span class="fas fa-plus fontawsome_icon"></span>
-        </a>
-      </div>
-      <div class="col-xs-3 text-center">
-        <a href="#">
-          <span class="fas fa-star fontawsome_icon"></span>
-        </a>
-      </div>
-      <div class="col-xs-3 text-center">
-        <a href="#">
-          <span class="fas fa-heart fontawsome_icon"></span>
-        </a>
-      </div>
+<nav class="navbar fixed-bottom cl-blue-navbar">
+  <div class="container m-auto">
+    <div class="navbar-text">
+      <a href="#">
+        <span class="fas fa-check fontawsome_icon mx-2 color-white"></span>
+      </a>
+      <a href="#">
+        <span class="fas fa-plus fontawsome_icon mx-2 color-white"></span>
+      </a>
+      <a href="#">
+        <span class="fas fa-star fontawsome_icon mx-2 color-white"></span>
+      </a>
+      <a href="#">
+        <span class="fas fa-heart fontawsome_icon mx-2 color-white"></span>
+      </a>
     </div>
   </div>
 </nav>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 </html>

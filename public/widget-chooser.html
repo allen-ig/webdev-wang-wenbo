@@ -1,32 +1,31 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Widget-chooser Page</title>
-
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
   <!-- Meta tags for making website for mobile-->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
   <!-- STYLE sheet comes after all the libraries are loaded. Document style-->
-  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+        integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="css/style.css" rel="stylesheet">
 
+  <title>Widget-chooser Page</title>
+  <base href="/">
 </head>
 <body>
-<nav class="navbar navbar-default navbar-fixed-top">
-  <div class="container-fluid row">
-
-    <div class="navbar-text pull-left">
-      <a href="widget-list.html" class="cl-text-black cl-icon-padding">
-          <span class="fas fa-chevron-left fontawsome_icon">
-          </span>
+<nav class="navbar navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+      <a href="widget-list.html" class="navbar-link cl-text-black cl-icon-padding float=left mr-4">
+          <span class="fas fa-chevron-left fontawsome_icon"></span>
       </a>
-    </div>
-
-    <a class="navbar-brand cl-text-white cl-text-bold" href="#">
+    <a class="navbar-text cl-text-white cl-text-bold mr-auto" href="#">
       Choose Widget
     </a>
   </div>
@@ -35,48 +34,56 @@
 <div class="container-fluid cl-container-padding">
   <ul class="list-group cl-list-group-borderless">
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-heading.html">Header</a>
+      <a href="widget-heading.html" class="cl-text-blue">Header</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Label</a>
+      <a href="#" class="cl-text-blue">Label</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">HTML</a>
+      <a href="#" class="cl-text-blue">HTML</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Text Input</a>
+      <a href="#" class="cl-text-blue">Text Input</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Link</a>
+      <a href="#" class="cl-text-blue">Link</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Button</a>
+      <a href="#" class="cl-text-blue">Button</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-image.html">Image</a>
+      <a href="widget-image.html" class="cl-text-blue">Image</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="widget-youtube.html">YouTube</a>
+      <a href="widget-youtube.html" class="cl-text-blue">YouTube</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Data Table</a>
+      <a href="#" class="cl-text-blue">Data Table</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a href="#">Repeater</a>
+      <a href="#" class="cl-text-blue">Repeater</a>
     </li>
   </ul>
 </div>
 
-<nav class="navbar navbar-default navbar-fixed-bottom">
-  <div class="container-fluid row">
-    <div class="pull-right navbar-text">
-
-      <a href="profile.html" class="cl-icon-padding">
-        <span class="fas fa-user fontawsome_icon"></span>
+<nav class="navbar navbar-light bg-light fixed-bottom">
+  <div class="container-fluid">
+      <a href="profile.html" class="navbar-link cl-icon-padding ml-auto">
+        <span class="fas fa-user fontawsome_icon cl-text-blue"></span>
       </a>
-
-    </div>
   </div>
 </nav>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+        integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+        integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
 </body>
 </html>

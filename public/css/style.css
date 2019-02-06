@@ -15,6 +15,19 @@
   color: white;
 }
 
+.cl-text-blue {
+  color: #337ab7;
+}
+
+.cl-text-grey {
+  color: #808080;
+}
+
+.navbar-brand-grey {
+  font-weight: bold;
+  color: grey;
+}
+
 /*forked from github*/
 body {
   padding-top: 70px;
