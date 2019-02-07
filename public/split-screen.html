@@ -16,10 +16,12 @@
         integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
   <link href="css/style.css" rel="stylesheet">
 
-  <title>Website-edit Page</title>
+  <title>Test of split screen page</title>
   <base href="/">
 </head>
 <body>
+
+<!--The navigation bar-->
 <nav class="navbar fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <div class="col-4 hidden-xs d-none d-md-block">
@@ -30,15 +32,15 @@
         <a class="cl-text-white navbar-brand cl-text-bold m-auto" href="#">
           Websites
         </a>
-        <a href="website-new.html" class="navbar-link navbar-text float-right cl-text-white cl-icon-padding">
-          <span class="fas fa-plus fontawsome_icon mr-2"></span>
+        <a href="#" class="navbar-link navbar-text cl-text-white cl-icon-padding float-right">
+          <span class="fas fa-plus fontawsome_icon"></span>
         </a>
       </div>
     </div>
-    <div class="col-8 p-0">
-      <div class="container">
+    <div class="col-8">
+      <div class="container pl-0">
         <a class="cl-text-white navbar-brand cl-text-bold" href="#">
-          Edit Websites
+          New Websites
         </a>
         <a href="website-list.html" class="navbar-link navbar-text float-right cl-text-white">
           <span class="fas fa-check fontawsome_icon"></span>
@@ -48,43 +50,27 @@
   </div>
 </nav>
 
-<div class="contain-fluid">
+<!--split screen-->
+<div class="container-fluid">
   <div class="row">
-    <div class="col-4 hidden-xs d-none d-md-block border-right">
-      <div class="container ml-3">
-        <ul class="list-group cl-list-group-borderless">
-          <li class="list-group-item cl-list-item-borderless">
-            <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span></a>
-            <a href="page-list.html" class="cl-text-blue">Blogging App</a>
-          </li>
-          <li class="list-group-item cl-list-item-borderless">
-            <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span></a>
-            <a href="page-list.html" class="cl-text-blue">Address Book App</a>
-          </li>
-          <li class="list-group-item cl-list-item-borderless">
-            <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span></a>
-            <a href="page-list.html" class="cl-text-blue">Script Testing App</a>
-          </li>
-          <li class="list-group-item cl-list-item-borderless">
-            <a href="website-edit.html"><span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span></a>
-            <a href="page-list.html" class="cl-text-blue">Blogger</a>
-          </li>
-        </ul>
-      </div>
+    <div class="col-sm-6 col-2 h-100 bg-dark text-white py-2 d-flex align-items-center justify-content-center fixed-top" id="left">
+      <h5 class="hidden-xs-down">I'm Fixed</h5>
     </div>
-    <div class="col-8">
-      <form>
-        <div class="form-group">
-          <label for="website-name" class="cl-text-bold">Website Name</label>
-          <input type="text" class="form-control" id="website-name" placeholder="Blogger">
-        </div>
-        <div class="form-group">
-          <label for="website-description" class="cl-text-bold">Website Description</label>
-          <textarea id="website-description" class="form-control" rows="5"
-                    placeholder="Blog is a blog-publishing service."></textarea>
-        </div>
-        <a class="btn btn-danger  btn-block" href="website-list.html">Delete</a>
-      </form>
+    <div class="col-sm-6 invisible col-2"><!--hidden spacer--></div>
+    <div class="col offset-2 offset-sm-6 py-2">
+      <h4>I Scroll</h4>
+      <p>Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia salvia mustache 90's code editing brunch. Butcher polaroid VHS art party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape swag wolf squid tote bag. Tote bag cronut semiotics,
+        raw denim deep v taxidermy messenger bag. Tofu YOLO Etsy, direct trade ethical Odd Future jean shorts paleo. Forage Shoreditch tousled aesthetic irony, street art organic Bushwick artisan cliche semiotics ugh synth chillwave meditation.
+        Shabby chic lomo plaid vinyl chambray Vice. Vice sustainable cardigan, Williamsburg master cleanse hella DIY 90's blog.</p>
+
+      <p>Ethical Kickstarter PBR asymmetrical lo-fi. oreamcatcher street art Carles, stumptown gluten-free Kickstarter artisan Wes Anderson wolf pug. Godard sustainable you probably haven't heard of them, vegan farm-to-table Williamsburg slow-carb
+        readymade disrupt deep v. Meggings seitan Wes Anderson semiotics, cliche American Apparel whatever. Helvetica cray plaid, vegan brunch Banksy leggings +1 direct trade. Wayfarers codeply PBR selfies. Banh mi McSweeney's Shoreditch selfies,
+        forage fingerstache food truck occupy YOLO Pitchfork fixie iPhone fanny pack art party Portland.</p>
+
+      <p>Sriracha biodiesel taxidermy organic post-ironic, Intelligentsia salvia mustache 90's code editing brunch. Butcher polaroid VHS art party, hashtag Brooklyn deep v PBR narwhal sustainable mixtape swag wolf squid tote bag. Tote bag cronut semiotics,
+        raw denim deep v taxidermy messenger bag. Tofu YOLO Etsy, direct trade ethical Odd Future jean shorts paleo. Forage Shoreditch tousled aesthetic irony, street art organic Bushwick artisan cliche semiotics ugh synth chillwave meditation.
+        Shabby chic lomo plaid vinyl chambray Vice. Vice sustainable cardigan, Williamsburg master cleanse hella DIY 90's blog.</p>
+
     </div>
   </div>
 </div>

@@ -28,6 +28,11 @@
   color: grey;
 }
 
+.bg-white-position {
+  background-color: white;
+  position:relative;
+}
+
 /*forked from github*/
 body {
   padding-top: 70px;
