@@ -7,7 +7,8 @@
 Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 
 Updates:
-V2.1: Homework 2 - latest
+V3.0: Homework 3 - Latest version
+V2.1: Homework 2 
 V2.0: Homework 2
 V1.0: Homework 1
 
