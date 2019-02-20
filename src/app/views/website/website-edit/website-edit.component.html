@@ -1,0 +1,100 @@
+<nav class="navbar fixed-top cl-blue-navbar">
+  <div class="container-fluid">
+    <div class="col-4 hidden-xs d-none d-md-block">
+      <div class="container pl-0">
+        <a [routerLink]="['/user/' + this._userId + '/website']"
+           class="navbar-link cl-text-white mr-4">
+          <span class="fas fa-chevron-left fontawsome_icon"></span>
+        </a>
+        <a class="cl-text-white navbar-brand cl-text-bold m-auto"
+           [routerLink]="['/user/' + this._userId + '/website/' + this._websiteId]">
+          Websites
+        </a>
+        <a [routerLink]="['/user/' + this._userId + '/website/new']"
+           class="navbar-link navbar-text float-right cl-text-white cl-icon-padding">
+          <span class="fas fa-plus fontawsome_icon mr-2"></span>
+        </a>
+      </div>
+    </div>
+    <div class="col-8 p-0">
+      <div class="container">
+        <a class="cl-text-white navbar-brand cl-text-bold"
+           [routerLink]="['/user/' + this._userId + '/website/' + this._websiteId]">
+          Edit Websites
+        </a>
+        <a [routerLink]="['/user/' + this._userId + '/website']"
+           class="navbar-link navbar-text float-right cl-text-white">
+          <span class="fas fa-check fontawsome_icon"></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="contain-fluid">
+  <div class="row">
+    <div class="col-4 hidden-xs d-none d-md-block border-right">
+      <div class="container ml-3">
+        <ul class="list-group cl-list-group-borderless"
+            *ngFor="let website of this._websites; index as i">
+          <li class="list-group-item cl-list-item-borderless">
+            <a [routerLink]="['/user/' + website.developerId + '/website/' + website._id]">
+              <span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span>
+            </a>
+            <a [routerLink]="['/user/' + website.developerId + '/website/' + website._id + '/page']"
+               class="cl-text-blue">
+              {{ website.name }}
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-8">
+      <form>
+        <div class="form-group">
+          <label for="website-name"
+                 class="cl-text-bold">
+            Website Name
+          </label>
+          <input type="text"
+                 ngModel
+                 name="website-name"
+                 [(ngModel)]="this._website.name"
+                 #websiteName="ngModel"
+                 class="form-control"
+                 id="website-name"
+                 placeholder="Blogger">
+        </div>
+        <div class="form-group">
+          <label for="website-description"
+                 class="cl-text-bold">
+            Website Description
+          </label>
+          <textarea id="website-description"
+                    class="form-control"
+                    ngModel
+                    name="website-description"
+                    [(ngModel)]="this._website.description"
+                    #websiteDescription="ngModel"
+                    rows="5"
+                    placeholder="Blog is a blog-publishing service.">
+          </textarea>
+        </div>
+        <button type="button"
+                class="btn btn-danger  btn-block"
+                [routerLink]="['/user/' + this._userId + '/website']">
+          Delete
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar fixed-bottom cl-blue-navbar">
+  <div class="container-fluid">
+    <a [routerLink]="['/user/' + this._userId]"
+       class="navbar-link navbar-text ml-auto cl-text-white cl-icon-padding">
+      <span class="fas fa-user fontawsome_icon"></span>
+    </a>
+  </div>
+</nav>

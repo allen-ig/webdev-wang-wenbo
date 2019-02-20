@@ -1,0 +1,85 @@
+<nav class="navbar fixed-top cl-blue-navbar">
+  <div class="container">
+    <a class="cl-text-white navbar-brand cl-text-bold" [routerLink]="['/user/' + this._userId]">
+      Profile
+    </a>
+    <a [routerLink]="['/user/' + this._userId]" class="navbar-link">
+      <span class="fas fa-check fontawsome_icon color-white"></span>
+    </a>
+  </div>
+</nav>
+
+
+<div class="container">
+  <!--<h1 class="text-white bg-primary">Profile</h1>-->
+
+  <form>
+    <div class="form-group">
+      <label for="username" class="cl-text-bold">Username</label>
+      <input type="text"
+             [(ngModel)]="this._user.username"
+             name="username"
+             #username="ngModel"
+             class="form-control"
+             id="username"
+             placeholder="Username">
+    </div>
+    <div class="form-group">
+      <label for="password" class="cl-text-bold">Password</label>
+      <input type="password"
+             [(ngModel)]="this._user.password"
+             name="password"
+             #password="ngModel"
+             class="form-control"
+             id="password"
+             placeholder="Password">
+    </div>
+    <div class="form-group">
+      <label for="first-name" class="cl-text-bold">First Name</label>
+      <input type="text"
+             [(ngModel)]="this._user.firstName"
+             name="firstName"
+             #firstName="ngModel"
+             class="form-control"
+             id="first-name"
+             placeholder="First name">
+    </div>
+    <div class="form-group">
+      <label for="last-name" class="cl-text-bold">Last Name</label>
+      <input type="text"
+             [(ngModel)]="this._user.lastName"
+             name="lastName"
+             #lastName="ngModel"
+             class="form-control"
+             id="last-name"
+             placeholder="Last name">
+    </div>
+  </form>
+
+  <button type="button"
+          class="btn btn-primary btn-block"
+          [routerLink]="['/user/' + this._userId +'/website']">
+    Websites
+  </button>
+  <a class="btn btn-danger  btn-block"
+     [routerLink]="['/login']">Logout</a>
+</div>
+
+<nav class="navbar fixed-bottom cl-blue-navbar">
+  <div class="container m-auto">
+    <div class="navbar-text">
+      <a [routerLink]="['/user/' + this._userId]">
+        <span class="fas fa-check fontawsome_icon mx-2 color-white"></span>
+      </a>
+      <a [routerLink]="['/user/' + this._userId]">
+        <span class="fas fa-plus fontawsome_icon mx-2 color-white"></span>
+      </a>
+      <a [routerLink]="['/user/' + this._userId]">
+        <span class="fas fa-star fontawsome_icon mx-2 color-white"></span>
+      </a>
+      <a [routerLink]="['/user/' + this._userId]">
+        <span class="fas fa-heart fontawsome_icon mx-2 color-white"></span>
+      </a>
+    </div>
+  </div>
+</nav>

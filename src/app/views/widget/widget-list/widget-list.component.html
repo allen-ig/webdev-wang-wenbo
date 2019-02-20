@@ -1,0 +1,88 @@
+<nav class="navbar navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page']"
+       class="navbar-link cl-text-black cl-icon-padding float-left mr-4">
+      <span class="fas fa-chevron-left fontawsome_icon"></span>
+    </a>
+    <a class="navbar-text cl-text-white cl-text-bold mr-auto"
+       [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']">
+      Widgets
+    </a>
+    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+       class="navbar-link cl-icon-padding cl-text-black float-right">
+      <span class="fas fa-plus fontawsome_icon"></span>
+    </a>
+  </div>
+</nav>
+
+<div class="container cl-container-padding">
+  <!--use ngSwitch to iterate through the widgets and show the template accordingly-->
+  <div *ngFor="let widget of this._widgets; index as i">
+    <div [ngSwitch]="widget.widgetType">
+      <div *ngSwitchCase="'HEADER'">
+        <div class="float-right">
+          <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+             class="float-right">
+            <span class="fas fa-bars fontawsome_icon cl-text-blue"></span>
+          </a>
+          <a
+            [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+widget._id]">
+            <span class="fas fa-cog fontawsome_icon cl-text-blue"></span>
+          </a>
+        </div>
+        <h1>{{ widget.text }}</h1>
+      </div>
+      <div *ngSwitchCase="'YOUTUBE'">
+        <div class="embed-responsive embed-responsive-16by9">
+          <iframe width="640" height="360"
+                  [src]="this.updateVideoUrl(widget.url)"
+                  frameborder="0"
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen></iframe>
+          <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+             class="float-right">
+            <span class="fas fa-bars fontawsome_icon cl-text-blue bg-white-position"></span>
+          </a>
+          <a
+            [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+widget._id]"
+            class="float-right">
+            <span class="fas fa-cog fontawsome_icon cl-text-blue bg-white-position"></span>
+          </a>
+        </div>
+      </div>
+      <div *ngSwitchCase="'IMAGE'">
+        <div>
+          <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+             class="float-right">
+            <span class="fas fa-bars fontawsome_icon cl-text-blue"></span>
+          </a>
+          <a
+            [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+widget._id]"
+            class="float-right">
+            <span class="fas fa-cog fontawsome_icon cl-text-blue"></span>
+          </a>
+          <img class="img-responsive img-rounded cl-widget-images"
+               [src]="widget.url">
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<nav class="navbar navbar-light bg-light fixed-bottom">
+  <div class="container-fluid">
+    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+       class="navbar-link navbar-text cl-icon-padding float-left mr-4">
+      <span class="fas fa-play fontawsome_icon cl-text-blue"></span>
+    </a>
+    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+       class="navbar-link navbar-text cl-icon-padding mr-auto">
+      <span class="fas fa-eye fontawsome_icon cl-text-blue"></span>
+    </a>
+    <a [routerLink]="['/user/'+this._userId]"
+       class="navbar-link navbar-text cl-icon-padding float-right">
+      <span class="fas fa-user fontawsome_icon cl-text-blue"></span>
+    </a>
+  </div>
+</nav>

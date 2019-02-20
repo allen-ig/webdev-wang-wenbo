@@ -1,0 +1,18 @@
+<!--<h1>Todos</h1>-->
+<!--<p>-->
+<!--todos works!-->
+<!--</p>-->
+
+<!--<ul *ngFor="let todo of todos">-->
+<!--<li>{{ todo.title }}</li>-->
+<!--</ul>-->
+
+<!--add todo item-->
+<app-add-todo (addTodo)="addTodohaha($event)"></app-add-todo>
+<!--start looping through items-->
+<app-todo-item
+  *ngFor="let td of todos"
+  [todo]="td"
+  (deleteTodo)="deleteTodohaha($event)"
+>
+</app-todo-item>

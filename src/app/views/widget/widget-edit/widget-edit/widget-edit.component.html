@@ -1,0 +1,26 @@
+<div [ngSwitch]="this._widget.widgetType">
+  <div *ngSwitchCase="'HEADER'">
+    <app-widget-header [_userId]="this._userId"
+                       [_websiteId]="this._websiteId"
+                       [_pageId]="this._pageId"
+                       [_widgetId]="this._widgetId"
+                       [_widget]="this._widget">
+    </app-widget-header>
+  </div>
+  <div *ngSwitchCase="'IMAGE'">
+    <app-widget-image [_userId]="this._userId"
+                      [_websiteId]="this._websiteId"
+                      [_pageId]="this._pageId"
+                      [_widgetId]="this._widgetId"
+                      [_widget]="this._widget">
+    </app-widget-image>
+  </div>
+  <div *ngSwitchCase="'YOUTUBE'">
+    <app-widget-youtube [_userId]="this._userId"
+                        [_websiteId]="this._websiteId"
+                        [_pageId]="this._pageId"
+                        [_widgetId]="this._widgetId"
+                        [_widget]="this._widget">
+    </app-widget-youtube>
+  </div>
+</div>

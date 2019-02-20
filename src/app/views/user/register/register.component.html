@@ -1,0 +1,71 @@
+<div class="container">
+  <form #registerForm="ngForm"
+        (ngSubmit)="register()"
+        novalidate>
+    <h1>Register</h1>
+    <div class="form-group">
+      <input type="text"
+             ngModel
+             name="username"
+             required
+             [class.is-invalid]="username.invalid && username.touched"
+             #username="ngModel"
+             class="form-control"
+             placeholder="Username"/>
+      <div class="invalid-feedback"
+           [class.d-none]="username.valid || username.untouched">
+        Username is required!
+      </div>
+    </div>
+    <div ngModelGroup="passwordGroup"
+         #passwordGroup="ngModelGroup">
+      <div class="form-group">
+        <input type="password"
+               ngModel
+               name="password"
+               required
+               #password="ngModel"
+               class="form-control"
+               placeholder="Password"
+               [class.is-invalid]="(password.invalid && password.touched) || (verifyPassword.touched && verifyPassword.invalid && !verifyPassword.errors?.required)"
+               (input)="verifyPassword.control.updateValueAndValidity()"/>
+        <small class="text-danger"
+               [class.d-none]="password.valid || password.untouched">
+          Password is required!
+        </small>
+      </div>
+      <div class="form-group">
+        <input type="password"
+               ngModel
+               name="verifyPassword"
+               required
+               appConfirmEqualValidator="password"
+               [class.is-invalid]="verifyPassword.invalid && verifyPassword.touched"
+               #verifyPassword="ngModel"
+               class="form-control"
+               placeholder="Verify password"/>
+        <div>
+          <small class="text-danger"
+                 *ngIf="verifyPassword.touched && verifyPassword.errors?.required">
+            Verify password is required!
+          </small>
+          <small class="text-danger"
+                 *ngIf="verifyPassword.touched && verifyPassword.errors?.notEqual && !verifyPassword.errors?.required">
+            Password and Verify password DO NOT match!
+          </small>
+        </div>
+      </div>
+    </div>
+    <button type="submit"
+            class="btn btn-primary btn-block"
+            [disabled]="registerForm.invalid"
+            [routerLink]="['/user/:uid']">
+      Register
+    </button>
+    <button type="button"
+            class="btn btn-danger  btn-block"
+            [routerLink]="['/login']">
+      Cancel
+    </button>
+  </form>
+</div>

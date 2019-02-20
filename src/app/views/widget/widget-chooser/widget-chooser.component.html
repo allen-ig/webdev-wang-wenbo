@@ -1,0 +1,66 @@
+<nav class="navbar navbar-light bg-light fixed-top">
+  <div class="container-fluid">
+    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+       class="navbar-link cl-text-black cl-icon-padding float=left mr-4">
+      <span class="fas fa-chevron-left fontawsome_icon"></span>
+    </a>
+    <a class="navbar-text cl-text-white cl-text-bold mr-auto"
+       [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']">
+      Choose Widget
+    </a>
+  </div>
+</nav>
+
+<div class="container-fluid cl-container-padding">
+  <ul class="list-group cl-list-group-borderless">
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/header']"
+         class="cl-text-blue">Header</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">Label</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">HTML</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">Text Input</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">Link</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">Button</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/image']"
+         class="cl-text-blue">Image</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/youtube']"
+         class="cl-text-blue">YouTube</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">Data Table</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue">Repeater</a>
+    </li>
+  </ul>
+</div>
+
+<nav class="navbar navbar-light bg-light fixed-bottom">
+  <div class="container-fluid">
+    <a [routerLink]="['/user/'+this._userId]"
+       class="navbar-link cl-icon-padding ml-auto">
+      <span class="fas fa-user fontawsome_icon cl-text-blue"></span>
+    </a>
+  </div>
+</nav>
