@@ -35,7 +35,7 @@
       <div *ngSwitchCase="'YOUTUBE'">
         <div class="embed-responsive embed-responsive-16by9">
           <iframe width="640" height="360"
-                  [src]="this.updateVideoUrl(widget.url)"
+                  [src]="widget.url | safeUrl"
                   frameborder="0"
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen></iframe>

@@ -13,12 +13,14 @@ import {PageService} from './services/page.service';
 import {WidgetService} from './services/widget.service';
 import {GetUsersService} from './services/get-users.service';
 import { ConfirmEqualValidator } from './shared/confirm-equal.validator';
+import { SafeUrlPipe } from './pipes/safe-url.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    ConfirmEqualValidator
+    ConfirmEqualValidator,
+    SafeUrlPipe
   ],
   imports: [
     BrowserModule,

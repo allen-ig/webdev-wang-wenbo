@@ -25,7 +25,7 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit/widget
 
 // The custom routes of the Angular app.
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'user/:uid', component: ProfileComponent},

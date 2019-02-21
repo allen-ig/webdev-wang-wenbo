@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service';
-import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-widget-list',
@@ -16,8 +15,7 @@ export class WidgetListComponent implements OnInit {
   private _widgets = [];
 
   constructor(private _activatedRoute: ActivatedRoute,
-              private _widgetService: WidgetService,
-              private _sanitizer: DomSanitizer) {
+              private _widgetService: WidgetService) {
   }
 
   ngOnInit() {
@@ -36,7 +34,8 @@ export class WidgetListComponent implements OnInit {
   }
 
   // to make the video resource url trusted
-  updateVideoUrl(url: string) {
-    return this._sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
+  // this method has been deprecated, use the custom pipe instead
+  // updateVideoUrl(url: string) {
+  //   return this._sanitizer.bypassSecurityTrustResourceUrl(url);
+  // }
 }
