@@ -5,15 +5,18 @@ import {Injectable} from '@angular/core';
 })
 export class WebsiteService {
   private _websites = [
-    {_id: '123', name: 'Facebook', developerId: '456', description: 'Lorem'},
-    {_id: '234', name: 'Twitter', developerId: '456', description: 'Lorem'},
-    {_id: '456', name: 'Gizmodo', developerId: '456', description: 'Lorem'},
-    {_id: '890', name: 'Go', developerId: '123', description: 'Lorem'},
-    {_id: '567', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem'},
-    {_id: '678', name: 'Checkers', developerId: '123', description: 'Lorem'},
-    {_id: '789', name: 'Chess', developerId: '234', description: 'The chess app'},
-    {_id: '9992', name: 'Soccer', developerId: '234', description: 'We love soccer'},
-    {_id: '2233', name: 'Tennis', developerId: '234', description: 'Mario Tennis!'}
+    {_id: '1', name: 'Facebook', developerId: '456', description: 'Lorem'},
+    {_id: '2', name: 'Twitter', developerId: '456', description: 'Lorem'},
+    {_id: '3', name: 'Gizmodo', developerId: '456', description: 'Lorem'},
+    {_id: '4', name: 'Go', developerId: '123', description: 'Lorem'},
+    {_id: '5', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem'},
+    {_id: '6', name: 'Checkers', developerId: '123', description: 'Lorem'},
+    {_id: '7', name: 'Chess', developerId: '234', description: 'The chess app'},
+    {_id: '8', name: 'Soccer', developerId: '234', description: 'We love soccer'},
+    {_id: '9', name: 'Tennis', developerId: '234', description: 'Mario Tennis!'},
+    {_id: '10', name: 'Google', developerId: '345', description: 'Google'},
+    {_id: '11', name: 'Nike', developerId: '345', description: 'Nike'},
+    {_id: '12', name: 'Hello Kitty', developerId: '345', description: 'Hello Kitty'}
   ];
 
   constructor() {

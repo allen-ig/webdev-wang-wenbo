@@ -377,9 +377,21 @@ __webpack_require__.r(__webpack_exports__);
 var PageService = /** @class */ (function () {
     function PageService() {
         this._pages = [
-            { _id: '321', name: 'Home Page', websiteId: '456', title: 'Home' },
-            { _id: '432', name: 'Index Page', websiteId: '456', title: 'Index' },
-            { _id: '543', name: 'About Page', websiteId: '456', title: 'Page' },
+            { _id: '1', name: 'Home Page', websiteId: '3', title: 'Home' },
+            { _id: '2', name: 'Index Page', websiteId: '3', title: 'Index' },
+            { _id: '3', name: 'About Page', websiteId: '3', title: 'Page' },
+            { _id: '4', name: 'Home Page', websiteId: '4', title: 'Home' },
+            { _id: '5', name: 'Index Page', websiteId: '5', title: 'Index' },
+            { _id: '6', name: 'About Page', websiteId: '6', title: 'Page' },
+            { _id: '7', name: 'Home Page', websiteId: '7', title: 'Home' },
+            { _id: '8', name: 'Index Page', websiteId: '8', title: 'Index' },
+            { _id: '9', name: 'About Page', websiteId: '9', title: 'Page' },
+            { _id: '10', name: 'Home Page', websiteId: '10', title: 'Home' },
+            { _id: '11', name: 'Index Page', websiteId: '11', title: 'Index' },
+            { _id: '12', name: 'About Page', websiteId: '12', title: 'Page' },
+            { _id: '13', name: 'Home Page', websiteId: '1', title: 'Home' },
+            { _id: '14', name: 'Index Page', websiteId: '1', title: 'Index' },
+            { _id: '15', name: 'About Page', websiteId: '2', title: 'Page' }
         ];
     }
     // adds the page parameter instance to the local page array. The new page's websiteId is set to the websiteId parameter
@@ -618,15 +630,18 @@ __webpack_require__.r(__webpack_exports__);
 var WebsiteService = /** @class */ (function () {
     function WebsiteService() {
         this._websites = [
-            { _id: '123', name: 'Facebook', developerId: '456', description: 'Lorem' },
-            { _id: '234', name: 'Twitter', developerId: '456', description: 'Lorem' },
-            { _id: '456', name: 'Gizmodo', developerId: '456', description: 'Lorem' },
-            { _id: '890', name: 'Go', developerId: '123', description: 'Lorem' },
-            { _id: '567', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem' },
-            { _id: '678', name: 'Checkers', developerId: '123', description: 'Lorem' },
-            { _id: '789', name: 'Chess', developerId: '234', description: 'The chess app' },
-            { _id: '9992', name: 'Soccer', developerId: '234', description: 'We love soccer' },
-            { _id: '2233', name: 'Tennis', developerId: '234', description: 'Mario Tennis!' }
+            { _id: '1', name: 'Facebook', developerId: '456', description: 'Lorem' },
+            { _id: '2', name: 'Twitter', developerId: '456', description: 'Lorem' },
+            { _id: '3', name: 'Gizmodo', developerId: '456', description: 'Lorem' },
+            { _id: '4', name: 'Go', developerId: '123', description: 'Lorem' },
+            { _id: '5', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem' },
+            { _id: '6', name: 'Checkers', developerId: '123', description: 'Lorem' },
+            { _id: '7', name: 'Chess', developerId: '234', description: 'The chess app' },
+            { _id: '8', name: 'Soccer', developerId: '234', description: 'We love soccer' },
+            { _id: '9', name: 'Tennis', developerId: '234', description: 'Mario Tennis!' },
+            { _id: '10', name: 'Google', developerId: '345', description: 'Google' },
+            { _id: '11', name: 'Nike', developerId: '345', description: 'Nike' },
+            { _id: '12', name: 'Hello Kitty', developerId: '345', description: 'Hello Kitty' }
         ];
     }
     // adds the website parameter instance to the local websites array.
@@ -702,20 +717,54 @@ __webpack_require__.r(__webpack_exports__);
 var WidgetService = /** @class */ (function () {
     function WidgetService() {
         this._widgets = [
-            { _id: '123', widgetType: 'HEADER', pageId: '321', size: '2', text: 'Hello meow~' },
-            { _id: '234', widgetType: 'HEADER', pageId: '321', size: '4', text: 'I am a cutie meow~meow~' },
+            { _id: '1', widgetType: 'HEADER', pageId: '13', size: '2', text: 'Hello meow~' },
+            { _id: '2', widgetType: 'HEADER', pageId: '13', size: '4', text: 'I am a cutie meow~meow~' },
             {
-                _id: '345',
+                _id: '3',
                 widgetType: 'IMAGE',
-                pageId: '321',
+                pageId: '13',
                 width: '100%',
                 url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
                     'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
             },
-            { _id: '456', widgetType: 'HTML', pageId: '321', text: '<p>Lorem ipsum</p>' },
-            { _id: '567', widgetType: 'HEADER', pageId: '321', size: '4', text: 'Here is a cute video for you~' },
-            { _id: '678', widgetType: 'YOUTUBE', pageId: '321', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
-            { _id: '789', widgetType: 'HTML', pageId: '321', text: '<p>Lorem ipsum</p>' },
+            { _id: '4', widgetType: 'HEADER', pageId: '13', size: '4', text: 'Here is a cute video for you~' },
+            { _id: '5', widgetType: 'YOUTUBE', pageId: '13', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
+            { _id: '6', widgetType: 'HEADER', pageId: '14', size: '2', text: 'Hello meow~' },
+            { _id: '7', widgetType: 'HEADER', pageId: '15', size: '4', text: 'I am a cutie meow~meow~' },
+            {
+                _id: '8',
+                widgetType: 'IMAGE',
+                pageId: '10',
+                width: '100%',
+                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+            },
+            { _id: '9', widgetType: 'HEADER', pageId: '12', size: '4', text: 'Here is a cute video for you~' },
+            { _id: '11', widgetType: 'YOUTUBE', pageId: '11', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
+            { _id: '22', widgetType: 'HEADER', pageId: '9', size: '2', text: 'Hello meow~' },
+            { _id: '33', widgetType: 'HEADER', pageId: '8', size: '4', text: 'I am a cutie meow~meow~' },
+            {
+                _id: '44',
+                widgetType: 'IMAGE',
+                pageId: '7',
+                width: '100%',
+                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+            },
+            { _id: '55', widgetType: 'HEADER', pageId: '6', size: '4', text: 'Here is a cute video for you~' },
+            { _id: '66', widgetType: 'YOUTUBE', pageId: '5', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
+            { _id: '77', widgetType: 'HEADER', pageId: '4', size: '2', text: 'Hello meow~' },
+            { _id: '88', widgetType: 'HEADER', pageId: '3', size: '4', text: 'I am a cutie meow~meow~' },
+            {
+                _id: '99',
+                widgetType: 'IMAGE',
+                pageId: '2',
+                width: '100%',
+                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+            },
+            { _id: '111', widgetType: 'HEADER', pageId: '1', size: '4', text: 'Here is a cute video for you~' },
+            { _id: '222', widgetType: 'YOUTUBE', pageId: '1', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' }
         ];
     }
     // adds the widget parameter instance to the local widgets array. The new widget's pageId is set to the pageId parameter
