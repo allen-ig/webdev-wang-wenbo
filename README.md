@@ -4,12 +4,23 @@
 
 2017 MS in CS Align student
 
+wang.wenbo@husky.neu.edu
+
 Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 
-Updates:
-V3.0: Homework 3 - Latest version
-V2.1: Homework 2 
+## Updates:
+V3.2: Homework 3 - Latest version
+
+  --added more static data to services
+
+V3.1: Homework 3
+
+V3.0: Homework 3
+
+V2.1: Homework 2
+ 
 V2.0: Homework 2
+
 V1.0: Homework 1
 
 # WebdevWangWenbo
