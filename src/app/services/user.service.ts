@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {GetUsersService} from './get-users.service';
-import {IUser} from '../models/User';
+import {User} from '../models/User';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,10 @@ export class UserService {
   //   );
   // }
 
-  constructor() {
+  // the http REST call urls
+  private _postUrl = '/api/user';
+
+  constructor(private _http: HttpClient) {
   }
 
   api = {
@@ -37,7 +41,7 @@ export class UserService {
   // adds the user parameter instance to the local users array
   createUser(user: any) {
     const new_user = {
-      _id: user._id,
+      _id: '',
       username: user.username,
       password: user.password,
       firstName: user.firstName,
@@ -45,8 +49,14 @@ export class UserService {
     };
     new_user._id = Math.random() + '';
     this._users.push(new_user);
+    console.log('Created a new user: ' + JSON.stringify(new_user));
     return new_user;
   }
+
+  // post new user to the database, the http version of the above method
+  // createUser(user: User) {
+  //   return this._http.post<User>(this._postUrl, user);
+  // }
 
   // returns the user in local users array whose _id matches the userId parameter
   findUserById(userId: string) {
@@ -74,9 +84,11 @@ export class UserService {
     for (const i in this._users) {
       if (this._users[i]._id === userId) {
         this._users[i] = user;
+        console.log('Updated the user to: ' + JSON.stringify(this._users[i]));
         return user;
       }
     }
+    console.log('Did not update any user!');
     return null;
   }
 
@@ -91,7 +103,7 @@ export class UserService {
   }
 
   // to return the users
-  getUsers(): IUser[] {
+  getUsers(): User[] {
     return this._users;
   }
 

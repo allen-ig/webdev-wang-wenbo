@@ -27,11 +27,23 @@ export class WebsiteEditComponent implements OnInit {
         this._userId = params.uid;
         this._websiteId = params.wid;
         // secondly, find the website associated with the wid
-        this._website = this._websiteService.findWebsiteById(this._websiteId);
+        // and make the deep copy of the website
+        const tempWebsite = this._websiteService.findWebsiteById(this._websiteId);
+        this._website = JSON.parse(JSON.stringify(tempWebsite));
+        console.log('Deep copied the following website: ');
         console.log(this._website);
       }
     );
     // secondly, find the websites associated with the uid
     this._websites = this._websiteService.findWebsitesByUser(this._userId);
+  }
+
+  onEditWebsite() {
+    const updatedWebsite = JSON.parse(JSON.stringify(this._website));
+    this._websiteService.updateWebsite(this._websiteId, updatedWebsite);
+  }
+
+  onDeleteWebsite() {
+    this._websiteService.deleteWebsite(this._websiteId);
   }
 }

@@ -3,8 +3,10 @@
     <a class="cl-text-white navbar-brand cl-text-bold" [routerLink]="['/user/' + this._userId]">
       Profile
     </a>
-    <a [routerLink]="['/user/' + this._userId]" class="navbar-link">
-      <span class="fas fa-check fontawsome_icon color-white"></span>
+    <a (click)="onUpdateUser()"
+       class="navbar-link">
+      <span class="fas fa-check fontawsome_icon color-white btn cl-text-white cl-text-bold">
+      </span>
     </a>
   </div>
 </nav>
@@ -13,7 +15,7 @@
 <div class="container">
   <!--<h1 class="text-white bg-primary">Profile</h1>-->
 
-  <form>
+  <form #profileForm="ngForm">
     <div class="form-group">
       <label for="username" class="cl-text-bold">Username</label>
       <input type="text"

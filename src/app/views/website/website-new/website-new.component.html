@@ -24,6 +24,7 @@
           New Websites
         </a>
         <a [routerLink]="['/user/' + this._userId + '/website']"
+           (click)="onSubmitNewWebsite()"
            class="navbar-link navbar-text float-right cl-text-white">
           <span class="fas fa-check fontawsome_icon"></span>
         </a>
@@ -51,7 +52,7 @@
       </div>
     </div>
     <div class="col-8 p-2 h-md-100">
-      <form>
+      <form #newWebsiteForm="ngForm">
         <div class="form-group">
           <label for="website-name"
                  class="cl-text-bold">Name</label>

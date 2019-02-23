@@ -3,6 +3,13 @@
         (ngSubmit)="register()"
         novalidate>
     <h1>Register</h1>
+
+    <!--display the register error if possible-->
+    <div class="alert alert-danger"
+         *ngIf="this._registerError">
+      {{ this._registerError }}
+    </div>
+
     <div class="form-group">
       <input type="text"
              ngModel
@@ -58,8 +65,7 @@
     </div>
     <button type="submit"
             class="btn btn-primary btn-block"
-            [disabled]="registerForm.invalid"
-            [routerLink]="['/user/:uid']">
+            [disabled]="registerForm.invalid">
       Register
     </button>
     <button type="button"

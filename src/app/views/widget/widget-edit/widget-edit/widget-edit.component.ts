@@ -31,8 +31,19 @@ export class WidgetEditComponent implements OnInit {
       }
     );
     // then get the widget by using the widget service
-    this._widget = this._widgetService.findWidgetById(this._widgetId);
+    // deep copy the widget
+    const tempWidget = this._widgetService.findWidgetById(this._widgetId);
+    this._widget = JSON.parse(JSON.stringify(tempWidget));
+    console.log('Deep copied the widget: ');
     console.log(this._widget);
+  }
+
+  updateWidget(widget: any) {
+    this._widgetService.updateWidget(this._widgetId, widget);
+  }
+
+  deleteWidget(widget: any) {
+    this._widgetService.deleteWidget(this._widgetId);
   }
 
 }

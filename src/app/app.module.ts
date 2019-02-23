@@ -14,13 +14,15 @@ import {WidgetService} from './services/widget.service';
 import {GetUsersService} from './services/get-users.service';
 import { ConfirmEqualValidator } from './shared/confirm-equal.validator';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
+import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
     ConfirmEqualValidator,
-    SafeUrlPipe
+    SafeUrlPipe,
+    ChangeBgColorDirective
   ],
   imports: [
     BrowserModule,

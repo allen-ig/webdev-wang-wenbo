@@ -23,6 +23,7 @@
           Edit Websites
         </a>
         <a [routerLink]="['/user/' + this._userId + '/website']"
+           (click)="onEditWebsite()"
            class="navbar-link navbar-text float-right cl-text-white">
           <span class="fas fa-check fontawsome_icon"></span>
         </a>
@@ -82,7 +83,8 @@
         </div>
         <button type="button"
                 class="btn btn-danger  btn-block"
-                [routerLink]="['/user/' + this._userId + '/website']">
+                [routerLink]="['/user/' + this._userId + '/website']"
+                (click)="onDeleteWebsite()">
           Delete
         </button>
       </form>

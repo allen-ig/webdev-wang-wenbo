@@ -4,7 +4,9 @@
                        [_websiteId]="this._websiteId"
                        [_pageId]="this._pageId"
                        [_widgetId]="this._widgetId"
-                       [_widget]="this._widget">
+                       [_widget]="this._widget"
+                       (_updateHeaderEvent)="this.updateWidget($event)"
+                       (_deleteHeaderEvent)="this.deleteWidget($event)">
     </app-widget-header>
   </div>
   <div *ngSwitchCase="'IMAGE'">
@@ -12,7 +14,9 @@
                       [_websiteId]="this._websiteId"
                       [_pageId]="this._pageId"
                       [_widgetId]="this._widgetId"
-                      [_widget]="this._widget">
+                      [_widget]="this._widget"
+                      (_updateImageEvent)="this.updateWidget($event)"
+                      (_deleteImageEvent)="this.deleteWidget($event)">
     </app-widget-image>
   </div>
   <div *ngSwitchCase="'YOUTUBE'">
@@ -20,7 +24,9 @@
                         [_websiteId]="this._websiteId"
                         [_pageId]="this._pageId"
                         [_widgetId]="this._widgetId"
-                        [_widget]="this._widget">
+                        [_widget]="this._widget"
+                        (_updateYoutubeEvent)="this.updateWidget($event)"
+                        (_deleteYoutubeEvent)="this.deleteWidget($event)">
     </app-widget-youtube>
   </div>
 </div>

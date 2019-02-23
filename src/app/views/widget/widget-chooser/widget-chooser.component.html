@@ -14,44 +14,44 @@
 <div class="container-fluid cl-container-padding">
   <ul class="list-group cl-list-group-borderless">
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/header']"
-         class="cl-text-blue">Header</a>
+      <a (click)="this.onCreateNewWidget('HEADER')"
+         class="cl-text-blue btn btn-light">Header</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">Label</a>
+         class="cl-text-blue btn btn-light">Label</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">HTML</a>
+         class="cl-text-blue btn btn-light">HTML</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">Text Input</a>
+         class="cl-text-blue btn btn-light">Text Input</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">Link</a>
+         class="cl-text-blue btn btn-light">Link</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">Button</a>
+         class="cl-text-blue btn btn-light">Button</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/image']"
-         class="cl-text-blue">Image</a>
+      <a (click)="this.onCreateNewWidget('IMAGE')"
+         class="cl-text-blue btn btn-light">Image</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/:uid/website/:wid/page/:pid/widget/youtube']"
-         class="cl-text-blue">YouTube</a>
-    </li>
-    <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">Data Table</a>
+      <a (click)="this.onCreateNewWidget('YOUTUBE')"
+         class="cl-text-blue btn btn-light">YouTube</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
       <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
-         class="cl-text-blue">Repeater</a>
+         class="cl-text-blue btn btn-light">Data Table</a>
+    </li>
+    <li class="list-group-item cl-list-item-borderless">
+      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+         class="cl-text-blue btn btn-light">Repeater</a>
     </li>
   </ul>
 </div>

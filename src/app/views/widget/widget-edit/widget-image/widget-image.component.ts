@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-widget-image',
@@ -13,10 +13,23 @@ export class WidgetImageComponent implements OnInit {
   @Input() _widgetId: string;
   @Input() _widget: any;
 
+  // to pass back the widget to parent component to update
+  @Output() _updateImageEvent = new EventEmitter();
+  // to pass back the widget to parent component to delete
+  @Output() _deleteImageEvent = new EventEmitter();
+
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  updateImage() {
+    this._updateImageEvent.emit(this._widget);
+  }
+
+  deleteImage() {
+    this._deleteImageEvent.emit(this._widget);
   }
 
 }

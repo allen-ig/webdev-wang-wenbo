@@ -9,7 +9,8 @@
       Widgets Edit
     </a>
     <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
-       class="navbar-link cl-icon-padding cl-text-black float-right">
+       class="navbar-link cl-icon-padding cl-text-black float-right"
+       (click)="updateHeader()">
       <span class="fas fa-check fontawsome_icon"></span>
     </a>
   </div>
@@ -44,7 +45,8 @@
   </form>
   <button type="button"
           class="btn btn-danger  btn-block"
-          [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']">
+          [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+          (click)="deleteHeader()">
     Delete
   </button>
 </div>

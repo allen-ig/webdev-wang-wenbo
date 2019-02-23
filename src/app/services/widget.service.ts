@@ -60,9 +60,9 @@ export class WidgetService {
 
   // adds the widget parameter instance to the local widgets array. The new widget's pageId is set to the pageId parameter
   createWidget(pageId: string, widget: any) {
-    widget._id = new Date().getTime() + '';
-    widget.pageId = pageId;
     this._widgets.push(widget);
+    console.log('Created the following new widget: ');
+    console.log(widget);
   }
 
   // retrieves the widgets in local widgets array whose pageId matches the parameter pageId
@@ -87,16 +87,22 @@ export class WidgetService {
           case 'HEADER':
             this._widgets[i].text = widget.text;
             this._widgets[i].size = widget.size;
+            console.log('Updated the widget to: ');
+            console.log(this._widgets[i]);
             return true;
 
           case 'IMAGE':
             this._widgets[i].width = widget.width;
             this._widgets[i].url = widget.url;
+            console.log('Updated the widget to: ');
+            console.log(this._widgets[i]);
             return true;
 
           case 'YOUTUBE':
             this._widgets[i].width = widget.width;
             this._widgets[i].url = widget.url;
+            console.log('Updated the widget to: ');
+            console.log(this._widgets[i]);
             return true;
         }
       }
@@ -109,6 +115,8 @@ export class WidgetService {
     for (const i in this._widgets) {
       if (this._widgets[i]._id === widgetId) {
         const j = +i;
+        console.log('Deleted the following widget: ');
+        console.log(this._widgets[i]);
         this._widgets.splice(j, 1);
       }
     }

@@ -9,7 +9,8 @@
       New Page
     </a>
     <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page']"
-       class="navbar-link cl-icon-padding cl-text-black float-right">
+       class="navbar-link cl-icon-padding cl-text-black float-right"
+       (click)="onCreateNewPage()">
       <span class="fas fa-check fontawsome_icon"></span>
     </a>
   </div>

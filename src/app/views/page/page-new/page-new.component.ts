@@ -29,4 +29,14 @@ export class PageNewComponent implements OnInit {
     );
   }
 
+  onCreateNewPage() {
+    const newPage = {
+      _id: '',
+      name: this._name,
+      websiteId: this._websiteId,
+      title: this._title
+    };
+    this._pageService.createPage(this._websiteId, newPage);
+  }
+
 }

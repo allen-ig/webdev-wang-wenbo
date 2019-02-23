@@ -29,8 +29,20 @@ export class PageEditComponent implements OnInit {
       }
     );
     // get the page associated with the pageId
-    this._page = this._pageService.findPageById(this._pageId);
+    const tempPage = this._pageService.findPageById(this._pageId);
+    // deep copy the found page and assign it to the local page variable
+    this._page = JSON.parse(JSON.stringify(tempPage));
+    console.log('Deep copied the page: ');
     console.log(this._page);
+  }
+
+  onEditPage() {
+    const tempPage = JSON.parse(JSON.stringify(this._page));
+    this._pageService.updatePage(this._pageId, tempPage);
+  }
+
+  onDeletePage() {
+    this._pageService.deletePage(this._pageId);
   }
 
 }

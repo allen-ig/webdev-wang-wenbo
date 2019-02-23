@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-widget-youtube',
@@ -13,10 +13,23 @@ export class WidgetYoutubeComponent implements OnInit {
   @Input() _widgetId: string;
   @Input() _widget: any;
 
+  // to pass back the widget to parent component to update
+  @Output() _updateYoutubeEvent = new EventEmitter();
+  // to pass back the widget to parent component to delete
+  @Output() _deleteYoutubeEvent = new EventEmitter();
+
   constructor() {
   }
 
   ngOnInit() {
+  }
+
+  updateYoutube() {
+    this._updateYoutubeEvent.emit(this._widget);
+  }
+
+  deleteYoutube() {
+    this._deleteYoutubeEvent.emit(this._widget);
   }
 
 }

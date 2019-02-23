@@ -25,13 +25,15 @@ export class WebsiteService {
   // adds the website parameter instance to the local websites array.
   createWebsite(userId: string, website: any) {
     const new_website = {
-      _id: website._id,
+      _id: '',
       name: website.name,
-      developerId: website.developerId,
+      developerId: userId,
       description: website.description
     };
     new_website._id = new Date().getTime() + '';
     this._websites.push(new_website);
+    console.log('Create a new website: ');
+    console.log(new_website);
     return new_website;
   }
 
@@ -54,8 +56,9 @@ export class WebsiteService {
     for (const i in this._websites) {
       if (this._websites[i]._id === websiteId) {
         this._websites[i].name = website.name;
-        this._websites[i].developerId = website.developerId;
         this._websites[i].description = website.description;
+        console.log('Updated the website to: ');
+        console.log(this._websites[i]);
       }
     }
   }
@@ -65,6 +68,8 @@ export class WebsiteService {
     for (const i in this._websites) {
       if (this._websites[i]._id === websiteId) {
         const j = +i;
+        console.log('Deleted the following website: ');
+        console.log(this._websites[i]);
         this._websites.splice(j, 1);
       }
     }

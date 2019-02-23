@@ -30,12 +30,13 @@ export class PageService {
     const new_page = {
       _id: page._id,
       name: page.name,
-      websiteId: page.websiteId,
+      websiteId: websiteId,
       title: page.title
     };
-    new_page.websiteId = websiteId;
     new_page._id = new Date().getTime() + '';
     this._pages.push(new_page);
+    console.log('Created a new page: ');
+    console.log(new_page);
     return new_page;
   }
 
@@ -58,8 +59,9 @@ export class PageService {
     for (const i in this._pages) {
       if (this._pages[i]._id === pageId) {
         this._pages[i].name = page.name;
-        this._pages[i].websiteId = page.websiteId;
         this._pages[i].title = page.title;
+        console.log('Updated the page to: ');
+        console.log(this._pages[i]);
       }
     }
   }
@@ -69,6 +71,8 @@ export class PageService {
     for (const i in this._pages) {
       if (this._pages[i]._id === pageId) {
         const j = +i;
+        console.log('Deleted the following page: ');
+        console.log(this._pages[i]);
         this._pages.splice(j, 1);
       }
     }

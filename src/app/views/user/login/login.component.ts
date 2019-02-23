@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service';
-import {IUser} from '../../../models/User';
+import {User} from '../../../models/User';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   password: string; // accessed from ngForm property
   errorFlag: boolean;
   errorMsg = 'Invalid username or password!';
+  private _bgColor = 'green';
 
   constructor(private _router: Router, private _userService: UserService) {
     this.errorFlag = false;

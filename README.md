@@ -9,9 +9,11 @@ wang.wenbo@husky.neu.edu
 Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 
 ## Updates:
-V3.2: Homework 3 - Latest version
+V3.3: Homework 3 - Latest Version
 
-  --added more static data to services
+  -Implemented other services method in the UI.
+
+V3.2: Homework 3
 
 V3.1: Homework 3
 

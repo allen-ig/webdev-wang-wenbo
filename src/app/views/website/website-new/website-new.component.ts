@@ -29,8 +29,23 @@ export class WebsiteNewComponent implements OnInit {
       }
     );
     // then get the websites associated with the uid
-    this._websites = this._websiteService.findWebsitesByUser(this._userId);
+    const tempWebsites = this._websiteService.findWebsitesByUser(this._userId);
+    // deep copy the websites to store locally
+    for (let i = 0; i < tempWebsites.length; i++) {
+      this._websites.push(JSON.parse(JSON.stringify(tempWebsites[i])));
+    }
+    console.log('Deep copy the websites from WebsiteService: ');
     console.log(this._websites);
+  }
+
+  onSubmitNewWebsite() {
+    const newWebsite = {
+      _id: '',
+      name: this._name,
+      developerId: '',
+      description: this._description
+    };
+    this._websiteService.createWebsite(this._userId, newWebsite);
   }
 
 }
