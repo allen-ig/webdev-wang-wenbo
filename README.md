@@ -9,9 +9,13 @@ wang.wenbo@husky.neu.edu
 Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 
 ## Updates:
-V3.3: Homework 3 - Latest Version
+V3.4: Homework 3 - Latest Version
 
-  -Implemented other services method in the UI.
+ -1. Added more form validations
+ 
+ -2. Use ngSwitch to display headers in different sizes
+
+V3.3: Homework 3
 
 V3.2: Homework 3
 

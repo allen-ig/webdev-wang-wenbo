@@ -11,36 +11,61 @@
     <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
        class="navbar-link cl-icon-padding cl-text-black float-right"
        (click)="this.updateYoutube()">
-      <span class="fas fa-check fontawsome_icon"></span>
+      <button class="fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold"
+              [disabled]="editYoutubeForm.invalid">
+      </button>
     </a>
   </div>
 </nav>
 
 <div class="container">
-  <form>
+  <form #editYoutubeForm="ngForm">
     <div class="form-group">
       <label for="youtube-URL"
              class="cl-text-bold">URL</label>
       <input type="text"
+             required
              ngModel
              name="youtube-URL"
              #youtubeURL="ngModel"
              [(ngModel)]="this._widget.url"
              class="form-control"
              id="youtube-URL"
-             placeholder="URL">
+             placeholder="URL"
+             [class.is-invalid]="youtubeURL.touched && youtubeURL.invalid">
+      <small class="text-danger"
+             *ngIf="youtubeURL.touched && youtubeURL.invalid">Youtube URL is required.
+      </small>
     </div>
     <div class="form-group">
       <label for="youtube-width"
              class="cl-text-bold">Width</label>
       <input type="text"
+             required
+             appPercentageRangeValidator
+             [min]="this._minWidthPercentage"
+             [max]="this._maxWidthPercentage"
+             (input)="youtubeWidth.control.updateValueAndValidity()"
              ngModel
              name="youtube-width"
              #youtubeWidth="ngModel"
              [(ngModel)]="this._widget.width"
              class="form-control"
              id="youtube-width"
-             placeholder="100%">
+             placeholder="100%"
+             [class.is-invalid]="youtubeWidth.touched && youtubeWidth.invalid">
+      <div>
+        <small class="text-danger"
+               *ngIf="youtubeWidth.touched && youtubeWidth.errors?.required">
+          Youtube Width is required.
+        </small>
+        <small class="text-danger"
+               *ngIf="youtubeWidth.touched && youtubeWidth.errors?.notValid && !youtubeWidth.errors?.required">
+          Youtube Width must be a percentage number and between
+          {{ this._minWidthPercentage }} and {{ this._maxWidthPercentage }}
+          (percent).
+        </small>
+      </div>
     </div>
   </form>
   <button type="button"

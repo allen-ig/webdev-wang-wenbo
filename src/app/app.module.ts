@@ -15,6 +15,8 @@ import {GetUsersService} from './services/get-users.service';
 import { ConfirmEqualValidator } from './shared/confirm-equal.validator';
 import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
+import { InputRangeValidator } from './shared/input-range.validator';
+import { PercentageRangeValidator } from './shared/percentage-range.validator';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
     routingComponents,
     ConfirmEqualValidator,
     SafeUrlPipe,
-    ChangeBgColorDirective
+    ChangeBgColorDirective,
+    InputRangeValidator,
+    PercentageRangeValidator
   ],
   imports: [
     BrowserModule,

@@ -11,36 +11,59 @@
     <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
        class="navbar-link cl-icon-padding cl-text-black float-right"
        (click)="updateHeader()">
-      <span class="fas fa-check fontawsome_icon"></span>
+      <button class="fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold"
+              [disabled]="editHeaderForm.invalid">
+      </button>
     </a>
   </div>
 </nav>
 
 <div class="container">
-  <form>
+  <form #editHeaderForm="ngForm">
     <div class="form-group">
       <label for="header-text"
              class="cl-text-bold">Text</label>
       <input type="text"
+             required
              ngModel
              name="header-text"
              #headerText="ngModel"
              [(ngModel)]="this._widget.text"
              class="form-control"
              id="header-text"
-             placeholder="Text">
+             placeholder="Text"
+             [class.is-invalid]="headerText.touched && headerText.invalid">
+      <small class="text-danger"
+             *ngIf="headerText.touched && headerText.invalid">Header Text is required!
+      </small>
     </div>
     <div class="form-group">
       <label for="header-size"
              class="cl-text-bold">Size</label>
       <input type="text"
+             required
+             appInputRangeValidator
+             [min]="this._minHeaderSize"
+             [max]="this._maxHeaderSize"
+             (input)="headerSize.control.updateValueAndValidity()"
              ngModel
              name="header-size"
              #headerSize="ngModel"
              [(ngModel)]="this._widget.size"
              class="form-control"
              id="header-size"
-             placeholder="Size">
+             placeholder="Size"
+             [class.is-invalid]="headerSize.touched && headerSize.invalid">
+      <div>
+        <small class="text-danger"
+               *ngIf="headerSize.touched && headerSize.errors?.required">
+          Header Size is required!
+        </small>
+        <small class="text-danger"
+               *ngIf="headerSize.touched && !headerSize.errors?.required && headerSize.errors?.notValid">
+          Header size must be number and between 1 and 6.
+        </small>
+      </div>
     </div>
   </form>
   <button type="button"

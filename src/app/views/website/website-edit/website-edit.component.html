@@ -11,8 +11,9 @@
           Websites
         </a>
         <a [routerLink]="['/user/' + this._userId + '/website/new']"
-           class="navbar-link navbar-text float-right cl-text-white cl-icon-padding">
-          <span class="fas fa-plus fontawsome_icon mr-2"></span>
+           class="navbar-link float-right">
+          <button class="fas fa-plus fontawsome_icon mr-2 color-white btn cl-text-white cl-text-bold cl-blue-navbar">
+          </button>
         </a>
       </div>
     </div>
@@ -24,8 +25,10 @@
         </a>
         <a [routerLink]="['/user/' + this._userId + '/website']"
            (click)="onEditWebsite()"
-           class="navbar-link navbar-text float-right cl-text-white">
-          <span class="fas fa-check fontawsome_icon"></span>
+           class="navbar-link float-right cl-text-white">
+          <button class="fas fa-check fontawsome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar"
+                  [disabled]="editWebsiteForm.invalid">
+          </button>
         </a>
       </div>
     </div>
@@ -51,20 +54,25 @@
       </div>
     </div>
     <div class="col-8">
-      <form>
+      <form #editWebsiteForm="ngForm">
         <div class="form-group">
           <label for="website-name"
                  class="cl-text-bold">
             Website Name
           </label>
           <input type="text"
+                 required
                  ngModel
                  name="website-name"
                  [(ngModel)]="this._website.name"
                  #websiteName="ngModel"
                  class="form-control"
                  id="website-name"
-                 placeholder="Blogger">
+                 placeholder="Blogger"
+                 [class.is-invalid]="websiteName.touched && websiteName.invalid">
+          <small class="text-danger"
+                 *ngIf="websiteName.touched && websiteName.invalid">Website Name is required!
+          </small>
         </div>
         <div class="form-group">
           <label for="website-description"

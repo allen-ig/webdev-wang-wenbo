@@ -11,41 +11,69 @@
     <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
        class="navbar-link cl-icon-padding cl-text-black float-right"
        (click)="this.updateImage()">
-      <span class="fas fa-check fontawsome_icon"></span>
+      <button class="fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold"
+              [disabled]="editImageForm.invalid">
+      </button>
     </a>
   </div>
 </nav>
 
 <div class="container">
-  <form>
+  <form #editImageForm="ngForm">
     <div class="form-group">
-      <label for="image-URL"
+      <label for="imageURL"
              class="cl-text-bold">URL</label>
       <input type="text"
+             required
              ngModel
-             name="image-URL"
+             name="imageURL"
              #imageURL="ngModel"
              [(ngModel)]="this._widget.url"
              class="form-control"
-             id="image-URL"
-             placeholder="URL">
+             id="imageURL"
+             placeholder="URL"
+             [class.is-invalid]="imageURL.touched && imageURL.invalid">
+      <small class="text-danger"
+             *ngIf="imageURL.touched && imageURL.invalid">Image Url is required.
+      </small>
     </div>
     <div class="form-group">
-      <label for="image-width"
+      <label for="imageWidth"
              class="cl-text-bold">Width</label>
       <input type="text"
+             required
+             appPercentageRangeValidator
+             [min]="this._minWidthPercentage"
+             [max]="this._maxWidthPercentage"
+             (input)="imageWidth.control.updateValueAndValidity()"
              ngModel
-             name="image-width"
+             name="imageWidth"
              #imageWidth="ngModel"
              [(ngModel)]="this._widget.width"
              class="form-control"
-             id="image-width"
-             placeholder="100%">
+             id="imageWidth"
+             placeholder="100%"
+             [class.is-invalid]="imageWidth.touched && imageWidth.invalid">
+      <div>
+        <small class="text-danger"
+               *ngIf="imageWidth.touched && imageWidth.errors?.required">
+          Image Width is required.
+        </small>
+        <small class="text-danger"
+               *ngIf="imageWidth.touched && imageWidth.errors?.notValid && !imageWidth.errors?.required">
+          Image Width must be a percentage number and between
+          {{ this._minWidthPercentage }} and {{ this._maxWidthPercentage }}
+          (percent).
+        </small>
+      </div>
     </div>
     <div class="form-group">
       <label for="exampleInputFile"
              class="cl-text-bold">Upload</label>
       <input type="file"
+             ngModel
+             name="imageFile"
+             #imageFile="ngModel"
              class="form-control"
              id="exampleInputFile">
     </div>

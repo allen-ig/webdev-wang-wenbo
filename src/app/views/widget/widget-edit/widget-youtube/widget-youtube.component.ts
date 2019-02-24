@@ -6,6 +6,10 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./widget-youtube.component.css']
 })
 export class WidgetYoutubeComponent implements OnInit {
+  // marks the min and max percentage value of the youtube video width
+  private _minWidthPercentage = 1;
+  private _maxWidthPercentage = 100;
+
   // properties input from WidgetEditComponent
   @Input() _userId: string;
   @Input() _websiteId: string;

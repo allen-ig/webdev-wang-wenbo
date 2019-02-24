@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-widget-image',
@@ -6,6 +7,13 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./widget-image.component.css']
 })
 export class WidgetImageComponent implements OnInit {
+  // gain access to form values
+  @ViewChild('editImageForm') private _form: NgForm;
+
+  // the preset min and max of image width
+  private _minWidthPercentage = 1;
+  private _maxWidthPercentage = 100;
+
   // properties input from WidgetEditComponent
   @Input() _userId: string;
   @Input() _websiteId: string;

@@ -30,7 +30,26 @@
             <span class="fas fa-cog fontawsome_icon cl-text-blue"></span>
           </a>
         </div>
-        <h1>{{ widget.text }}</h1>
+        <div [ngSwitch]="widget.size">
+          <div *ngSwitchCase="1">
+            <h1>{{ widget.text }}</h1>
+          </div>
+          <div *ngSwitchCase="2">
+            <h2>{{ widget.text }}</h2>
+          </div>
+          <div *ngSwitchCase="3">
+            <h3>{{ widget.text }}</h3>
+          </div>
+          <div *ngSwitchCase="4">
+            <h4>{{ widget.text }}</h4>
+          </div>
+          <div *ngSwitchCase="5">
+            <h5>{{ widget.text }}</h5>
+          </div>
+          <div *ngSwitchCase="6">
+            <h6>{{ widget.text }}</h6>
+          </div>
+        </div>
       </div>
       <div *ngSwitchCase="'YOUTUBE'">
         <div class="embed-responsive embed-responsive-16by9">
