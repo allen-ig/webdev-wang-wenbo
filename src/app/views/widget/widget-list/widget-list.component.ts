@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { WidgetService } from "../../../services/widget.service";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {WidgetService} from '../../../services/widget.service';
 
 @Component({
-  selector: "app-widget-list",
-  templateUrl: "./widget-list.component.html",
-  styleUrls: ["./widget-list.component.css"]
+  selector: 'app-widget-list',
+  templateUrl: './widget-list.component.html',
+  styleUrls: ['./widget-list.component.css']
 })
 export class WidgetListComponent implements OnInit {
   // properties
@@ -17,7 +17,8 @@ export class WidgetListComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _widgetService: WidgetService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     // update the properties using the route parameters
@@ -31,11 +32,23 @@ export class WidgetListComponent implements OnInit {
       this._widgetService.findWidgetsByPageId(this._pageId).subscribe(data => {
         this._widgets = data;
         console.log(
-          "Getting all the widgets of page id " + this._pageId + ": "
+          'Getting all the widgets of page id ' + this._pageId + ': '
         );
         console.log(this._widgets);
       });
     });
+  }
+
+  // the function to reorder the widget
+  private _reorderWidgets(indices) {
+    console.log('Reorder the widget, with index change as follows: ');
+    console.log(indices);
+    this._widgetService.updateWidgetOrder(this._pageId, indices.startIndex, indices.endIndex).subscribe(
+      data => {
+        console.log('Moved the widget from index ' + indices.startIndex + ' to ' + indices.endIndex + ': ');
+        console.log(data);
+      }
+    );
   }
 
   // to make the video resource url trusted

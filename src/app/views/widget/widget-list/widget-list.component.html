@@ -17,8 +17,10 @@
 
 <div class="container cl-container-padding">
   <!--use ngSwitch to iterate through the widgets and show the template accordingly-->
-  <div *ngFor="let widget of this._widgets; index as i">
-    <div [ngSwitch]="widget.widgetType">
+  <div
+    appSortable
+    (newIndexEvent)="this._reorderWidgets($event)">
+    <div *ngFor="let widget of this._widgets; index as i" [ngSwitch]="widget.widgetType">
       <div *ngSwitchCase="'HEADER'">
         <div class="float-right">
           <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"

@@ -1,5 +1,5 @@
-module.exports = function(app) {
-  // the widgets array to minic the data on database
+module.exports = function (app) {
+  // the widgets array to mimic the data on database
   var widgets = [
     {
       _id: "1",
@@ -153,7 +153,7 @@ module.exports = function(app) {
 
   // the http calls
   // create a new widget
-  app.post("/api/page/:pid/widget", function(req, res) {
+  app.post("/api/page/:pid/widget", function (req, res) {
     var pageId = req.params.pid;
     var newWidget = req.body;
     console.log("Creating a new widget for page id " + pageId + ": ");
@@ -164,29 +164,29 @@ module.exports = function(app) {
   });
 
   // find all widgets for page id
-  app.get("/api/page/:pid/widget", function(req, res) {
+  app.get("/api/page/:pid/widget", function (req, res) {
     var pageId = req.params.pid;
     console.log("Getting all widgets for page id " + pageId + ": ");
     res.status(200).send(
-      widgets.filter(function(widget) {
+      widgets.filter(function (widget) {
         return widget.pageId == pageId;
       })
     );
   });
 
   // find widget by its id
-  app.get("/api/widget/:wid", function(req, res) {
+  app.get("/api/widget/:wid", function (req, res) {
     var widgetId = req.params.wid;
     console.log("Getting the widget id " + widgetId + ": ");
     res.status(200).json(
-      widgets.find(function(widget) {
+      widgets.find(function (widget) {
         return widget._id == widgetId;
       })
     );
   });
 
   // update a widget by its id
-  app.put("/api/widget/:wid", function(req, res) {
+  app.put("/api/widget/:wid", function (req, res) {
     var widgetId = req.params.wid;
     var newWidget = req.body;
     console.log("Updating the widget id " + widgetId + ": ");
@@ -223,7 +223,7 @@ module.exports = function(app) {
   });
 
   // delete widget
-  app.delete("/api/widget/:wid", function(req, res) {
+  app.delete("/api/widget/:wid", function (req, res) {
     var widgetId = req.params.wid;
     console.log("Deleting the widget id " + widgetId + ": ");
     for (var i = 0; i < widgets.length; i++) {
@@ -236,5 +236,18 @@ module.exports = function(app) {
       }
     }
     res.send(null);
+  });
+
+  // update the order of the widget in the database array
+  app.put('/api/page/:pid/widget', function (req, res) {
+    const pageId = req.params.pid;
+    const startIndex = req.query.initial;
+    const endIndex = req.query.final;
+    console.log('Moving widget at index ' + startIndex + ' to index ' + endIndex + ' for page id ' + pageId + ': ');
+    const item = widgets[startIndex];
+    console.log('Now finished moving the widget: ');
+    res.status(200).json(item);
+    widgets.splice(startIndex, 1);
+    widgets.splice(endIndex, 0, item);
   });
 };
