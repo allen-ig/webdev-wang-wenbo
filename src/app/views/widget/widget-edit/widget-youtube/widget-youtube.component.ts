@@ -1,9 +1,9 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
 
 @Component({
-  selector: 'app-widget-youtube',
-  templateUrl: './widget-youtube.component.html',
-  styleUrls: ['./widget-youtube.component.css']
+  selector: "app-widget-youtube",
+  templateUrl: "./widget-youtube.component.html",
+  styleUrls: ["./widget-youtube.component.css"]
 })
 export class WidgetYoutubeComponent implements OnInit {
   // marks the min and max percentage value of the youtube video width
@@ -22,11 +22,9 @@ export class WidgetYoutubeComponent implements OnInit {
   // to pass back the widget to parent component to delete
   @Output() _deleteYoutubeEvent = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   updateYoutube() {
     this._updateYoutubeEvent.emit(this._widget);
@@ -35,5 +33,4 @@ export class WidgetYoutubeComponent implements OnInit {
   deleteYoutube() {
     this._deleteYoutubeEvent.emit(this._widget);
   }
-
 }

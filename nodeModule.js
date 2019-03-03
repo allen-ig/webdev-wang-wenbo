@@ -5,5 +5,8 @@ module.exports = {
 	showFileAndDirName: function () {
 		console.log(__filename);
 		console.log(__dirname);
+	},
+	anotherHelloworld: function (name) {
+		console.log('Greetings, ' + name);
 	}
 }

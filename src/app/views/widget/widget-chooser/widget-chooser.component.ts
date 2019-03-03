@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Router} from '@angular/router';
-import {WidgetService} from '../../../services/widget.service';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { WidgetService } from "../../../services/widget.service";
 
 @Component({
-  selector: 'app-widget-chooser',
-  templateUrl: './widget-chooser.component.html',
-  styleUrls: ['./widget-chooser.component.css']
+  selector: "app-widget-chooser",
+  templateUrl: "./widget-chooser.component.html",
+  styleUrls: ["./widget-chooser.component.css"]
 })
 export class WidgetChooserComponent implements OnInit {
   // properties
@@ -13,60 +13,76 @@ export class WidgetChooserComponent implements OnInit {
   private _websiteId: string;
   private _pageId: string;
 
-  constructor(private _activatedRoute: ActivatedRoute,
-              private _widgetService: WidgetService,
-              private _router: Router) {
-  }
+  constructor(
+    private _activatedRoute: ActivatedRoute,
+    private _widgetService: WidgetService,
+    private _router: Router
+  ) {}
 
   ngOnInit() {
     // update the properties using the route parameters
-    this._activatedRoute.params.subscribe(
-      params => {
-        console.log(params);
-        this._userId = params.uid;
-        this._websiteId = params.wid;
-        this._pageId = params.pid;
-      }
-    );
+    this._activatedRoute.params.subscribe(params => {
+      console.log(params);
+      this._userId = params.uid;
+      this._websiteId = params.wid;
+      this._pageId = params.pid;
+    });
   }
 
   onCreateNewWidget(widgetType: string) {
-    const newWidgetId = Math.random() + '';
+    const newWidgetId = Math.random() + "";
     let newWidget: any;
     switch (widgetType) {
-      case 'HEADER': {
+      case "HEADER": {
         newWidget = {
           _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
-          size: '',
-          text: ''
+          size: "",
+          text: ""
         };
         break;
       }
-      case 'YOUTUBE': {
+      case "YOUTUBE": {
         newWidget = {
           _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
-          width: '',
-          url: ''
+          width: "",
+          url: ""
         };
         break;
       }
-      case 'IMAGE': {
+      case "IMAGE": {
         newWidget = {
           _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
-          width: '',
-          url: ''
+          width: "",
+          url: ""
         };
         break;
       }
     }
-    this._widgetService.createWidget(this._pageId, newWidget);
-    this._router.navigate(['/user', this._userId, 'website', this._websiteId, 'page', this._pageId, 'widget', newWidgetId]);
-  }
 
+    // then call the api service to create the new widget
+    this._widgetService
+      .createWidget(this._pageId, newWidget)
+      .subscribe(data => {
+        console.log("Created a new widget: ");
+        console.log(newWidget);
+
+        // then navigate to widget edit page
+        this._router.navigate([
+          "/user",
+          this._userId,
+          "website",
+          this._websiteId,
+          "page",
+          this._pageId,
+          "widget",
+          newWidgetId
+        ]);
+      });
+  }
 }

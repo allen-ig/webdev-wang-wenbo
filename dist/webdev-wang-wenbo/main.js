@@ -430,27 +430,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PageService", function() { return PageService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
 
 
 var PageService = /** @class */ (function () {
-    function PageService() {
-        this._pages = [
-            { _id: '1', name: 'Home Page', websiteId: '3', title: 'Home' },
-            { _id: '2', name: 'Index Page', websiteId: '3', title: 'Index' },
-            { _id: '3', name: 'About Page', websiteId: '3', title: 'Page' },
-            { _id: '4', name: 'Home Page', websiteId: '4', title: 'Home' },
-            { _id: '5', name: 'Index Page', websiteId: '5', title: 'Index' },
-            { _id: '6', name: 'About Page', websiteId: '6', title: 'Page' },
-            { _id: '7', name: 'Home Page', websiteId: '7', title: 'Home' },
-            { _id: '8', name: 'Index Page', websiteId: '8', title: 'Index' },
-            { _id: '9', name: 'About Page', websiteId: '9', title: 'Page' },
-            { _id: '10', name: 'Home Page', websiteId: '10', title: 'Home' },
-            { _id: '11', name: 'Index Page', websiteId: '11', title: 'Index' },
-            { _id: '12', name: 'About Page', websiteId: '12', title: 'Page' },
-            { _id: '13', name: 'Home Page', websiteId: '1', title: 'Home' },
-            { _id: '14', name: 'Index Page', websiteId: '1', title: 'Index' },
-            { _id: '15', name: 'About Page', websiteId: '2', title: 'Page' }
-        ];
+    function PageService(_http) {
+        this._http = _http;
+        // private _pages = [
+        //   {_id: '1', name: 'Home Page', websiteId: '3', title: 'Home'},
+        //   {_id: '2', name: 'Index Page', websiteId: '3', title: 'Index'},
+        //   {_id: '3', name: 'About Page', websiteId: '3', title: 'Page'},
+        //   {_id: '4', name: 'Home Page', websiteId: '4', title: 'Home'},
+        //   {_id: '5', name: 'Index Page', websiteId: '5', title: 'Index'},
+        //   {_id: '6', name: 'About Page', websiteId: '6', title: 'Page'},
+        //   {_id: '7', name: 'Home Page', websiteId: '7', title: 'Home'},
+        //   {_id: '8', name: 'Index Page', websiteId: '8', title: 'Index'},
+        //   {_id: '9', name: 'About Page', websiteId: '9', title: 'Page'},
+        //   {_id: '10', name: 'Home Page', websiteId: '10', title: 'Home'},
+        //   {_id: '11', name: 'Index Page', websiteId: '11', title: 'Index'},
+        //   {_id: '12', name: 'About Page', websiteId: '12', title: 'Page'},
+        //   {_id: '13', name: 'Home Page', websiteId: '1', title: 'Home'},
+        //   {_id: '14', name: 'Index Page', websiteId: '1', title: 'Index'},
+        //   {_id: '15', name: 'About Page', websiteId: '2', title: 'Page'}
+        // ];
+        // the http calls URLs
+        this._createPageUrl = "/api/website/";
+        this._findAllPagesForWebsiteUrl = "/api/website/";
+        this._findPageByIdUrl = "/api/page/";
+        this._updatePageUrl = "/api/page/";
+        this._deletePageUrl = "/api/page/";
     }
     // adds the page parameter instance to the local page array. The new page's websiteId is set to the websiteId parameter
     PageService.prototype.createPage = function (websiteId, page) {
@@ -460,51 +469,30 @@ var PageService = /** @class */ (function () {
             websiteId: websiteId,
             title: page.title
         };
-        new_page._id = new Date().getTime() + '';
-        this._pages.push(new_page);
-        console.log('Created a new page: ');
-        console.log(new_page);
-        return new_page;
+        new_page._id = new Date().getTime() + "";
+        return this._http.post(this._createPageUrl + websiteId + "/page", new_page);
     };
     // retrieves the page in local page array whose websiteId matches the parameter websiteId
     PageService.prototype.findPagesByWebsiteId = function (websiteId) {
-        return this._pages.filter(function (page) {
-            return page.websiteId === websiteId;
-        });
+        return this._http.get(this._findAllPagesForWebsiteUrl + websiteId + "/page");
     };
     // retrieves the page in local page array whose _id matches the pageId parameter
     PageService.prototype.findPageById = function (pageId) {
-        return this._pages.find(function (page) {
-            return page._id === pageId;
-        });
+        return this._http.get(this._findPageByIdUrl + pageId);
     };
     // updates the page in local page array whose _id matches the pageId parameter
     PageService.prototype.updatePage = function (pageId, page) {
-        for (var i in this._pages) {
-            if (this._pages[i]._id === pageId) {
-                this._pages[i].name = page.name;
-                this._pages[i].title = page.title;
-                console.log('Updated the page to: ');
-                console.log(this._pages[i]);
-            }
-        }
+        return this._http.put(this._updatePageUrl + pageId, page);
     };
     // removes the page from local page array whose _id matches the pageId parameter
     PageService.prototype.deletePage = function (pageId) {
-        for (var i in this._pages) {
-            if (this._pages[i]._id === pageId) {
-                var j = +i;
-                console.log('Deleted the following page: ');
-                console.log(this._pages[i]);
-                this._pages.splice(j, 1);
-            }
-        }
+        return this._http.delete(this._deletePageUrl + pageId);
     };
     PageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], PageService);
     return PageService;
 }());
@@ -588,12 +576,36 @@ __webpack_require__.r(__webpack_exports__);
 var UserService = /** @class */ (function () {
     function UserService(_http) {
         this._http = _http;
-        this._users = [
-            { _id: '123', username: 'alice', password: 'alice', firstName: 'Alice', lastName: 'Wonder' },
-            { _id: '234', username: 'bob', password: 'bob', firstName: 'Bob', lastName: 'Marley' },
-            { _id: '345', username: 'charlie', password: 'charlie', firstName: 'Charlie', lastName: 'Garcia' },
-            { _id: '456', username: 'john', password: 'john', firstName: 'John', lastName: 'Doe' }
-        ];
+        // private _users = [
+        //   {
+        //     _id: "123",
+        //     username: "alice",
+        //     password: "alice",
+        //     firstName: "Alice",
+        //     lastName: "Wonder"
+        //   },
+        //   {
+        //     _id: "234",
+        //     username: "bob",
+        //     password: "bob",
+        //     firstName: "Bob",
+        //     lastName: "Marley"
+        //   },
+        //   {
+        //     _id: "345",
+        //     username: "charlie",
+        //     password: "charlie",
+        //     firstName: "Charlie",
+        //     lastName: "Garcia"
+        //   },
+        //   {
+        //     _id: "456",
+        //     username: "john",
+        //     password: "john",
+        //     firstName: "John",
+        //     lastName: "Doe"
+        //   }
+        // ];
         // private _users = [];
         // private _getUsersErrorMessage: string;
         // constructor(private _getUsersService: GetUsersService) {
@@ -603,80 +615,63 @@ var UserService = /** @class */ (function () {
         //   );
         // }
         // the http REST call urls
-        this._postUrl = '/api/user';
+        this._findUserByIdUrl = "/api/user/";
+        this._findUserByUsernameUrl = "/api/user?username=";
+        this._findUserByCredentialsUrl = "/api/user?username=";
+        this._updateUserUrl = "/api/user/";
+        this._deleteUserUrl = "/api/user/";
+        this._createUserUrl = '/api/user';
         this.api = {
-            'createUser': this.createUser,
-            'findUserById': this.findUserById,
-            'findUserByUsername': this.findUserByUsername,
-            'findUserByCredentials': this.findUserByCredentials,
-            'updateUser': this.updateUser,
-            'deleteUser': this.deleteUser
+            createUser: this.createUser,
+            findUserById: this.findUserById,
+            findUserByUsername: this.findUserByUsername,
+            findUserByCredentials: this.findUserByCredentials,
+            updateUser: this.updateUser,
+            deleteUser: this.deleteUser
         };
     }
     // adds the user parameter instance to the local users array
     UserService.prototype.createUser = function (user) {
         var new_user = {
-            _id: '',
+            _id: "",
             username: user.username,
             password: user.password,
             firstName: user.firstName,
             lastName: user.lastName
         };
-        new_user._id = Math.random() + '';
-        this._users.push(new_user);
-        console.log('Created a new user: ' + JSON.stringify(new_user));
-        return new_user;
+        new_user._id = Math.random() + "";
+        return this._http.post(this._createUserUrl, new_user);
     };
     // post new user to the database, the http version of the above method
     // createUser(user: User) {
     //   return this._http.post<User>(this._postUrl, user);
     // }
-    // returns the user in local users array whose _id matches the userId parameter
+    // the http version
+    // returns the user in local users array whose Id matches the parameter userId
     UserService.prototype.findUserById = function (userId) {
-        return this._users.find(function (user) {
-            return user._id === userId;
-        });
+        return this._http.get(this._findUserByIdUrl + userId);
     };
     // returns the user in local users array whose username matches the parameter username
     UserService.prototype.findUserByUsername = function (username) {
-        return this._users.find(function (user) {
-            return user.username === username;
-        });
+        return this._http.get(this._findUserByUsernameUrl + username);
     };
     // returns the user whose username and password match the username and password parameters
     UserService.prototype.findUserByCredentials = function (username, password) {
-        return this._users.find(function (user) {
-            return user.username === username && user.password === password;
-        });
+        return this._http.get(this._findUserByCredentialsUrl + username + "&password=" + password);
     };
     // updates the user in local users array whose _id matches the userId parameter
     UserService.prototype.updateUser = function (userId, user) {
-        for (var i in this._users) {
-            if (this._users[i]._id === userId) {
-                this._users[i] = user;
-                console.log('Updated the user to: ' + JSON.stringify(this._users[i]));
-                return user;
-            }
-        }
-        console.log('Did not update any user!');
-        return null;
+        console.log("Updated the user to: " + JSON.stringify(user));
+        return this._http.put(this._updateUserUrl + userId, user);
     };
     // removes the user whose _id matches the userId parameter
     UserService.prototype.deleteUser = function (userId) {
-        for (var i in this._users) {
-            if (this._users[i]._id === userId) {
-                var j = +i;
-                this._users.splice(j, 1);
-            }
-        }
-    };
-    // to return the users
-    UserService.prototype.getUsers = function () {
-        return this._users;
+        console.log('Deleting the user with Id: ' + userId);
+        return this._http.delete(this._deleteUserUrl + userId);
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], UserService);
@@ -699,24 +694,33 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WebsiteService", function() { return WebsiteService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
 
 
 var WebsiteService = /** @class */ (function () {
-    function WebsiteService() {
-        this._websites = [
-            { _id: '1', name: 'Facebook', developerId: '456', description: 'Lorem' },
-            { _id: '2', name: 'Twitter', developerId: '456', description: 'Lorem' },
-            { _id: '3', name: 'Gizmodo', developerId: '456', description: 'Lorem' },
-            { _id: '4', name: 'Go', developerId: '123', description: 'Lorem' },
-            { _id: '5', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem' },
-            { _id: '6', name: 'Checkers', developerId: '123', description: 'Lorem' },
-            { _id: '7', name: 'Chess', developerId: '234', description: 'The chess app' },
-            { _id: '8', name: 'Soccer', developerId: '234', description: 'We love soccer' },
-            { _id: '9', name: 'Tennis', developerId: '234', description: 'Mario Tennis!' },
-            { _id: '10', name: 'Google', developerId: '345', description: 'Google' },
-            { _id: '11', name: 'Nike', developerId: '345', description: 'Nike' },
-            { _id: '12', name: 'Hello Kitty', developerId: '345', description: 'Hello Kitty' }
-        ];
+    function WebsiteService(_http) {
+        this._http = _http;
+        // private _websites = [
+        //   {_id: '1', name: 'Facebook', developerId: '456', description: 'Lorem'},
+        //   {_id: '2', name: 'Twitter', developerId: '456', description: 'Lorem'},
+        //   {_id: '3', name: 'Gizmodo', developerId: '456', description: 'Lorem'},
+        //   {_id: '4', name: 'Go', developerId: '123', description: 'Lorem'},
+        //   {_id: '5', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem'},
+        //   {_id: '6', name: 'Checkers', developerId: '123', description: 'Lorem'},
+        //   {_id: '7', name: 'Chess', developerId: '234', description: 'The chess app'},
+        //   {_id: '8', name: 'Soccer', developerId: '234', description: 'We love soccer'},
+        //   {_id: '9', name: 'Tennis', developerId: '234', description: 'Mario Tennis!'},
+        //   {_id: '10', name: 'Google', developerId: '345', description: 'Google'},
+        //   {_id: '11', name: 'Nike', developerId: '345', description: 'Nike'},
+        //   {_id: '12', name: 'Hello Kitty', developerId: '345', description: 'Hello Kitty'}
+        // ];
+        // the URLs to call the http services API
+        this._createWebsiteUrl = '/api/user/';
+        this._findAllWebsitesForUserUrl = '/api/user/';
+        this._findWebsiteByIdUrl = '/api/website/';
+        this._updateWebsiteUrl = '/api/website/';
+        this._deleteWebsiteUrl = '/api/website/';
     }
     // adds the website parameter instance to the local websites array.
     WebsiteService.prototype.createWebsite = function (userId, website) {
@@ -727,50 +731,29 @@ var WebsiteService = /** @class */ (function () {
             description: website.description
         };
         new_website._id = new Date().getTime() + '';
-        this._websites.push(new_website);
-        console.log('Create a new website: ');
-        console.log(new_website);
-        return new_website;
+        return this._http.post(this._createWebsiteUrl + userId + '/website', new_website);
     };
     // retrieves the websites in local websites array whose developerId matches the parameter userId
     WebsiteService.prototype.findWebsitesByUser = function (userId) {
-        return this._websites.filter(function (website) {
-            return website.developerId === userId;
-        });
+        return this._http.get(this._findAllWebsitesForUserUrl + userId + '/website');
     };
     // retrieves teh website in local websites array whose _id matches the websiteId parameter
     WebsiteService.prototype.findWebsiteById = function (websiteId) {
-        return this._websites.find(function (website) {
-            return website._id === websiteId;
-        });
+        return this._http.get(this._findWebsiteByIdUrl + websiteId);
     };
     // updates the website in local websites array whose _id matches the websiteId parameter
     WebsiteService.prototype.updateWebsite = function (websiteId, website) {
-        for (var i in this._websites) {
-            if (this._websites[i]._id === websiteId) {
-                this._websites[i].name = website.name;
-                this._websites[i].description = website.description;
-                console.log('Updated the website to: ');
-                console.log(this._websites[i]);
-            }
-        }
+        return this._http.put(this._updateWebsiteUrl + websiteId, website);
     };
     // removes the website from local websites array whose _id matches the websiteId parameter
     WebsiteService.prototype.deleteWebsite = function (websiteId) {
-        for (var i in this._websites) {
-            if (this._websites[i]._id === websiteId) {
-                var j = +i;
-                console.log('Deleted the following website: ');
-                console.log(this._websites[i]);
-                this._websites.splice(j, 1);
-            }
-        }
+        return this._http.delete(this._deleteWebsiteUrl + websiteId);
     };
     WebsiteService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], WebsiteService);
     return WebsiteService;
 }());
@@ -791,123 +774,95 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "WidgetService", function() { return WidgetService; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
 
 
 var WidgetService = /** @class */ (function () {
-    function WidgetService() {
-        this._widgets = [
-            { _id: '1', widgetType: 'HEADER', pageId: '13', size: '2', text: 'Hello meow~' },
-            { _id: '2', widgetType: 'HEADER', pageId: '13', size: '4', text: 'I am a cutie meow~meow~' },
-            {
-                _id: '3',
-                widgetType: 'IMAGE',
-                pageId: '13',
-                width: '100%',
-                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
-                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
-            },
-            { _id: '4', widgetType: 'HEADER', pageId: '13', size: '4', text: 'Here is a cute video for you~' },
-            { _id: '5', widgetType: 'YOUTUBE', pageId: '13', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
-            { _id: '6', widgetType: 'HEADER', pageId: '14', size: '2', text: 'Hello meow~' },
-            { _id: '7', widgetType: 'HEADER', pageId: '15', size: '4', text: 'I am a cutie meow~meow~' },
-            {
-                _id: '8',
-                widgetType: 'IMAGE',
-                pageId: '10',
-                width: '100%',
-                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
-                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
-            },
-            { _id: '9', widgetType: 'HEADER', pageId: '12', size: '4', text: 'Here is a cute video for you~' },
-            { _id: '11', widgetType: 'YOUTUBE', pageId: '11', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
-            { _id: '22', widgetType: 'HEADER', pageId: '9', size: '2', text: 'Hello meow~' },
-            { _id: '33', widgetType: 'HEADER', pageId: '8', size: '4', text: 'I am a cutie meow~meow~' },
-            {
-                _id: '44',
-                widgetType: 'IMAGE',
-                pageId: '7',
-                width: '100%',
-                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
-                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
-            },
-            { _id: '55', widgetType: 'HEADER', pageId: '6', size: '4', text: 'Here is a cute video for you~' },
-            { _id: '66', widgetType: 'YOUTUBE', pageId: '5', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' },
-            { _id: '77', widgetType: 'HEADER', pageId: '4', size: '2', text: 'Hello meow~' },
-            { _id: '88', widgetType: 'HEADER', pageId: '3', size: '4', text: 'I am a cutie meow~meow~' },
-            {
-                _id: '99',
-                widgetType: 'IMAGE',
-                pageId: '2',
-                width: '100%',
-                url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
-                    'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
-            },
-            { _id: '111', widgetType: 'HEADER', pageId: '1', size: '4', text: 'Here is a cute video for you~' },
-            { _id: '222', widgetType: 'YOUTUBE', pageId: '1', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU' }
-        ];
+    function WidgetService(_http) {
+        this._http = _http;
+        // private _widgets = [
+        //   {_id: '1', widgetType: 'HEADER', pageId: '13', size: '2', text: 'Hello meow~'},
+        //   {_id: '2', widgetType: 'HEADER', pageId: '13', size: '4', text: 'I am a cutie meow~meow~'},
+        //   {
+        //     _id: '3',
+        //     widgetType: 'IMAGE',
+        //     pageId: '13',
+        //     width: '100%',
+        //     url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+        //       'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+        //   },
+        //   {_id: '4', widgetType: 'HEADER', pageId: '13', size: '4', text: 'Here is a cute video for you~'},
+        //   {_id: '5', widgetType: 'YOUTUBE', pageId: '13', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU'},
+        //   {_id: '6', widgetType: 'HEADER', pageId: '14', size: '2', text: 'Hello meow~'},
+        //   {_id: '7', widgetType: 'HEADER', pageId: '15', size: '4', text: 'I am a cutie meow~meow~'},
+        //   {
+        //     _id: '8',
+        //     widgetType: 'IMAGE',
+        //     pageId: '10',
+        //     width: '100%',
+        //     url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+        //       'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+        //   },
+        //   {_id: '9', widgetType: 'HEADER', pageId: '12', size: '4', text: 'Here is a cute video for you~'},
+        //   {_id: '11', widgetType: 'YOUTUBE', pageId: '11', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU'},
+        //   {_id: '22', widgetType: 'HEADER', pageId: '9', size: '2', text: 'Hello meow~'},
+        //   {_id: '33', widgetType: 'HEADER', pageId: '8', size: '4', text: 'I am a cutie meow~meow~'},
+        //   {
+        //     _id: '44',
+        //     widgetType: 'IMAGE',
+        //     pageId: '7',
+        //     width: '100%',
+        //     url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+        //       'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+        //   },
+        //   {_id: '55', widgetType: 'HEADER', pageId: '6', size: '4', text: 'Here is a cute video for you~'},
+        //   {_id: '66', widgetType: 'YOUTUBE', pageId: '5', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU'},
+        //   {_id: '77', widgetType: 'HEADER', pageId: '4', size: '2', text: 'Hello meow~'},
+        //   {_id: '88', widgetType: 'HEADER', pageId: '3', size: '4', text: 'I am a cutie meow~meow~'},
+        //   {
+        //     _id: '99',
+        //     widgetType: 'IMAGE',
+        //     pageId: '2',
+        //     width: '100%',
+        //     url: 'https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.' +
+        //       'jpeg?cs=srgb&dl=animal-animal-photography-cat-104827.jpg&fm=jpg'
+        //   },
+        //   {_id: '111', widgetType: 'HEADER', pageId: '1', size: '4', text: 'Here is a cute video for you~'},
+        //   {_id: '222', widgetType: 'YOUTUBE', pageId: '1', width: '100%', url: 'https://www.youtube.com/embed/rNSnfXl1ZjU'}
+        // ];
+        // the http calls URLs
+        this._createWidgetUrl = "/api/page/";
+        this._findAllWidgetsForPageUrl = "/api/page/";
+        this._findWidgetByIdUrl = "/api/widget/";
+        this._updateWidgetUrl = "/api/widget/";
+        this._deleteWidgetUrl = "/api/widget/";
     }
     // adds the widget parameter instance to the local widgets array. The new widget's pageId is set to the pageId parameter
     WidgetService.prototype.createWidget = function (pageId, widget) {
-        this._widgets.push(widget);
-        console.log('Created the following new widget: ');
-        console.log(widget);
+        return this._http.post(this._createWidgetUrl + pageId + "/widget", widget);
     };
     // retrieves the widgets in local widgets array whose pageId matches the parameter pageId
     WidgetService.prototype.findWidgetsByPageId = function (pageId) {
-        return this._widgets.filter(function (widget) {
-            return widget.pageId === pageId;
-        });
+        return this._http.get(this._findAllWidgetsForPageUrl + pageId + "/widget");
     };
     // retrieves the widget in local widgets array whose _id matches the widgetId parameter
     WidgetService.prototype.findWidgetById = function (widgetId) {
-        return this._widgets.find(function (widget) {
-            return widget._id === widgetId;
-        });
+        return this._http.get(this._findWidgetByIdUrl + widgetId);
     };
     // updates the widget in local widgets array whose _id matches the widgetId parameter
     WidgetService.prototype.updateWidget = function (widgetId, widget) {
-        for (var i in this._widgets) {
-            if (this._widgets[i]._id === widgetId) {
-                switch (widget.widgetType) {
-                    case 'HEADER':
-                        this._widgets[i].text = widget.text;
-                        this._widgets[i].size = widget.size;
-                        console.log('Updated the widget to: ');
-                        console.log(this._widgets[i]);
-                        return true;
-                    case 'IMAGE':
-                        this._widgets[i].width = widget.width;
-                        this._widgets[i].url = widget.url;
-                        console.log('Updated the widget to: ');
-                        console.log(this._widgets[i]);
-                        return true;
-                    case 'YOUTUBE':
-                        this._widgets[i].width = widget.width;
-                        this._widgets[i].url = widget.url;
-                        console.log('Updated the widget to: ');
-                        console.log(this._widgets[i]);
-                        return true;
-                }
-            }
-        }
-        return false;
+        return this._http.put(this._updateWidgetUrl + widgetId, widget);
     };
     // removes the widget from local widgets array whose _id matches the widgetId parameter
     WidgetService.prototype.deleteWidget = function (widgetId) {
-        for (var i in this._widgets) {
-            if (this._widgets[i]._id === widgetId) {
-                var j = +i;
-                console.log('Deleted the following widget: ');
-                console.log(this._widgets[i]);
-                this._widgets.splice(j, 1);
-            }
-        }
+        return this._http.delete(this._deleteWidgetUrl + widgetId);
     };
     WidgetService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: 'root'
+            providedIn: "root"
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], WidgetService);
     return WidgetService;
 }());
@@ -1129,6 +1084,12 @@ var PageEditComponent = /** @class */ (function () {
     function PageEditComponent(_activatedRoute, _pageService) {
         this._activatedRoute = _activatedRoute;
         this._pageService = _pageService;
+        this._page = {
+            _id: "",
+            name: "",
+            websiteId: "",
+            title: ""
+        };
     }
     PageEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -1138,24 +1099,31 @@ var PageEditComponent = /** @class */ (function () {
             _this._userId = params.uid;
             _this._websiteId = params.wid;
             _this._pageId = params.pid;
+            // get the page associated with the pageId
+            _this._pageService.findPageById(_this._pageId).subscribe(function (data) {
+                // deep copy the found page and assign it to the local page variable
+                _this._page = JSON.parse(JSON.stringify(data));
+                console.log("Deep copied the page: ");
+                console.log(data);
+            });
         });
-        // get the page associated with the pageId
-        var tempPage = this._pageService.findPageById(this._pageId);
-        // deep copy the found page and assign it to the local page variable
-        this._page = JSON.parse(JSON.stringify(tempPage));
-        console.log('Deep copied the page: ');
-        console.log(this._page);
     };
     PageEditComponent.prototype.onEditPage = function () {
         var tempPage = JSON.parse(JSON.stringify(this._page));
-        this._pageService.updatePage(this._pageId, tempPage);
+        this._pageService.updatePage(this._pageId, tempPage).subscribe(function (data) {
+            console.log("Updated the page to: ");
+            console.log(data);
+        });
     };
     PageEditComponent.prototype.onDeletePage = function () {
-        this._pageService.deletePage(this._pageId);
+        this._pageService.deletePage(this._pageId).subscribe(function (data) {
+            console.log("Deleted the page: ");
+            console.log(data);
+        });
     };
     PageEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-page-edit',
+            selector: "app-page-edit",
             template: __webpack_require__(/*! ./page-edit.component.html */ "./src/app/views/page/page-edit/page-edit.component.html"),
             styles: [__webpack_require__(/*! ./page-edit.component.css */ "./src/app/views/page/page-edit/page-edit.component.css")]
         }),
@@ -1222,14 +1190,19 @@ var PageListComponent = /** @class */ (function () {
             console.log(params);
             _this._userId = params.uid;
             _this._websiteId = params.wid;
+            // then get the pages associated with the websiteId
+            _this._pageService
+                .findPagesByWebsiteId(_this._websiteId)
+                .subscribe(function (data) {
+                _this._pages = data;
+                console.log("Getting the pages with website Id " + _this._websiteId + ": ");
+                console.log(data);
+            });
         });
-        // then get the page associated with the websiteId
-        this._pages = this._pageService.findPagesByWebsiteId(this._websiteId);
-        console.log(this._pages);
     };
     PageListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-page-list',
+            selector: "app-page-list",
             template: __webpack_require__(/*! ./page-list.component.html */ "./src/app/views/page/page-list/page-list.component.html"),
             styles: [__webpack_require__(/*! ./page-list.component.css */ "./src/app/views/page/page-list/page-list.component.css")]
         }),
@@ -1299,16 +1272,19 @@ var PageNewComponent = /** @class */ (function () {
     };
     PageNewComponent.prototype.onCreateNewPage = function () {
         var newPage = {
-            _id: '',
+            _id: "",
             name: this._name,
             websiteId: this._websiteId,
             title: this._title
         };
-        this._pageService.createPage(this._websiteId, newPage);
+        this._pageService.createPage(this._websiteId, newPage).subscribe(function (data) {
+            console.log("Created the new page: ");
+            console.log(data);
+        });
     };
     PageNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-page-new',
+            selector: "app-page-new",
             template: __webpack_require__(/*! ./page-new.component.html */ "./src/app/views/page/page-new/page-new.component.html"),
             styles: [__webpack_require__(/*! ./page-new.component.css */ "./src/app/views/page/page-new/page-new.component.css")]
         }),
@@ -1728,38 +1704,48 @@ var LoginComponent = /** @class */ (function () {
     function LoginComponent(_router, _userService) {
         this._router = _router;
         this._userService = _userService;
-        this.errorMsg = 'Invalid username or password!';
-        this._bgColor = 'green';
+        this.errorMsg = "Invalid username or password!";
+        this._bgColor = "green";
         this.errorFlag = false;
     }
     LoginComponent.prototype.login = function () {
+        var _this = this;
         // firstly, access the entered form data from form reference variable
         this.username = this.form.value.username;
         this.password = this.form.value.password;
         console.log(this.username);
         console.log(this.password);
         // secondly, decide if the entered data match via the credential service, UserService
-        var user = this._userService.findUserByCredentials(this.username, this.password);
-        if (user) {
-            this.errorFlag = false;
-            this._router.navigate(['/user', user._id]);
-        }
-        else {
-            this.errorFlag = true;
-        }
+        this._userService
+            .findUserByCredentials(this.username, this.password)
+            .subscribe(function (user) {
+            console.log("login() return: ");
+            console.log(user);
+            if (user) {
+                console.log('Login successful!');
+                _this.errorFlag = false;
+                _this._router.navigate(["/user", user._id]);
+            }
+            else {
+                console.log('Login failed!');
+                _this.errorFlag = true;
+            }
+        }, function (error) {
+            console.log(error.message || "User not found while loging in...");
+            _this.errorFlag = true;
+        });
     };
     // use constructor to import services basically, but not use it as much as to
     // load bunch of things when the component is loaded
     // instead use ngOnInit to load things
-    LoginComponent.prototype.ngOnInit = function () {
-    };
+    LoginComponent.prototype.ngOnInit = function () { };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loginForm'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("loginForm"),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"])
     ], LoginComponent.prototype, "form", void 0);
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-login',
+            selector: "app-login",
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/views/user/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/views/user/login/login.component.css")]
         }),
@@ -1790,7 +1776,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container\">\n    <a class=\"cl-text-white navbar-brand cl-text-bold\" [routerLink]=\"['/user/' + this._userId]\">\n      Profile\n    </a>\n    <a (click)=\"onUpdateUser()\"\n       class=\"navbar-link\">\n      <button class=\"fas fa-check fontawesome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar\"\n              [disabled]=\"profileForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <!--<h1 class=\"text-white bg-primary\">Profile</h1>-->\n\n  <form #profileForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"username\" class=\"cl-text-bold\">Username</label>\n      <input type=\"text\"\n             required\n             [(ngModel)]=\"this._user.username\"\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             id=\"username\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"password\" class=\"cl-text-bold\">Password</label>\n      <input type=\"password\"\n             required\n             [(ngModel)]=\"this._user.password\"\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             id=\"password\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">Password is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\" class=\"cl-text-bold\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.firstName\"\n             name=\"firstName\"\n             #firstName=\"ngModel\"\n             class=\"form-control\"\n             id=\"first-name\"\n             placeholder=\"First name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\" class=\"cl-text-bold\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.lastName\"\n             name=\"lastName\"\n             #lastName=\"ngModel\"\n             class=\"form-control\"\n             id=\"last-name\"\n             placeholder=\"Last name\">\n    </div>\n  </form>\n\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/' + this._userId +'/website']\">\n    Websites\n  </button>\n  <a class=\"btn btn-danger  btn-block\"\n     [routerLink]=\"['/login']\">Logout</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container m-auto\">\n    <div class=\"navbar-text\">\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-check fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-plus fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-star fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-heart fontawsome_icon mx-2 color-white\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container\">\n    <a class=\"cl-text-white navbar-brand cl-text-bold\" [routerLink]=\"['/user/' + this._userId]\">\n      Profile\n    </a>\n    <a (click)=\"onUpdateUser()\"\n       class=\"navbar-link\">\n      <button class=\"fas fa-check fontawesome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar\"\n              [disabled]=\"profileForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <!--<h1 class=\"text-white bg-primary\">Profile</h1>-->\n\n  <form #profileForm=\"ngForm\">\n    <!-- show the findUserByIdError if possible -->\n    <div>\n      <p class=\"alert-danger\">{{ this._findUserByIdError }}</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"username\" class=\"cl-text-bold\">Username</label>\n      <input type=\"text\"\n             required\n             [(ngModel)]=\"this._user.username\"\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             id=\"username\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"password\" class=\"cl-text-bold\">Password</label>\n      <input type=\"password\"\n             required\n             [(ngModel)]=\"this._user.password\"\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             id=\"password\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">Password is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\" class=\"cl-text-bold\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.firstName\"\n             name=\"firstName\"\n             #firstName=\"ngModel\"\n             class=\"form-control\"\n             id=\"first-name\"\n             placeholder=\"First name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\" class=\"cl-text-bold\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.lastName\"\n             name=\"lastName\"\n             #lastName=\"ngModel\"\n             class=\"form-control\"\n             id=\"last-name\"\n             placeholder=\"Last name\">\n    </div>\n  </form>\n\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/' + this._userId +'/website']\">\n    Websites\n  </button>\n  <a class=\"btn btn-danger  btn-block\"\n     [routerLink]=\"['/login']\">Logout</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container m-auto\">\n    <div class=\"navbar-text\">\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-check fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-plus fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-star fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-heart fontawsome_icon mx-2 color-white\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1819,29 +1805,37 @@ var ProfileComponent = /** @class */ (function () {
         this._userService = _userService;
         this._activatedRoute = _activatedRoute;
         this._user = {
-            _id: '',
-            username: '',
-            password: '',
-            firstName: '',
-            lastName: ''
+            _id: "",
+            username: "",
+            password: "",
+            firstName: "",
+            lastName: ""
         };
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
+        // get uid parameter
         this._activatedRoute.params.subscribe(function (params) {
-            console.log('User Id: ' + JSON.stringify(params));
-            _this._userId = params['uid'];
+            console.log("User Id: " + JSON.stringify(params));
+            _this._userId = params["uid"];
         });
-        var tempUser = this._userService.findUserById(this._userId);
-        this._user._id = tempUser._id;
-        this._user.username = tempUser.username;
-        this._user.password = tempUser.password;
-        this._user.firstName = tempUser.firstName;
-        this._user.lastName = tempUser.lastName;
-        console.log('Current User: ' + JSON.stringify(this._user));
+        // use user service to find the user by Id
+        this._userService.findUserById(this._userId).subscribe(function (data) {
+            console.log("data: " + JSON.stringify(data));
+            _this._user._id = data._id;
+            _this._user.username = data.username;
+            _this._user.password = data.password;
+            _this._user.firstName = data.firstName;
+            _this._user.lastName = data.lastName;
+            _this._findUserByIdError = null;
+        }, function (error) {
+            return (_this._findUserByIdError =
+                error.message || "Error getting the user by Id!");
+        });
     };
     // to update the user info
     ProfileComponent.prototype.onUpdateUser = function () {
+        var _this = this;
         var newUser = {
             _id: this._userId,
             username: this._form.value.username,
@@ -1849,15 +1843,15 @@ var ProfileComponent = /** @class */ (function () {
             firstName: this._form.value.firstName,
             lastName: this._form.value.lastName
         };
-        this._userService.updateUser(this._userId, newUser);
+        this._userService.updateUser(this._userId, newUser).subscribe(function (data) { return console.log(data); }, function (error) { return _this._updateUserError = error.message || 'Error updating the user!'; });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('profileForm'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("profileForm"),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"])
     ], ProfileComponent.prototype, "_form", void 0);
     ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-profile',
+            selector: "app-profile",
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/views/user/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/views/user/profile/profile.component.css")]
         }),
@@ -1889,7 +1883,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form #registerForm=\"ngForm\"\n        (ngSubmit)=\"register()\"\n        novalidate>\n    <h1>Register</h1>\n\n    <!--display the register error if possible-->\n    <div class=\"alert alert-danger\"\n         *ngIf=\"this._registerError\">\n      {{ this._registerError }}\n    </div>\n\n    <div class=\"form-group\">\n      <input type=\"text\"\n             ngModel\n             name=\"username\"\n             required\n             [class.is-invalid]=\"username.invalid && username.touched\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Username\"/>\n      <div class=\"invalid-feedback\"\n           [class.d-none]=\"username.valid || username.untouched\">\n        Username is required!\n      </div>\n    </div>\n    <div ngModelGroup=\"passwordGroup\"\n         #passwordGroup=\"ngModelGroup\">\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"password\"\n               required\n               #password=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Password\"\n               [class.is-invalid]=\"(password.invalid && password.touched) || (verifyPassword.touched && verifyPassword.invalid && !verifyPassword.errors?.required)\"\n               (input)=\"verifyPassword.control.updateValueAndValidity()\"/>\n        <small class=\"text-danger\"\n               [class.d-none]=\"password.valid || password.untouched\">\n          Password is required!\n        </small>\n      </div>\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"verifyPassword\"\n               required\n               appConfirmEqualValidator=\"password\"\n               [class.is-invalid]=\"verifyPassword.invalid && verifyPassword.touched\"\n               #verifyPassword=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Verify password\"/>\n        <div>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.required\">\n            Verify password is required!\n          </small>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.notEqual && !verifyPassword.errors?.required\">\n            Password and Verify password DO NOT match!\n          </small>\n        </div>\n      </div>\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            [disabled]=\"registerForm.invalid\">\n      Register\n    </button>\n    <button type=\"button\"\n            class=\"btn btn-danger  btn-block\"\n            [routerLink]=\"['/login']\">\n      Cancel\n    </button>\n  </form>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <form #registerForm=\"ngForm\"\n        (ngSubmit)=\"register()\"\n        novalidate>\n    <h1>Register</h1>\n\n    <!--display the register error if possible-->\n    <div class=\"alert alert-danger\"\n         *ngIf=\"this._registerError\">\n      {{ this._duplicateRegisterErrorMsg }}\n    </div>\n\n    <div class=\"form-group\">\n      <input type=\"text\"\n             ngModel\n             name=\"username\"\n             required\n             [class.is-invalid]=\"username.invalid && username.touched\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Username\"/>\n      <div class=\"invalid-feedback\"\n           [class.d-none]=\"username.valid || username.untouched\">\n        Username is required!\n      </div>\n    </div>\n    <div ngModelGroup=\"passwordGroup\"\n         #passwordGroup=\"ngModelGroup\">\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"password\"\n               required\n               #password=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Password\"\n               [class.is-invalid]=\"(password.invalid && password.touched) || (verifyPassword.touched && verifyPassword.invalid && !verifyPassword.errors?.required)\"\n               (input)=\"verifyPassword.control.updateValueAndValidity()\"/>\n        <small class=\"text-danger\"\n               [class.d-none]=\"password.valid || password.untouched\">\n          Password is required!\n        </small>\n      </div>\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"verifyPassword\"\n               required\n               appConfirmEqualValidator=\"password\"\n               [class.is-invalid]=\"verifyPassword.invalid && verifyPassword.touched\"\n               #verifyPassword=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Verify password\"/>\n        <div>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.required\">\n            Verify password is required!\n          </small>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.notEqual && !verifyPassword.errors?.required\">\n            Password and Verify password DO NOT match!\n          </small>\n        </div>\n      </div>\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            [disabled]=\"registerForm.invalid\">\n      Register\n    </button>\n    <button type=\"button\"\n            class=\"btn btn-danger  btn-block\"\n            [routerLink]=\"['/login']\">\n      Cancel\n    </button>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -1917,28 +1911,50 @@ var RegisterComponent = /** @class */ (function () {
     function RegisterComponent(_userService, _router) {
         this._userService = _userService;
         this._router = _router;
+        // capture the error for registering the new user
+        this._registerError = false;
+        this._duplicateRegisterErrorMsg = "The username has been registered, please try with another one.";
     }
-    RegisterComponent.prototype.ngOnInit = function () {
-    };
+    RegisterComponent.prototype.ngOnInit = function () { };
     RegisterComponent.prototype.register = function () {
+        var _this = this;
         // set the property values to the form values
         // and inspect the input values in console
         // console.log(this._form);
         this._username = this._form.value.username;
         this._password = this._form.value.passwordGroup.password;
         this._verifyPassword = this._form.value.passwordGroup.verifyPassword;
-        console.log('username: ' + this._username);
-        console.log('password: ' + this._password);
-        console.log('verify password: ' + this._verifyPassword);
-        // call UserService API to the local users array
-        var newUser = {
-            username: this._username,
-            password: this._password,
-            firstName: '',
-            lastName: ''
-        };
-        this._newUserId = this._userService.createUser(newUser)._id;
-        this._router.navigate(['/user', this._newUserId]);
+        console.log("username: " + this._username);
+        console.log("password: " + this._password);
+        console.log("verify password: " + this._verifyPassword);
+        // first, check if the username has been registered before
+        this._userService.findUserByUsername(this._username).subscribe(function (data) {
+            if (data == null) {
+                _this._registerError = false;
+                console.log("Username is valid!");
+                console.log(data);
+                // call UserService API to create the new user to the server
+                var newUser = {
+                    username: _this._username,
+                    password: _this._password,
+                    firstName: "",
+                    lastName: ""
+                };
+                _this._userService.createUser(newUser).subscribe(function (newUser) {
+                    console.log("Created new user: ");
+                    console.log(newUser);
+                    _this._newUserId = newUser._id;
+                    _this._router.navigate(["/user", _this._newUserId]);
+                });
+            }
+            else {
+                _this._registerError = true;
+                console.log("Username is NOT valid!");
+                console.log(data);
+                // if has register error, then stop
+                // if (this._registerError) return;
+            }
+        });
         // call UserService API to the remote mongodb
         // const newUser = new User('',
         //   this._form.value.username,
@@ -1958,17 +1974,16 @@ var RegisterComponent = /** @class */ (function () {
         // );
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('registerForm'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("registerForm"),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"])
     ], RegisterComponent.prototype, "_form", void 0);
     RegisterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-register',
+            selector: "app-register",
             template: __webpack_require__(/*! ./register.component.html */ "./src/app/views/user/register/register.component.html"),
             styles: [__webpack_require__(/*! ./register.component.css */ "./src/app/views/user/register/register.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"],
-            _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_services_user_service__WEBPACK_IMPORTED_MODULE_3__["UserService"], _angular_router__WEBPACK_IMPORTED_MODULE_4__["Router"]])
     ], RegisterComponent);
     return RegisterComponent;
 }());
@@ -2021,6 +2036,12 @@ var WebsiteEditComponent = /** @class */ (function () {
     function WebsiteEditComponent(_activatedRoute, _websiteService) {
         this._activatedRoute = _activatedRoute;
         this._websiteService = _websiteService;
+        this._website = {
+            _id: "",
+            name: "",
+            developerId: "",
+            description: ""
+        };
         this._websites = [];
     }
     WebsiteEditComponent.prototype.ngOnInit = function () {
@@ -2032,24 +2053,36 @@ var WebsiteEditComponent = /** @class */ (function () {
             _this._websiteId = params.wid;
             // secondly, find the website associated with the wid
             // and make the deep copy of the website
-            var tempWebsite = _this._websiteService.findWebsiteById(_this._websiteId);
-            _this._website = JSON.parse(JSON.stringify(tempWebsite));
-            console.log('Deep copied the following website: ');
-            console.log(_this._website);
+            _this._websiteService.findWebsiteById(_this._websiteId).subscribe(function (data) {
+                _this._website = JSON.parse(JSON.stringify(data));
+                console.log("Deep copied the following website: ");
+                console.log(_this._website);
+            });
         });
-        // secondly, find the websites associated with the uid
-        this._websites = this._websiteService.findWebsitesByUser(this._userId);
+        // thirdly, find the websites associated with the uid
+        this._websiteService.findWebsitesByUser(this._userId).subscribe(function (data) {
+            console.log("Updated the websites...");
+            _this._websites = data;
+        });
     };
     WebsiteEditComponent.prototype.onEditWebsite = function () {
         var updatedWebsite = JSON.parse(JSON.stringify(this._website));
-        this._websiteService.updateWebsite(this._websiteId, updatedWebsite);
+        this._websiteService
+            .updateWebsite(this._websiteId, updatedWebsite)
+            .subscribe(function (data) {
+            console.log("Updated the website to: ");
+            console.log(data);
+        });
     };
     WebsiteEditComponent.prototype.onDeleteWebsite = function () {
-        this._websiteService.deleteWebsite(this._websiteId);
+        this._websiteService.deleteWebsite(this._websiteId).subscribe(function (data) {
+            console.log("Deleted the website: ");
+            console.log(data);
+        });
     };
     WebsiteEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-website-edit',
+            selector: "app-website-edit",
             template: __webpack_require__(/*! ./website-edit.component.html */ "./src/app/views/website/website-edit/website-edit.component.html"),
             styles: [__webpack_require__(/*! ./website-edit.component.css */ "./src/app/views/website/website-edit/website-edit.component.css")]
         }),
@@ -2114,15 +2147,18 @@ var WebsiteListComponent = /** @class */ (function () {
         // firstly, get the userId
         this._activatedRoute.params.subscribe(function (params) {
             console.log(params);
-            _this._userId = params['uid'];
+            _this._userId = params["uid"];
         });
         // then retrieves the websites associated with the userId
-        this._websites = this._websiteService.findWebsitesByUser(this._userId);
-        console.log(this._websites);
+        this._websiteService.findWebsitesByUser(this._userId).subscribe(function (data) {
+            console.log("Getting the websites of user id " + _this._userId + ": ");
+            _this._websites = data;
+            console.log(_this._websites);
+        });
     };
     WebsiteListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-website-list',
+            selector: "app-website-list",
             template: __webpack_require__(/*! ./website-list.component.html */ "./src/app/views/website/website-list/website-list.component.html"),
             styles: [__webpack_require__(/*! ./website-list.component.css */ "./src/app/views/website/website-list/website-list.component.css")]
         }),
@@ -2192,26 +2228,32 @@ var WebsiteNewComponent = /** @class */ (function () {
             console.log(_this._userId);
         });
         // then get the websites associated with the uid
-        var tempWebsites = this._websiteService.findWebsitesByUser(this._userId);
-        // deep copy the websites to store locally
-        for (var i = 0; i < tempWebsites.length; i++) {
-            this._websites.push(JSON.parse(JSON.stringify(tempWebsites[i])));
-        }
-        console.log('Deep copy the websites from WebsiteService: ');
-        console.log(this._websites);
+        this._websiteService.findWebsitesByUser(this._userId).subscribe(function (data) {
+            // deep copy the websites to store locally
+            for (var i = 0; i < data.length; i++) {
+                _this._websites.push(JSON.parse(JSON.stringify(data[i])));
+            }
+            console.log("Deep copy the websites from WebsiteService: ");
+            console.log(_this._websites);
+        });
     };
     WebsiteNewComponent.prototype.onSubmitNewWebsite = function () {
         var newWebsite = {
-            _id: '',
+            _id: "",
             name: this._name,
-            developerId: '',
+            developerId: "",
             description: this._description
         };
-        this._websiteService.createWebsite(this._userId, newWebsite);
+        this._websiteService
+            .createWebsite(this._userId, newWebsite)
+            .subscribe(function (data) {
+            console.log("Created the website: ");
+            console.log(data);
+        });
     };
     WebsiteNewComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-website-new',
+            selector: "app-website-new",
             template: __webpack_require__(/*! ./website-new.component.html */ "./src/app/views/website/website-new/website-new.component.html"),
             styles: [__webpack_require__(/*! ./website-new.component.css */ "./src/app/views/website/website-new/website-new.component.css")]
         }),
@@ -2282,46 +2324,63 @@ var WidgetChooserComponent = /** @class */ (function () {
         });
     };
     WidgetChooserComponent.prototype.onCreateNewWidget = function (widgetType) {
-        var newWidgetId = Math.random() + '';
+        var _this = this;
+        var newWidgetId = Math.random() + "";
         var newWidget;
         switch (widgetType) {
-            case 'HEADER': {
+            case "HEADER": {
                 newWidget = {
                     _id: newWidgetId,
                     widgetType: widgetType,
                     pageId: this._pageId,
-                    size: '',
-                    text: ''
+                    size: "",
+                    text: ""
                 };
                 break;
             }
-            case 'YOUTUBE': {
+            case "YOUTUBE": {
                 newWidget = {
                     _id: newWidgetId,
                     widgetType: widgetType,
                     pageId: this._pageId,
-                    width: '',
-                    url: ''
+                    width: "",
+                    url: ""
                 };
                 break;
             }
-            case 'IMAGE': {
+            case "IMAGE": {
                 newWidget = {
                     _id: newWidgetId,
                     widgetType: widgetType,
                     pageId: this._pageId,
-                    width: '',
-                    url: ''
+                    width: "",
+                    url: ""
                 };
                 break;
             }
         }
-        this._widgetService.createWidget(this._pageId, newWidget);
-        this._router.navigate(['/user', this._userId, 'website', this._websiteId, 'page', this._pageId, 'widget', newWidgetId]);
+        // then call the api service to create the new widget
+        this._widgetService
+            .createWidget(this._pageId, newWidget)
+            .subscribe(function (data) {
+            console.log("Created a new widget: ");
+            console.log(newWidget);
+            // then navigate to widget edit page
+            _this._router.navigate([
+                "/user",
+                _this._userId,
+                "website",
+                _this._websiteId,
+                "page",
+                _this._pageId,
+                "widget",
+                newWidgetId
+            ]);
+        });
     };
     WidgetChooserComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-widget-chooser',
+            selector: "app-widget-chooser",
             template: __webpack_require__(/*! ./widget-chooser.component.html */ "./src/app/views/widget/widget-chooser/widget-chooser.component.html"),
             styles: [__webpack_require__(/*! ./widget-chooser.component.css */ "./src/app/views/widget/widget-chooser/widget-chooser.component.css")]
         }),
@@ -2380,6 +2439,15 @@ var WidgetEditComponent = /** @class */ (function () {
     function WidgetEditComponent(_activatedRoute, _widgetService) {
         this._activatedRoute = _activatedRoute;
         this._widgetService = _widgetService;
+        this._widget = {
+            _id: "",
+            widgetType: "",
+            pageId: "",
+            size: "",
+            text: "",
+            width: "",
+            url: ""
+        };
     }
     WidgetEditComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -2390,23 +2458,30 @@ var WidgetEditComponent = /** @class */ (function () {
             _this._websiteId = params.wid;
             _this._pageId = params.pid;
             _this._widgetId = params.wgid;
+            // then get the widget by using the widget service
+            // deep copy the widget
+            _this._widgetService.findWidgetById(_this._widgetId).subscribe(function (data) {
+                _this._widget = JSON.parse(JSON.stringify(data));
+                console.log("Deep copied the widget: ");
+                console.log(data);
+            });
         });
-        // then get the widget by using the widget service
-        // deep copy the widget
-        var tempWidget = this._widgetService.findWidgetById(this._widgetId);
-        this._widget = JSON.parse(JSON.stringify(tempWidget));
-        console.log('Deep copied the widget: ');
-        console.log(this._widget);
     };
     WidgetEditComponent.prototype.updateWidget = function (widget) {
-        this._widgetService.updateWidget(this._widgetId, widget);
+        this._widgetService.updateWidget(this._widgetId, widget).subscribe(function (data) {
+            console.log("Updated the widget to: ");
+            console.log(data);
+        });
     };
     WidgetEditComponent.prototype.deleteWidget = function (widget) {
-        this._widgetService.deleteWidget(this._widgetId);
+        this._widgetService.deleteWidget(this._widgetId).subscribe(function (data) {
+            console.log("Deleted the widget: ");
+            console.log(data);
+        });
     };
     WidgetEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-widget-edit',
+            selector: "app-widget-edit",
             template: __webpack_require__(/*! ./widget-edit.component.html */ "./src/app/views/widget/widget-edit/widget-edit/widget-edit.component.html"),
             styles: [__webpack_require__(/*! ./widget-edit.component.css */ "./src/app/views/widget/widget-edit/widget-edit/widget-edit.component.css")]
         }),
@@ -2467,8 +2542,7 @@ var WidgetHeaderComponent = /** @class */ (function () {
         // to pass back the delete event to parent component
         this._deleteHeaderEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    WidgetHeaderComponent.prototype.ngOnInit = function () {
-    };
+    WidgetHeaderComponent.prototype.ngOnInit = function () { };
     WidgetHeaderComponent.prototype.updateHeader = function () {
         this._updateHeaderEvent.emit(this._widget);
     };
@@ -2505,7 +2579,7 @@ var WidgetHeaderComponent = /** @class */ (function () {
     ], WidgetHeaderComponent.prototype, "_deleteHeaderEvent", void 0);
     WidgetHeaderComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-widget-header',
+            selector: "app-widget-header",
             template: __webpack_require__(/*! ./widget-header.component.html */ "./src/app/views/widget/widget-edit/widget-header/widget-header.component.html"),
             styles: [__webpack_require__(/*! ./widget-header.component.css */ "./src/app/views/widget/widget-edit/widget-header/widget-header.component.css")]
         }),
@@ -2566,8 +2640,7 @@ var WidgetImageComponent = /** @class */ (function () {
         // to pass back the widget to parent component to delete
         this._deleteImageEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    WidgetImageComponent.prototype.ngOnInit = function () {
-    };
+    WidgetImageComponent.prototype.ngOnInit = function () { };
     WidgetImageComponent.prototype.updateImage = function () {
         this._updateImageEvent.emit(this._widget);
     };
@@ -2575,7 +2648,7 @@ var WidgetImageComponent = /** @class */ (function () {
         this._deleteImageEvent.emit(this._widget);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('editImageForm'),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("editImageForm"),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"])
     ], WidgetImageComponent.prototype, "_form", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -2608,7 +2681,7 @@ var WidgetImageComponent = /** @class */ (function () {
     ], WidgetImageComponent.prototype, "_deleteImageEvent", void 0);
     WidgetImageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-widget-image',
+            selector: "app-widget-image",
             template: __webpack_require__(/*! ./widget-image.component.html */ "./src/app/views/widget/widget-edit/widget-image/widget-image.component.html"),
             styles: [__webpack_require__(/*! ./widget-image.component.css */ "./src/app/views/widget/widget-edit/widget-image/widget-image.component.css")]
         }),
@@ -2667,8 +2740,7 @@ var WidgetYoutubeComponent = /** @class */ (function () {
         // to pass back the widget to parent component to delete
         this._deleteYoutubeEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    WidgetYoutubeComponent.prototype.ngOnInit = function () {
-    };
+    WidgetYoutubeComponent.prototype.ngOnInit = function () { };
     WidgetYoutubeComponent.prototype.updateYoutube = function () {
         this._updateYoutubeEvent.emit(this._widget);
     };
@@ -2705,7 +2777,7 @@ var WidgetYoutubeComponent = /** @class */ (function () {
     ], WidgetYoutubeComponent.prototype, "_deleteYoutubeEvent", void 0);
     WidgetYoutubeComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-widget-youtube',
+            selector: "app-widget-youtube",
             template: __webpack_require__(/*! ./widget-youtube.component.html */ "./src/app/views/widget/widget-edit/widget-youtube/widget-youtube.component.html"),
             styles: [__webpack_require__(/*! ./widget-youtube.component.css */ "./src/app/views/widget/widget-edit/widget-youtube/widget-youtube.component.css")]
         }),
@@ -2772,14 +2844,17 @@ var WidgetListComponent = /** @class */ (function () {
             _this._userId = params.uid;
             _this._websiteId = params.wid;
             _this._pageId = params.pid;
+            // then get the widgets associated with the pageId
+            _this._widgetService.findWidgetsByPageId(_this._pageId).subscribe(function (data) {
+                _this._widgets = data;
+                console.log("Getting all the widgets of page id " + _this._pageId + ": ");
+                console.log(_this._widgets);
+            });
         });
-        // then get the widgets associated with the pageId
-        this._widgets = this._widgetService.findWidgetsByPageId(this._pageId);
-        console.log(this._widgets);
     };
     WidgetListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: 'app-widget-list',
+            selector: "app-widget-list",
             template: __webpack_require__(/*! ./widget-list.component.html */ "./src/app/views/widget/widget-list/widget-list.component.html"),
             styles: [__webpack_require__(/*! ./widget-list.component.css */ "./src/app/views/widget/widget-list/widget-list.component.css")]
         }),

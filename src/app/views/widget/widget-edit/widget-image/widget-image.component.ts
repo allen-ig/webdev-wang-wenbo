@@ -1,14 +1,21 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
-import {NgForm} from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from "@angular/core";
+import { NgForm } from "@angular/forms";
 
 @Component({
-  selector: 'app-widget-image',
-  templateUrl: './widget-image.component.html',
-  styleUrls: ['./widget-image.component.css']
+  selector: "app-widget-image",
+  templateUrl: "./widget-image.component.html",
+  styleUrls: ["./widget-image.component.css"]
 })
 export class WidgetImageComponent implements OnInit {
   // gain access to form values
-  @ViewChild('editImageForm') private _form: NgForm;
+  @ViewChild("editImageForm") private _form: NgForm;
 
   // the preset min and max of image width
   private _minWidthPercentage = 1;
@@ -26,11 +33,9 @@ export class WidgetImageComponent implements OnInit {
   // to pass back the widget to parent component to delete
   @Output() _deleteImageEvent = new EventEmitter();
 
-  constructor() {
-  }
+  constructor() {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   updateImage() {
     this._updateImageEvent.emit(this._widget);
@@ -39,5 +44,4 @@ export class WidgetImageComponent implements OnInit {
   deleteImage() {
     this._deleteImageEvent.emit(this._widget);
   }
-
 }
