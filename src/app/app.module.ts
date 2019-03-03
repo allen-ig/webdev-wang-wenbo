@@ -17,6 +17,7 @@ import { SafeUrlPipe } from './pipes/safe-url.pipe';
 import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
 import { InputRangeValidator } from './shared/input-range.validator';
 import { PercentageRangeValidator } from './shared/percentage-range.validator';
+import { SortableDirective } from '../../Assignment/directives/sortable.directive';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { PercentageRangeValidator } from './shared/percentage-range.validator';
     SafeUrlPipe,
     ChangeBgColorDirective,
     InputRangeValidator,
-    PercentageRangeValidator
+    PercentageRangeValidator,
+    SortableDirective
   ],
   imports: [
     BrowserModule,

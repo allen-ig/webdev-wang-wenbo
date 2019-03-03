@@ -7,6 +7,24 @@
   <br>
   <hr>
 
+  <!--test the sortable directive-->
+  <div>
+    <button type="button"
+            class="btn btn-light"
+            (click)="this._toggleTestSortable()">
+      Test Sortable(on/off)
+    </button>
+    <div *ngIf="this._testSortableFlag">
+      <h3>Testing sortable items...</h3>
+      <ul
+        appSortable (newIndexEvent)="reorderItems($event)">
+        <li *ngFor="let item of this._sortableItems; index as i">{{ i }}. {{ item }}</li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <hr>
+
   <!--display this errorMsg if the entered credentials do not match-->
   <div class="alert alert-danger"
        *ngIf="this.errorFlag">

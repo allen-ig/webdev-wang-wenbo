@@ -1,5 +1,60 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([["main"],{
 
+/***/ "./Assignment/directives/sortable.directive.ts":
+/*!*****************************************************!*\
+  !*** ./Assignment/directives/sortable.directive.ts ***!
+  \*****************************************************/
+/*! exports provided: SortableDirective */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SortableDirective", function() { return SortableDirective; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var SortableDirective = /** @class */ (function () {
+    function SortableDirective(_elementRef) {
+        this._elementRef = _elementRef;
+        this.newIndexEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
+    }
+    SortableDirective.prototype.ngAfterViewInit = function () {
+        this.appSortable(this);
+    };
+    SortableDirective.prototype.appSortable = function (self) {
+        jQuery(this._elementRef.nativeElement).sortable({
+            axis: 'y',
+            start: function (event, ui) {
+                console.log('Old position: ' + ui.item.index());
+                self._initialIndex = ui.item.index();
+            },
+            stop: function (event, ui) {
+                console.log('New position: ' + ui.item.index());
+                self.newIndexEvent.emit({
+                    startIndex: self._initialIndex,
+                    endIndex: ui.item.index()
+                });
+            }
+        });
+    };
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Object)
+    ], SortableDirective.prototype, "newIndexEvent", void 0);
+    SortableDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: '[appSortable]'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], SortableDirective);
+    return SortableDirective;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/$$_lazy_route_resource lazy recursive":
 /*!**********************************************************!*\
   !*** ./src/$$_lazy_route_resource lazy namespace object ***!
@@ -225,6 +280,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./directives/change-bg-color.directive */ "./src/app/directives/change-bg-color.directive.ts");
 /* harmony import */ var _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./shared/input-range.validator */ "./src/app/shared/input-range.validator.ts");
 /* harmony import */ var _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shared/percentage-range.validator */ "./src/app/shared/percentage-range.validator.ts");
+/* harmony import */ var _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../Assignment/directives/sortable.directive */ "./Assignment/directives/sortable.directive.ts");
 
 
 
@@ -232,6 +288,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { routing } from './app-routing.module';
+
 
 
 
@@ -255,7 +312,8 @@ var AppModule = /** @class */ (function () {
                 _pipes_safe_url_pipe__WEBPACK_IMPORTED_MODULE_13__["SafeUrlPipe"],
                 _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_14__["ChangeBgColorDirective"],
                 _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_15__["InputRangeValidator"],
-                _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_16__["PercentageRangeValidator"]
+                _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_16__["PercentageRangeValidator"],
+                _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_17__["SortableDirective"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -1675,7 +1733,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container mb-5\">\n  <div>\n    <h2>Homework 3</h2>\n    <h3>Wenbo Wang</h3>\n    <h3>wang.wenbo@husky.neu.edu</h3>\n  </div>\n  <br>\n  <hr>\n\n  <!--display this errorMsg if the entered credentials do not match-->\n  <div class=\"alert alert-danger\"\n       *ngIf=\"this.errorFlag\">\n    {{ this.errorMsg }}\n  </div>\n\n  <form #loginForm=\"ngForm\"\n        (ngSubmit)=\"login()\">\n    <h1>Login</h1>\n    <div class=\"form-group\">\n      <input type=\"text\"\n             required\n             ngModel\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\"/>\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">\n        Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <input type=\"password\"\n             required\n             ngModel\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\"/>\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">\n        Password is required!\n      </small>\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            [disabled]=\"!loginForm.valid\">\n      Login\n    </button>\n    <button type=\"button\"\n            class=\"btn btn-success btn-block\"\n            [routerLink]=\"['/register']\">\n      Register\n    </button>\n\n    <!--<div [appChangeBgColor]=\"this._bgColor\">hello world</div>-->\n  </form>\n</div>\n"
+module.exports = "<div class=\"container mb-5\">\n  <div>\n    <h2>Homework 3</h2>\n    <h3>Wenbo Wang</h3>\n    <h3>wang.wenbo@husky.neu.edu</h3>\n  </div>\n  <br>\n  <hr>\n\n  <!--test the sortable directive-->\n  <div>\n    <button type=\"button\"\n            class=\"btn btn-light\"\n            (click)=\"this._toggleTestSortable()\">\n      Test Sortable(on/off)\n    </button>\n    <div *ngIf=\"this._testSortableFlag\">\n      <h3>Testing sortable items...</h3>\n      <ul\n        appSortable (newIndexEvent)=\"reorderItems($event)\">\n        <li *ngFor=\"let item of this._sortableItems; index as i\">{{ i }}. {{ item }}</li>\n      </ul>\n    </div>\n  </div>\n  <br>\n  <hr>\n\n  <!--display this errorMsg if the entered credentials do not match-->\n  <div class=\"alert alert-danger\"\n       *ngIf=\"this.errorFlag\">\n    {{ this.errorMsg }}\n  </div>\n\n  <form #loginForm=\"ngForm\"\n        (ngSubmit)=\"login()\">\n    <h1>Login</h1>\n    <div class=\"form-group\">\n      <input type=\"text\"\n             required\n             ngModel\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\"/>\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">\n        Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <input type=\"password\"\n             required\n             ngModel\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\"/>\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">\n        Password is required!\n      </small>\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            [disabled]=\"!loginForm.valid\">\n      Login\n    </button>\n    <button type=\"button\"\n            class=\"btn btn-success btn-block\"\n            [routerLink]=\"['/register']\">\n      Register\n    </button>\n\n    <!--<div [appChangeBgColor]=\"this._bgColor\">hello world</div>-->\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -1700,12 +1758,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+// Array.prototype.insert = function (index, item) {
+//   this.splice(index, 0, item);
+// };
 var LoginComponent = /** @class */ (function () {
     function LoginComponent(_router, _userService) {
         this._router = _router;
         this._userService = _userService;
-        this.errorMsg = "Invalid username or password!";
-        this._bgColor = "green";
+        this.errorMsg = 'Invalid username or password!';
+        this._bgColor = 'green';
+        // the array of items to test sortable directive
+        this._testSortableFlag = false;
+        this._sortableItems = [
+            'Xbox One', 'Xbox One X', 'PS4', 'PS4 Pro', 'Nintendo Switch', 'PC'
+        ];
         this.errorFlag = false;
     }
     LoginComponent.prototype.login = function () {
@@ -1719,33 +1785,50 @@ var LoginComponent = /** @class */ (function () {
         this._userService
             .findUserByCredentials(this.username, this.password)
             .subscribe(function (user) {
-            console.log("login() return: ");
+            console.log('login() return: ');
             console.log(user);
             if (user) {
                 console.log('Login successful!');
                 _this.errorFlag = false;
-                _this._router.navigate(["/user", user._id]);
+                _this._router.navigate(['/user', user._id]);
             }
             else {
                 console.log('Login failed!');
                 _this.errorFlag = true;
             }
         }, function (error) {
-            console.log(error.message || "User not found while loging in...");
+            console.log(error.message || 'User not found while loging in...');
             _this.errorFlag = true;
         });
+    };
+    LoginComponent.prototype.reorderItems = function (indices) {
+        console.log('Start index: ' + indices.startIndex);
+        console.log('End index: ' + indices.endIndex);
+        // now insert the item into the new position
+        this._moveToNewPosition(indices.startIndex, indices.endIndex);
+        console.log('Now the items are: ');
+        console.log(this._sortableItems);
+    };
+    LoginComponent.prototype._moveToNewPosition = function (start, end) {
+        var item = this._sortableItems[start];
+        this._sortableItems.splice(start, 1);
+        this._sortableItems.splice(end, 0, item);
+    };
+    LoginComponent.prototype._toggleTestSortable = function () {
+        this._testSortableFlag = !this._testSortableFlag;
     };
     // use constructor to import services basically, but not use it as much as to
     // load bunch of things when the component is loaded
     // instead use ngOnInit to load things
-    LoginComponent.prototype.ngOnInit = function () { };
+    LoginComponent.prototype.ngOnInit = function () {
+    };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("loginForm"),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('loginForm'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_3__["NgForm"])
     ], LoginComponent.prototype, "form", void 0);
     LoginComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-login",
+            selector: 'app-login',
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/views/user/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/views/user/login/login.component.css")]
         }),
