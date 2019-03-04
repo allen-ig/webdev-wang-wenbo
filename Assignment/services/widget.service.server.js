@@ -151,6 +151,13 @@ module.exports = function (app) {
     }
   ];
 
+  // first sort all the widgets basing on its pageId
+  widgets.sort(function (a, b) {
+    return parseInt(a.pageId, 10) - parseInt(b.pageId, 10);
+  });
+  console.log('Sorted widgets...');
+  // console.log(widgets);
+
   // the http calls
   // create a new widget
   app.post("/api/page/:pid/widget", function (req, res) {
@@ -159,9 +166,43 @@ module.exports = function (app) {
     console.log("Creating a new widget for page id " + pageId + ": ");
     console.log("Created the following new widget: ");
     console.log(newWidget);
-    widgets.push(newWidget);
+    // then add the widget to the proper location
+    const insertIndex = bs(pageId);
+    if (insertIndex === -1) {
+      widgets.unshift(newWidget);
+    } else {
+      widgets.splice(insertIndex, 0, newWidget);
+    }
     res.status(200).json(newWidget);
+    // console.log(widgets);
   });
+
+  // binary search to find the last widget with pageId
+  function bs(pageId) {
+    if (widgets.length === 0) {
+      return -1;
+    }
+    var target = parseInt(pageId, 10);
+    var start = 0;
+    var end = widgets.length - 1;
+    while (start + 1 < end) {
+      var mid = start + Math.floor((end - start) / 2);
+      // console.log(mid);
+      var pid = parseInt(widgets[mid].pageId, 10);
+      if (pid > target) {
+        end = mid;
+      } else {
+        start = mid;
+      }
+    }
+    if (parseInt(widgets[end].pageId, 10) <= target) {
+      return end;
+    }
+    if (parseInt(widgets[start].pageId, 10) <= target) {
+      return start;
+    }
+    return -1;
+  }
 
   // find all widgets for page id
   app.get("/api/page/:pid/widget", function (req, res) {
@@ -241,8 +282,21 @@ module.exports = function (app) {
   // update the order of the widget in the database array
   app.put('/api/page/:pid/widget', function (req, res) {
     const pageId = req.params.pid;
-    const startIndex = req.query.initial;
-    const endIndex = req.query.final;
+    var startIndex = parseInt(req.query.initial, 10);
+    var endIndex = parseInt(req.query.final, 10);
+    // console.log(typeof startIndex);
+    // then find the first widget of the pageId
+    var firstIndex = 0;
+    for (var i = 0; i < widgets.length; i++) {
+      if (widgets[i].pageId === pageId) {
+        firstIndex = i;
+        break;
+      }
+    }
+    // then update both start and end index
+    startIndex += firstIndex;
+    endIndex += firstIndex;
+    // then process
     console.log('Moving widget at index ' + startIndex + ' to index ' + endIndex + ' for page id ' + pageId + ': ');
     const item = widgets[startIndex];
     console.log('Now finished moving the widget: ');

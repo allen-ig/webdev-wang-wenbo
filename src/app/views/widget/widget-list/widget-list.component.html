@@ -17,9 +17,8 @@
 
 <div class="container cl-container-padding">
   <!--use ngSwitch to iterate through the widgets and show the template accordingly-->
-  <div
-    appSortable
-    (newIndexEvent)="this._reorderWidgets($event)">
+  <div appSortable
+       (newIndexEvent)="this._reorderWidgets($event)">
     <div *ngFor="let widget of this._widgets; index as i" [ngSwitch]="widget.widgetType">
       <div *ngSwitchCase="'HEADER'">
         <div class="float-right">
@@ -88,7 +87,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <nav class="navbar navbar-light bg-light fixed-bottom">

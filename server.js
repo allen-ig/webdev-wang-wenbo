@@ -11,10 +11,10 @@ const app = express();
 app.use(express.static(path.join(__dirname, "dist/webdev-wang-wenbo")));
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 
 // CORS
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header(
     "Access-Control-Allow-Headers",
@@ -39,4 +39,7 @@ app.set("port", port);
 
 // Create HTTP server
 const server = http.createServer(app);
-server.listen(port, () => console.log("Running on port 3200"));
+server.listen(port, () => {
+  console.log("Running on port 3200");
+  console.log(`dirname: ${__dirname}`);
+});
