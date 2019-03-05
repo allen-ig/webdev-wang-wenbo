@@ -67,24 +67,66 @@
         </small>
       </div>
     </div>
+  </form>
+  <!--upload form-->
+  <form #uploadImageForm
+        action="/api/upload"
+        method="post"
+        enctype="multipart/form-data">
     <div class="form-group">
       <label for="exampleInputFile"
              class="cl-text-bold">Upload</label>
       <input type="file"
              ngModel
+             required
+             appFileInputValidator
+             [maxSize]="this._maxSize"
+             [allowedType]="this._allowedType"
              name="imageFile"
              #imageFile="ngModel"
+             id="exampleInputFile"
              class="form-control"
-             id="exampleInputFile">
+             [class.is-invalid]="imageFile.touched && imageFile.invalid">
+      <div>
+        <small class="text-danger"
+               *ngIf="imageFile.touched && imageFile.errors?.required">
+          No Image Added!
+        </small>
+        <small class="text-danger"
+               *ngIf="imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidType">
+          Error: Only Images (jpeg/jpg/png/gif)!
+        </small>
+        <small class="text-danger"
+               *ngIf="imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidSize">
+          Error: Image File Size Exceeded {{ this._maxSize }} Bytes!
+        </small>
+      </div>
     </div>
+    <!--&lt;!&ndash;the button to show the input element info&ndash;&gt;-->
+    <!--<button type="button" classs="btn btn-light" (click)="showInfo()">show info</button>-->
+    <!--imageFile validity: {{ imageFile.valid }}-->
+
+    <div class="form-control d-none">
+      <input name="userId" value="{{ this._userId }}">
+    </div>
+    <div class="form-control d-none">
+      <input name="websiteId" value="{{ this._websiteId }}">
+    </div>
+    <div class="form-control d-none">
+      <input name="pageId" value="{{ this._pageId }}">
+    </div>
+    <div class="form-control d-none">
+      <input name="widgetId" value="{{ this._widgetId }}">
+    </div>
+    <button type="submit"
+            class="btn btn-primary btn-block"
+            (click)="uploadImageForm.submit()"
+            [disabled]="imageFile.invalid">
+      Upload Image
+    </button>
   </form>
   <button type="button"
-          class="btn btn-primary btn-block"
-          [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']">
-    Upload Image
-  </button>
-  <button type="button"
-          class="btn btn-danger  btn-block"
+          class="btn btn-danger  btn-block my-2"
           [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
           (click)="this.deleteImage()">
     Delete

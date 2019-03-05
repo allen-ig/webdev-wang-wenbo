@@ -281,6 +281,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./shared/input-range.validator */ "./src/app/shared/input-range.validator.ts");
 /* harmony import */ var _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shared/percentage-range.validator */ "./src/app/shared/percentage-range.validator.ts");
 /* harmony import */ var _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../Assignment/directives/sortable.directive */ "./Assignment/directives/sortable.directive.ts");
+/* harmony import */ var _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./shared/file-input.validator */ "./src/app/shared/file-input.validator.ts");
 
 
 
@@ -288,6 +289,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 // import { routing } from './app-routing.module';
+
 
 
 
@@ -313,7 +315,8 @@ var AppModule = /** @class */ (function () {
                 _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_14__["ChangeBgColorDirective"],
                 _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_15__["InputRangeValidator"],
                 _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_16__["PercentageRangeValidator"],
-                _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_17__["SortableDirective"]
+                _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_17__["SortableDirective"],
+                _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_18__["FileInputValidator"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
@@ -980,6 +983,72 @@ var ConfirmEqualValidator = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
     ], ConfirmEqualValidator);
     return ConfirmEqualValidator;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/shared/file-input.validator.ts":
+/*!************************************************!*\
+  !*** ./src/app/shared/file-input.validator.ts ***!
+  \************************************************/
+/*! exports provided: FileInputValidator */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FileInputValidator", function() { return FileInputValidator; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
+
+
+
+var FileInputValidator = /** @class */ (function () {
+    function FileInputValidator(_elementRef) {
+        this._elementRef = _elementRef;
+    }
+    FileInputValidator_1 = FileInputValidator;
+    FileInputValidator.prototype.validate = function (control) {
+        // check if has file input
+        var files = this._elementRef.nativeElement.files;
+        if (files.length === 0) {
+            return { 'noFile': true };
+        }
+        // then check the file type
+        var fileType = files[0].type.toLowerCase();
+        var typeValid = this.allowedType.test(fileType);
+        if (!typeValid) {
+            return { 'invalidType': true };
+        }
+        // then check file size
+        var fileSize = files[0].size;
+        if (fileSize > this.maxSize) {
+            return { 'invalidSize': true };
+        }
+    };
+    var FileInputValidator_1;
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", Number)
+    ], FileInputValidator.prototype, "maxSize", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", RegExp)
+    ], FileInputValidator.prototype, "allowedType", void 0);
+    FileInputValidator = FileInputValidator_1 = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
+            selector: '[appFileInputValidator]',
+            providers: [{
+                    provide: _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NG_VALIDATORS"],
+                    useExisting: FileInputValidator_1,
+                    multi: true
+                }]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"]])
+    ], FileInputValidator);
+    return FileInputValidator;
 }());
 
 
@@ -2421,7 +2490,7 @@ var WidgetChooserComponent = /** @class */ (function () {
                     _id: newWidgetId,
                     widgetType: widgetType,
                     pageId: this._pageId,
-                    size: '',
+                    size: '1',
                     text: 'Untitled Header'
                 };
                 break;
@@ -2431,7 +2500,7 @@ var WidgetChooserComponent = /** @class */ (function () {
                     _id: newWidgetId,
                     widgetType: widgetType,
                     pageId: this._pageId,
-                    width: '',
+                    width: '100%',
                     url: ''
                 };
                 break;
@@ -2441,7 +2510,7 @@ var WidgetChooserComponent = /** @class */ (function () {
                     _id: newWidgetId,
                     widgetType: widgetType,
                     pageId: this._pageId,
-                    width: '',
+                    width: '100%',
                     url: ''
                 };
                 break;
@@ -2452,7 +2521,7 @@ var WidgetChooserComponent = /** @class */ (function () {
             .createWidget(this._pageId, newWidget)
             .subscribe(function (data) {
             console.log('Created a new widget: ');
-            console.log(newWidget);
+            console.log(data);
             // then navigate to widget edit page
             _this._router.navigate([
                 '/user',
@@ -2528,13 +2597,13 @@ var WidgetEditComponent = /** @class */ (function () {
         this._activatedRoute = _activatedRoute;
         this._widgetService = _widgetService;
         this._widget = {
-            _id: "",
-            widgetType: "",
-            pageId: "",
-            size: "",
-            text: "",
-            width: "",
-            url: ""
+            _id: '',
+            widgetType: '',
+            pageId: '',
+            size: '',
+            text: '',
+            width: '',
+            url: ''
         };
     }
     WidgetEditComponent.prototype.ngOnInit = function () {
@@ -2550,26 +2619,26 @@ var WidgetEditComponent = /** @class */ (function () {
             // deep copy the widget
             _this._widgetService.findWidgetById(_this._widgetId).subscribe(function (data) {
                 _this._widget = JSON.parse(JSON.stringify(data));
-                console.log("Deep copied the widget: ");
+                console.log('Deep copied the widget: ');
                 console.log(data);
             });
         });
     };
     WidgetEditComponent.prototype.updateWidget = function (widget) {
         this._widgetService.updateWidget(this._widgetId, widget).subscribe(function (data) {
-            console.log("Updated the widget to: ");
+            console.log('Updated the widget to: ');
             console.log(data);
         });
     };
     WidgetEditComponent.prototype.deleteWidget = function (widget) {
         this._widgetService.deleteWidget(this._widgetId).subscribe(function (data) {
-            console.log("Deleted the widget: ");
+            console.log('Deleted the widget: ');
             console.log(data);
         });
     };
     WidgetEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-widget-edit",
+            selector: 'app-widget-edit',
             template: __webpack_require__(/*! ./widget-edit.component.html */ "./src/app/views/widget/widget-edit/widget-edit/widget-edit.component.html"),
             styles: [__webpack_require__(/*! ./widget-edit.component.css */ "./src/app/views/widget/widget-edit/widget-edit/widget-edit.component.css")]
         }),
@@ -2698,7 +2767,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-light bg-light fixed-top\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-text-black cl-icon-padding float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"navbar-text cl-text-white cl-text-bold mr-auto\"\n       [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]\">\n      Widgets Edit\n    </a>\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-icon-padding cl-text-black float-right\"\n       (click)=\"this.updateImage()\">\n      <button class=\"fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold\"\n              [disabled]=\"editImageForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form #editImageForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"imageURL\"\n             class=\"cl-text-bold\">URL</label>\n      <input type=\"text\"\n             required\n             ngModel\n             name=\"imageURL\"\n             #imageURL=\"ngModel\"\n             [(ngModel)]=\"this._widget.url\"\n             class=\"form-control\"\n             id=\"imageURL\"\n             placeholder=\"URL\"\n             [class.is-invalid]=\"imageURL.touched && imageURL.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"imageURL.touched && imageURL.invalid\">Image Url is required.\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"imageWidth\"\n             class=\"cl-text-bold\">Width</label>\n      <input type=\"text\"\n             required\n             appPercentageRangeValidator\n             [min]=\"this._minWidthPercentage\"\n             [max]=\"this._maxWidthPercentage\"\n             (input)=\"imageWidth.control.updateValueAndValidity()\"\n             ngModel\n             name=\"imageWidth\"\n             #imageWidth=\"ngModel\"\n             [(ngModel)]=\"this._widget.width\"\n             class=\"form-control\"\n             id=\"imageWidth\"\n             placeholder=\"100%\"\n             [class.is-invalid]=\"imageWidth.touched && imageWidth.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.required\">\n          Image Width is required.\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.notValid && !imageWidth.errors?.required\">\n          Image Width must be a percentage number and between\n          {{ this._minWidthPercentage }} and {{ this._maxWidthPercentage }}\n          (percent).\n        </small>\n      </div>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"exampleInputFile\"\n             class=\"cl-text-bold\">Upload</label>\n      <input type=\"file\"\n             ngModel\n             name=\"imageFile\"\n             #imageFile=\"ngModel\"\n             class=\"form-control\"\n             id=\"exampleInputFile\">\n    </div>\n  </form>\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\">\n    Upload Image\n  </button>\n  <button type=\"button\"\n          class=\"btn btn-danger  btn-block\"\n          [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n          (click)=\"this.deleteImage()\">\n    Delete\n  </button>\n</div>\n\n<nav class=\"navbar navbar-light bg-light fixed-bottom\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId]\"\n       class=\"navbar-link cl-icon-padding ml-auto\">\n      <span class=\"fas fa-user fontawsome_icon cl-text-blue\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-light bg-light fixed-top\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-text-black cl-icon-padding float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"navbar-text cl-text-white cl-text-bold mr-auto\"\n       [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]\">\n      Widgets Edit\n    </a>\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-icon-padding cl-text-black float-right\"\n       (click)=\"this.updateImage()\">\n      <button class=\"fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold\"\n              [disabled]=\"editImageForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form #editImageForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"imageURL\"\n             class=\"cl-text-bold\">URL</label>\n      <input type=\"text\"\n             required\n             ngModel\n             name=\"imageURL\"\n             #imageURL=\"ngModel\"\n             [(ngModel)]=\"this._widget.url\"\n             class=\"form-control\"\n             id=\"imageURL\"\n             placeholder=\"URL\"\n             [class.is-invalid]=\"imageURL.touched && imageURL.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"imageURL.touched && imageURL.invalid\">Image Url is required.\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"imageWidth\"\n             class=\"cl-text-bold\">Width</label>\n      <input type=\"text\"\n             required\n             appPercentageRangeValidator\n             [min]=\"this._minWidthPercentage\"\n             [max]=\"this._maxWidthPercentage\"\n             (input)=\"imageWidth.control.updateValueAndValidity()\"\n             ngModel\n             name=\"imageWidth\"\n             #imageWidth=\"ngModel\"\n             [(ngModel)]=\"this._widget.width\"\n             class=\"form-control\"\n             id=\"imageWidth\"\n             placeholder=\"100%\"\n             [class.is-invalid]=\"imageWidth.touched && imageWidth.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.required\">\n          Image Width is required.\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.notValid && !imageWidth.errors?.required\">\n          Image Width must be a percentage number and between\n          {{ this._minWidthPercentage }} and {{ this._maxWidthPercentage }}\n          (percent).\n        </small>\n      </div>\n    </div>\n  </form>\n  <!--upload form-->\n  <form #uploadImageForm\n        action=\"/api/upload\"\n        method=\"post\"\n        enctype=\"multipart/form-data\">\n    <div class=\"form-group\">\n      <label for=\"exampleInputFile\"\n             class=\"cl-text-bold\">Upload</label>\n      <input type=\"file\"\n             ngModel\n             required\n             appFileInputValidator\n             [maxSize]=\"this._maxSize\"\n             [allowedType]=\"this._allowedType\"\n             name=\"imageFile\"\n             #imageFile=\"ngModel\"\n             id=\"exampleInputFile\"\n             class=\"form-control\"\n             [class.is-invalid]=\"imageFile.touched && imageFile.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && imageFile.errors?.required\">\n          No Image Added!\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidType\">\n          Error: Only Images (jpeg/jpg/png/gif)!\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidSize\">\n          Error: Image File Size Exceeded {{ this._maxSize }} Bytes!\n        </small>\n      </div>\n    </div>\n    <!--&lt;!&ndash;the button to show the input element info&ndash;&gt;-->\n    <!--<button type=\"button\" classs=\"btn btn-light\" (click)=\"showInfo()\">show info</button>-->\n    <!--imageFile validity: {{ imageFile.valid }}-->\n\n    <div class=\"form-control d-none\">\n      <input name=\"userId\" value=\"{{ this._userId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"websiteId\" value=\"{{ this._websiteId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"pageId\" value=\"{{ this._pageId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"widgetId\" value=\"{{ this._widgetId }}\">\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            (click)=\"uploadImageForm.submit()\"\n            [disabled]=\"imageFile.invalid\">\n      Upload Image\n    </button>\n  </form>\n  <button type=\"button\"\n          class=\"btn btn-danger  btn-block my-2\"\n          [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n          (click)=\"this.deleteImage()\">\n    Delete\n  </button>\n</div>\n\n<nav class=\"navbar navbar-light bg-light fixed-bottom\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId]\"\n       class=\"navbar-link cl-icon-padding ml-auto\">\n      <span class=\"fas fa-user fontawsome_icon cl-text-blue\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -2723,12 +2792,16 @@ var WidgetImageComponent = /** @class */ (function () {
         // the preset min and max of image width
         this._minWidthPercentage = 1;
         this._maxWidthPercentage = 100;
+        // the preset strict on file size and file type
+        this._maxSize = 10000000;
+        this._allowedType = /jpeg|jpg|png|gif/;
         // to pass back the widget to parent component to update
         this._updateImageEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         // to pass back the widget to parent component to delete
         this._deleteImageEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
     }
-    WidgetImageComponent.prototype.ngOnInit = function () { };
+    WidgetImageComponent.prototype.ngOnInit = function () {
+    };
     WidgetImageComponent.prototype.updateImage = function () {
         this._updateImageEvent.emit(this._widget);
     };
@@ -2736,9 +2809,17 @@ var WidgetImageComponent = /** @class */ (function () {
         this._deleteImageEvent.emit(this._widget);
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("editImageForm"),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('editImageForm'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"])
     ], WidgetImageComponent.prototype, "_form", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('uploadImageForm'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], WidgetImageComponent.prototype, "_uploadForm", void 0);
+    tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('imageFile'),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"])
+    ], WidgetImageComponent.prototype, "_image", void 0);
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])(),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", String)
@@ -2769,7 +2850,7 @@ var WidgetImageComponent = /** @class */ (function () {
     ], WidgetImageComponent.prototype, "_deleteImageEvent", void 0);
     WidgetImageComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-widget-image",
+            selector: 'app-widget-image',
             template: __webpack_require__(/*! ./widget-image.component.html */ "./src/app/views/widget/widget-edit/widget-image/widget-image.component.html"),
             styles: [__webpack_require__(/*! ./widget-image.component.css */ "./src/app/views/widget/widget-edit/widget-image/widget-image.component.css")]
         }),

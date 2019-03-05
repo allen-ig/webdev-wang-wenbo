@@ -12,12 +12,13 @@ import {WebsiteService} from './services/website.service';
 import {PageService} from './services/page.service';
 import {WidgetService} from './services/widget.service';
 import {GetUsersService} from './services/get-users.service';
-import { ConfirmEqualValidator } from './shared/confirm-equal.validator';
-import { SafeUrlPipe } from './pipes/safe-url.pipe';
-import { ChangeBgColorDirective } from './directives/change-bg-color.directive';
-import { InputRangeValidator } from './shared/input-range.validator';
-import { PercentageRangeValidator } from './shared/percentage-range.validator';
-import { SortableDirective } from '../../Assignment/directives/sortable.directive';
+import {ConfirmEqualValidator} from './shared/confirm-equal.validator';
+import {SafeUrlPipe} from './pipes/safe-url.pipe';
+import {ChangeBgColorDirective} from './directives/change-bg-color.directive';
+import {InputRangeValidator} from './shared/input-range.validator';
+import {PercentageRangeValidator} from './shared/percentage-range.validator';
+import {SortableDirective} from '../../Assignment/directives/sortable.directive';
+import {FileInputValidator} from './shared/file-input.validator';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { SortableDirective } from '../../Assignment/directives/sortable.directiv
     ChangeBgColorDirective,
     InputRangeValidator,
     PercentageRangeValidator,
-    SortableDirective
+    SortableDirective,
+    FileInputValidator
   ],
   imports: [
     BrowserModule,

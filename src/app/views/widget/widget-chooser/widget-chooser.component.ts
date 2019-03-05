@@ -39,7 +39,7 @@ export class WidgetChooserComponent implements OnInit {
           _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
-          size: '',
+          size: '1',
           text: 'Untitled Header'
         };
         break;
@@ -49,7 +49,7 @@ export class WidgetChooserComponent implements OnInit {
           _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
-          width: '',
+          width: '100%',
           url: ''
         };
         break;
@@ -59,7 +59,7 @@ export class WidgetChooserComponent implements OnInit {
           _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
-          width: '',
+          width: '100%',
           url: ''
         };
         break;
@@ -71,7 +71,7 @@ export class WidgetChooserComponent implements OnInit {
       .createWidget(this._pageId, newWidget)
       .subscribe(data => {
         console.log('Created a new widget: ');
-        console.log(newWidget);
+        console.log(data);
 
         // then navigate to widget edit page
         this._router.navigate([

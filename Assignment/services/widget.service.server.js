@@ -1,3 +1,8 @@
+const express = require('express');
+const path = require('path');
+const multer = require('multer');
+const ejs = require('ejs');
+
 module.exports = function (app) {
   // the widgets array to mimic the data on database
   var widgets = [
@@ -171,7 +176,7 @@ module.exports = function (app) {
     if (insertIndex === -1) {
       widgets.unshift(newWidget);
     } else {
-      widgets.splice(insertIndex, 0, newWidget);
+      widgets.splice(insertIndex + 1, 0, newWidget);
     }
     res.status(200).json(newWidget);
     // console.log(widgets);
@@ -303,5 +308,111 @@ module.exports = function (app) {
     res.status(200).json(item);
     widgets.splice(startIndex, 1);
     widgets.splice(endIndex, 0, item);
+  });
+
+  // upload the image of the image widget
+  // before start, use the public assets folder to hold uploads
+  console.log('Public assets folder: ');
+  console.log(path.join(__dirname, '/../../src/assets/uploads'));
+  app.use(express.static(path.join(__dirname, '/../../src/assets/uploads')));
+
+  // first, set up storage engine
+  const storage = multer.diskStorage({
+    destination: './src/assets/uploads',
+    filename: function (req, file, cb) {
+      cb(null, file.fieldname + '-' + Date.now());
+    }
+  });
+
+  // init upload
+  const upload = multer({
+    storage: storage,
+    limits: {fileSize: 10000000},
+    fileFilter: function (req, file, cb) {
+      checkFileType(file, cb);
+    }
+  }).single('imageFile');
+
+  // check file type helper
+  function checkFileType(file, cb) {
+    // allowed extension
+    const fileTypes = /jpeg|png|gif|jpg|tiff/;
+    // first check extension name
+    const extnameValid = fileTypes.test(path.extname(file.originalname).toLowerCase());
+    // second, check mime
+    const mimetypeValid = fileTypes.test(file.mimetype);
+    // then check if both are true
+    if (extnameValid && mimetypeValid) {
+      return cb(null, true);
+    } else {
+      // cb({
+      //   message: 'Error: Images Only!'
+      // });
+      cb('Error: Images Only!');
+    }
+  }
+
+  // make post request
+  app.post('/api/upload', function (req, res) {
+    // call the upload
+    upload(req, res, (err) => {
+      // get the const variables
+      const userId = req.body.userId;
+      const websiteId = req.body.websiteId;
+      const pageId = req.body.pageId;
+      const widgetId = req.body.widgetId;
+      const widgetEditUrl = `/user/${userId}/website/${websiteId}/page/${pageId}/widget/${widgetId}`;
+      const widgetListUrl = `/user/${userId}/website/${websiteId}/page/${pageId}/widget`;
+      if (err) {
+        console.log(err.message);
+        res.status(400).send(err.message);
+      } else {
+        console.log(req.body);
+        console.log(req.file);
+        if (req.file === undefined) {
+          console.log('No file selected!');
+          // res.status(400).send('No file selected!');
+          res.redirect(widgetEditUrl);
+        } else {
+          // res.status(200).send(req.file.path);
+          var widget = widgets.find(function (widget) {
+            return widget._id === widgetId;
+          });
+          widget.url = `/${req.file.filename}`;
+          res.redirect(widgetListUrl);
+        }
+      }
+    })
+  });
+
+  // EJS
+  // ejs index page
+  app.get('/test/ejs', (req, res) => {
+    res.render('index');
+  });
+
+  // ejs upload test
+  app.post('/test/ejs/upload', (req, res) => {
+    // call the upload we just set
+    upload(req, res, (err) => {
+      if (err) {
+        res.render('index', {
+          msg: err
+        });
+      } else {
+        console.log(req.file);
+        console.log(req.body);
+        if (req.file === undefined) {
+          res.render('index', {
+            msg: 'Error: No File Selected!'
+          });
+        } else {
+          res.render('index', {
+            msg: 'File Uploaded!',
+            file: `/${req.file.filename}`
+          })
+        }
+      }
+    })
   });
 };

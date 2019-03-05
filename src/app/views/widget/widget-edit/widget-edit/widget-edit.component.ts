@@ -1,11 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { WidgetService } from "../../../../services/widget.service";
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {WidgetService} from '../../../../services/widget.service';
 
 @Component({
-  selector: "app-widget-edit",
-  templateUrl: "./widget-edit.component.html",
-  styleUrls: ["./widget-edit.component.css"]
+  selector: 'app-widget-edit',
+  templateUrl: './widget-edit.component.html',
+  styleUrls: ['./widget-edit.component.css']
 })
 export class WidgetEditComponent implements OnInit {
   // properties
@@ -14,19 +14,20 @@ export class WidgetEditComponent implements OnInit {
   private _pageId: string;
   private _widgetId: string;
   private _widget = {
-    _id: "",
-    widgetType: "",
-    pageId: "",
-    size: "",
-    text: "",
-    width: "",
-    url: ""
+    _id: '',
+    widgetType: '',
+    pageId: '',
+    size: '',
+    text: '',
+    width: '',
+    url: ''
   };
 
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _widgetService: WidgetService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     // update the properties using the route parameters
@@ -41,7 +42,7 @@ export class WidgetEditComponent implements OnInit {
       // deep copy the widget
       this._widgetService.findWidgetById(this._widgetId).subscribe(data => {
         this._widget = JSON.parse(JSON.stringify(data));
-        console.log("Deep copied the widget: ");
+        console.log('Deep copied the widget: ');
         console.log(data);
       });
     });
@@ -49,14 +50,14 @@ export class WidgetEditComponent implements OnInit {
 
   updateWidget(widget: any) {
     this._widgetService.updateWidget(this._widgetId, widget).subscribe(data => {
-      console.log("Updated the widget to: ");
+      console.log('Updated the widget to: ');
       console.log(data);
     });
   }
 
   deleteWidget(widget: any) {
     this._widgetService.deleteWidget(this._widgetId).subscribe(data => {
-      console.log("Deleted the widget: ");
+      console.log('Deleted the widget: ');
       console.log(data);
     });
   }
