@@ -9,11 +9,23 @@ wang.wenbo@husky.neu.edu
 Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 
 ## Updates:
-V3.4: Homework 3 - Latest Version
+Updates so far:
 
- -1. Added more form validations
+v4.0: Homework 4 - Latest version
+
+ - 1. Created web services
  
- -2. Use ngSwitch to display headers in different sizes
+ - 2. Refactored angular services to use web services
+ 
+ - 3. Refactored angular services to send http requests
+ 
+ - 4. Refactored components to subscribe to the returned Observables
+ 
+ - 5. Added sorting to widget list view
+ 
+ - 6. Added image upload support
+ 
+V3.4: Homework 3
 
 V3.3: Homework 3
 
@@ -24,7 +36,7 @@ V3.1: Homework 3
 V3.0: Homework 3
 
 V2.1: Homework 2
- 
+
 V2.0: Homework 2
 
 V1.0: Homework 1
