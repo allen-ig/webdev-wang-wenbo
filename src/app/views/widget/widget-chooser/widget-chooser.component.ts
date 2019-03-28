@@ -31,12 +31,10 @@ export class WidgetChooserComponent implements OnInit {
   }
 
   onCreateNewWidget(widgetType: string) {
-    const newWidgetId = Math.random() + '';
     let newWidget: any;
     switch (widgetType) {
       case 'HEADER': {
         newWidget = {
-          _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
           size: '1',
@@ -46,7 +44,6 @@ export class WidgetChooserComponent implements OnInit {
       }
       case 'YOUTUBE': {
         newWidget = {
-          _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
           width: '100%',
@@ -56,7 +53,6 @@ export class WidgetChooserComponent implements OnInit {
       }
       case 'IMAGE': {
         newWidget = {
-          _id: newWidgetId,
           widgetType: widgetType,
           pageId: this._pageId,
           width: '100%',
@@ -82,7 +78,7 @@ export class WidgetChooserComponent implements OnInit {
           'page',
           this._pageId,
           'widget',
-          newWidgetId
+          data._id
         ]);
       });
   }

@@ -1,23 +1,4 @@
 module.exports = function (app) {
-  // the pages array to store all the pages to mimic the database
-  var pages = [
-    {_id: "1", name: "Home Page", websiteId: "3", title: "Home"},
-    {_id: "2", name: "Index Page", websiteId: "3", title: "Index"},
-    {_id: "3", name: "About Page", websiteId: "3", title: "Page"},
-    {_id: "4", name: "Home Page", websiteId: "4", title: "Home"},
-    {_id: "5", name: "Index Page", websiteId: "5", title: "Index"},
-    {_id: "6", name: "About Page", websiteId: "6", title: "Page"},
-    {_id: "7", name: "Home Page", websiteId: "7", title: "Home"},
-    {_id: "8", name: "Index Page", websiteId: "8", title: "Index"},
-    {_id: "9", name: "About Page", websiteId: "9", title: "Page"},
-    {_id: "10", name: "Home Page", websiteId: "10", title: "Home"},
-    {_id: "11", name: "Index Page", websiteId: "11", title: "Index"},
-    {_id: "12", name: "About Page", websiteId: "12", title: "Page"},
-    {_id: "13", name: "Home Page", websiteId: "1", title: "Home"},
-    {_id: "14", name: "Index Page", websiteId: "1", title: "Index"},
-    {_id: "15", name: "About Page", websiteId: "2", title: "Page"}
-  ];
-
   // get hold of pageModel and websiteModel
   const pageModel = require('../models/page/page.model.server');
   const websiteModel = require('../models/website/website.model.server');
