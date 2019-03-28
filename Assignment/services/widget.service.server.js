@@ -304,11 +304,20 @@ module.exports = function (app) {
         widgetModel.findWidgetById(page.widgets[startIndex]).exec((findStartWidgetError, startWidget) => {
           startWidget.position = endIndex;
           startWidget.save();
-          for (let i = startIndex + 1; i <= endIndex; i++) {
-            widgetModel.findWidgetById(page.widgets[i]).exec((findWidgetError, restWidget) => {
-              restWidget.position = restWidget.position - 1;
-              restWidget.save();
-            });
+          if (endIndex >= startIndex) {
+            for (let i = startIndex + 1; i <= endIndex; i++) {
+              widgetModel.findWidgetById(page.widgets[i]).exec((findWidgetError, restWidget) => {
+                restWidget.position = restWidget.position - 1;
+                restWidget.save();
+              });
+            }
+          } else {
+            for (let i = endIndex; i <= startIndex - 1; i++) {
+              widgetModel.findWidgetById(page.widgets[i]).exec((findWidgetError, restWidget) => {
+                restWidget.position = restWidget.position + 1;
+                restWidget.save();
+              });
+            }
           }
           page.widgets.splice(endIndex, 0, page.widgets.splice(startIndex, 1));
           page.save();
@@ -387,11 +396,16 @@ module.exports = function (app) {
           res.redirect(widgetEditUrl);
         } else {
           // res.status(200).send(req.file.path);
-          var widget = widgets.find(function (widget) {
-            return widget._id === widgetId;
+          widgetModel.findWidgetById(widgetId).exec((findWidgetError, widget) => {
+            if (findWidgetError) {
+              console.log('Error finding the widget when upload the image! widgetId: ' + widgetId);
+              res.status(400).send(findWidgetError);
+            } else {
+              widget.url = `/${req.file.filename}`;
+              widget.save();
+              res.redirect(widgetListUrl);
+            }
           });
-          widget.url = `/${req.file.filename}`;
-          res.redirect(widgetListUrl);
         }
       }
     })
