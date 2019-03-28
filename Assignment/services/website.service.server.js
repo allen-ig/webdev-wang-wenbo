@@ -1,105 +1,132 @@
-module.exports = function(app) {
-  // the websites array
-  var websites = [
-    { _id: "1", name: "Facebook", developerId: "456", description: "Lorem" },
-    { _id: "2", name: "Twitter", developerId: "456", description: "Lorem" },
-    { _id: "3", name: "Gizmodo", developerId: "456", description: "Lorem" },
-    { _id: "4", name: "Go", developerId: "123", description: "Lorem" },
-    { _id: "5", name: "Tic Tac Toe", developerId: "123", description: "Lorem" },
-    { _id: "6", name: "Checkers", developerId: "123", description: "Lorem" },
-    {
-      _id: "7",
-      name: "Chess",
-      developerId: "234",
-      description: "The chess app"
-    },
-    {
-      _id: "8",
-      name: "Soccer",
-      developerId: "234",
-      description: "We love soccer"
-    },
-    {
-      _id: "9",
-      name: "Tennis",
-      developerId: "234",
-      description: "Mario Tennis!"
-    },
-    { _id: "10", name: "Google", developerId: "345", description: "Google" },
-    { _id: "11", name: "Nike", developerId: "345", description: "Nike" },
-    {
-      _id: "12",
-      name: "Hello Kitty",
-      developerId: "345",
-      description: "Hello Kitty"
-    }
-  ];
+module.exports = function (app) {
+
+  // get hold of the websiteModel and userModel
+  const websiteModel = require('../models/website/website.model.server');
+  const userModel = require('../models/user/user.model.server');
 
   // the http CRUD operations on websites
 
   // find all websites for user with certain userId
-  app.get("/api/user/:uid/website", function(req, res) {
-    var userId = req.params.uid;
+  app.get("/api/user/:uid/website", function (req, res) {
+    const userId = req.params.uid;
     console.log("Getting the websites for user " + userId + ": ");
-    res.status(200).send(
-      websites.filter(function(website) {
-        return website.developerId == userId;
-      })
-    );
+    websiteModel.findAllWebsitesForUser(userId).exec((err, websites) => {
+      if (err) {
+        console.log('Error finding the websites for userId: ' + userId);
+        res.status(400).send(err);
+      } else {
+        console.log('Finished finding the websites for userId: ' + userId);
+        res.status(200).json(websites);
+      }
+    });
   });
 
   // find website by website Id
-  app.get('/api/website/:wid', function(req, res) {
-    var websiteId = req.params.wid;
+  app.get('/api/website/:wid', function (req, res) {
+    const websiteId = req.params.wid;
     console.log('Getting the website for Id ' + websiteId + ': ');
-    res.status(200).send(websites.find(function(website) {
-      return website._id == websiteId;
-    }))
+    websiteModel.findWebsiteById(websiteId).exec((err, website) => {
+      if (err) {
+        console.log('Error retrieving the website by Id: ' + websiteId);
+        res.status(400).send(err);
+      } else {
+        if (website) {
+          console.log('Found the website by Id: ' + websiteId);
+          res.status(200).json(website);
+        } else {
+          console.log('Cannot find the website by Id: ' + websiteId);
+          res.send(null);
+        }
+      }
+    });
   });
 
   // update the website associated with the website Id
-  app.put('/api/website/:wid', function(req, res) {
-    var websiteId = req.params.wid;
-    var newWebsite = req.body;
+  app.put('/api/website/:wid', function (req, res) {
+    const websiteId = req.params.wid;
+    const newWebsite = req.body;
     console.log('Updating the website for Id ' + websiteId + ': ');
-    for (var i = 0; i < websites.length; i++) {
-      if (websites[i]._id == websiteId) {
-        websites[i].name = newWebsite.name;
-        websites[i].description = newWebsite.description;
-        console.log('The website updated to: ');
-        console.log(websites[i]);
-        res.json(websites[i]);
-        return;
+    websiteModel.updateWebsite(websiteId, newWebsite).exec((err, updatedWebsite) => {
+      if (err) {
+        console.log('Error updating the website by Id: ' + websiteId);
+        res.status(400).send(err);
+      } else {
+        if (updatedWebsite) {
+          console.log('Finished updating the website by Id: ' + websiteId);
+          res.status(200).json(updatedWebsite);
+        } else {
+          console.log('Cannot find the website by Id: ' + websiteId);
+          res.send(null);
+        }
       }
-    }
-    res.send(null);
-  })
+    });
+  });
 
   // delete website
-  app.delete('/api/website/:wid', function(req, res) {
-    var websiteId = req.params.wid;
+  app.delete('/api/website/:wid', function (req, res) {
+    const websiteId = req.params.wid;
     console.log('Deleting the website for Id ' + websiteId + ': ');
-    for (var i = 0; i < websites.length; i++) {
-      if (websites[i]._id == websiteId) {
-        console.log('Deleted the website: ');
-        console.log(websites[i]);
-        res.json(websites[i]);
-        websites.splice(i, 1);
-        console.log('The rest websites are: ');
-        console.log(websites);
-        return;
+    websiteModel.deleteWebsite(websiteId).exec((err, deletedWebsite) => {
+      if (err) {
+        console.log('Error deleting the website by Id: ' + websiteId);
+        res.status(400).send(err);
+      } else {
+        if (deletedWebsite) {
+          userModel.findUserById(deletedWebsite.developerId).exec((findUserError, user) => {
+            if (findUserError) {
+              console.log('Error finding the user by Id when delete website!');
+              res.status(400).send(findUserError);
+            } else {
+              user.websites.splice(user.websites.indexOf(websiteId), 1);
+              user.save((postUserError, postedUser) => {
+                if (postUserError) {
+                  console.log('Error posting the new user after deleting the website!');
+                  res.status(400).send(postUserError);
+                } else {
+                  console.log('Finished deleting the website by Id: ' + websiteId);
+                  res.status(200).json(deletedWebsite);
+                }
+              });
+            }
+          });
+        } else {
+          console.log('Cannot find the website by Id: ' + websiteId);
+          res.send(null);
+        }
       }
-    }
-    res.send(null);
-  })
+    });
+  });
 
   // create website
-  app.post('/api/user/:uid/website', function(req, res) {
-    var userId = req.params.uid;
-    var newWebsite = req.body;
-    console.log('Posted new website: ');
+  app.post('/api/user/:uid/website', function (req, res) {
+    const userId = req.params.uid;
+    const newWebsite = req.body;
+    console.log('Posting new website: ');
     console.log(newWebsite);
-    websites.push(newWebsite);
-    res.json(newWebsite);
+    websiteModel.createWebsiteForUser(newWebsite).then(
+      (postedWebsite) => {
+        userModel.findUserById(userId).exec((findUserError, user) => {
+          if (findUserError) {
+            console.log('Error finding the user by userId: ' + userId);
+            res.status(400).send(findUserError);
+          } else {
+            user.websites.push(postedWebsite);
+            user.save((postUserError, postedUser) => {
+              if (postUserError) {
+                console.log('Error posting the new user with new website!');
+                res.status(400).send(postUserError);
+              } else {
+                console.log('Finished posting the new website for userId: ' + userId);
+                res.status(200).json(postedWebsite);
+              }
+            })
+          }
+        });
+      },
+      (err) => {
+        console.log('Error posting the website!');
+        res.status(400).send(err);
+      }
+    );
   })
 };

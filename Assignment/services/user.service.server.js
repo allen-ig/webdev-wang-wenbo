@@ -136,7 +136,7 @@ module.exports = function (app) {
       },
       (err) => {
         console.log('Error posting the new user!');
-        res.status(200).send(err);
+        res.status(400).send(err);
       }
     );
   });

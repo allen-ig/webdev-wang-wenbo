@@ -730,20 +730,6 @@ __webpack_require__.r(__webpack_exports__);
 var WebsiteService = /** @class */ (function () {
     function WebsiteService(_http) {
         this._http = _http;
-        // private _websites = [
-        //   {_id: '1', name: 'Facebook', developerId: '456', description: 'Lorem'},
-        //   {_id: '2', name: 'Twitter', developerId: '456', description: 'Lorem'},
-        //   {_id: '3', name: 'Gizmodo', developerId: '456', description: 'Lorem'},
-        //   {_id: '4', name: 'Go', developerId: '123', description: 'Lorem'},
-        //   {_id: '5', name: 'Tic Tac Toe', developerId: '123', description: 'Lorem'},
-        //   {_id: '6', name: 'Checkers', developerId: '123', description: 'Lorem'},
-        //   {_id: '7', name: 'Chess', developerId: '234', description: 'The chess app'},
-        //   {_id: '8', name: 'Soccer', developerId: '234', description: 'We love soccer'},
-        //   {_id: '9', name: 'Tennis', developerId: '234', description: 'Mario Tennis!'},
-        //   {_id: '10', name: 'Google', developerId: '345', description: 'Google'},
-        //   {_id: '11', name: 'Nike', developerId: '345', description: 'Nike'},
-        //   {_id: '12', name: 'Hello Kitty', developerId: '345', description: 'Hello Kitty'}
-        // ];
         // the URLs to call the http services API
         this._createWebsiteUrl = '/api/user/';
         this._findAllWebsitesForUserUrl = '/api/user/';
@@ -754,12 +740,10 @@ var WebsiteService = /** @class */ (function () {
     // adds the website parameter instance to the local websites array.
     WebsiteService.prototype.createWebsite = function (userId, website) {
         var new_website = {
-            _id: '',
             name: website.name,
             developerId: userId,
             description: website.description
         };
-        new_website._id = new Date().getTime() + '';
         return this._http.post(this._createWebsiteUrl + userId + '/website', new_website);
     };
     // retrieves the websites in local websites array whose developerId matches the parameter userId
@@ -2163,10 +2147,10 @@ var WebsiteEditComponent = /** @class */ (function () {
         this._activatedRoute = _activatedRoute;
         this._websiteService = _websiteService;
         this._website = {
-            _id: "",
-            name: "",
-            developerId: "",
-            description: ""
+            _id: '',
+            name: '',
+            developerId: '',
+            description: ''
         };
         this._websites = [];
     }
@@ -2181,13 +2165,13 @@ var WebsiteEditComponent = /** @class */ (function () {
             // and make the deep copy of the website
             _this._websiteService.findWebsiteById(_this._websiteId).subscribe(function (data) {
                 _this._website = JSON.parse(JSON.stringify(data));
-                console.log("Deep copied the following website: ");
+                console.log('Deep copied the following website: ');
                 console.log(_this._website);
             });
         });
         // thirdly, find the websites associated with the uid
         this._websiteService.findWebsitesByUser(this._userId).subscribe(function (data) {
-            console.log("Updated the websites...");
+            console.log('Updated the websites...');
             _this._websites = data;
         });
     };
@@ -2196,19 +2180,19 @@ var WebsiteEditComponent = /** @class */ (function () {
         this._websiteService
             .updateWebsite(this._websiteId, updatedWebsite)
             .subscribe(function (data) {
-            console.log("Updated the website to: ");
+            console.log('Updated the website to: ');
             console.log(data);
         });
     };
     WebsiteEditComponent.prototype.onDeleteWebsite = function () {
         this._websiteService.deleteWebsite(this._websiteId).subscribe(function (data) {
-            console.log("Deleted the website: ");
+            console.log('Deleted the website: ');
             console.log(data);
         });
     };
     WebsiteEditComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-website-edit",
+            selector: 'app-website-edit',
             template: __webpack_require__(/*! ./website-edit.component.html */ "./src/app/views/website/website-edit/website-edit.component.html"),
             styles: [__webpack_require__(/*! ./website-edit.component.css */ "./src/app/views/website/website-edit/website-edit.component.css")]
         }),

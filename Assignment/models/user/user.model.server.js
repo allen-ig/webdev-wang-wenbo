@@ -13,7 +13,7 @@ userModel.deleteUser = deleteUser;
 
 module.exports = userModel;
 
-// new implement the functions of the userModel
+// now implement the functions of the userModel
 function createUser(user) {
   return userModel.create(user);
 }
