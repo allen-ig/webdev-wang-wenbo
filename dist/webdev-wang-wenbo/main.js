@@ -498,44 +498,25 @@ __webpack_require__.r(__webpack_exports__);
 var PageService = /** @class */ (function () {
     function PageService(_http) {
         this._http = _http;
-        // private _pages = [
-        //   {_id: '1', name: 'Home Page', websiteId: '3', title: 'Home'},
-        //   {_id: '2', name: 'Index Page', websiteId: '3', title: 'Index'},
-        //   {_id: '3', name: 'About Page', websiteId: '3', title: 'Page'},
-        //   {_id: '4', name: 'Home Page', websiteId: '4', title: 'Home'},
-        //   {_id: '5', name: 'Index Page', websiteId: '5', title: 'Index'},
-        //   {_id: '6', name: 'About Page', websiteId: '6', title: 'Page'},
-        //   {_id: '7', name: 'Home Page', websiteId: '7', title: 'Home'},
-        //   {_id: '8', name: 'Index Page', websiteId: '8', title: 'Index'},
-        //   {_id: '9', name: 'About Page', websiteId: '9', title: 'Page'},
-        //   {_id: '10', name: 'Home Page', websiteId: '10', title: 'Home'},
-        //   {_id: '11', name: 'Index Page', websiteId: '11', title: 'Index'},
-        //   {_id: '12', name: 'About Page', websiteId: '12', title: 'Page'},
-        //   {_id: '13', name: 'Home Page', websiteId: '1', title: 'Home'},
-        //   {_id: '14', name: 'Index Page', websiteId: '1', title: 'Index'},
-        //   {_id: '15', name: 'About Page', websiteId: '2', title: 'Page'}
-        // ];
         // the http calls URLs
-        this._createPageUrl = "/api/website/";
-        this._findAllPagesForWebsiteUrl = "/api/website/";
-        this._findPageByIdUrl = "/api/page/";
-        this._updatePageUrl = "/api/page/";
-        this._deletePageUrl = "/api/page/";
+        this._createPageUrl = '/api/website/';
+        this._findAllPagesForWebsiteUrl = '/api/website/';
+        this._findPageByIdUrl = '/api/page/';
+        this._updatePageUrl = '/api/page/';
+        this._deletePageUrl = '/api/page/';
     }
     // adds the page parameter instance to the local page array. The new page's websiteId is set to the websiteId parameter
     PageService.prototype.createPage = function (websiteId, page) {
         var new_page = {
-            _id: page._id,
             name: page.name,
             websiteId: websiteId,
             title: page.title
         };
-        new_page._id = new Date().getTime() + "";
-        return this._http.post(this._createPageUrl + websiteId + "/page", new_page);
+        return this._http.post(this._createPageUrl + websiteId + '/page', new_page);
     };
     // retrieves the page in local page array whose websiteId matches the parameter websiteId
     PageService.prototype.findPagesByWebsiteId = function (websiteId) {
-        return this._http.get(this._findAllPagesForWebsiteUrl + websiteId + "/page");
+        return this._http.get(this._findAllPagesForWebsiteUrl + websiteId + '/page');
     };
     // retrieves the page in local page array whose _id matches the pageId parameter
     PageService.prototype.findPageById = function (pageId) {
@@ -551,7 +532,7 @@ var PageService = /** @class */ (function () {
     };
     PageService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: "root"
+            providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], PageService);
