@@ -1,42 +1,12 @@
-import { Injectable } from "@angular/core";
-import { GetUsersService } from "./get-users.service";
-import { User } from "../models/User";
-import { HttpClient } from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {GetUsersService} from './get-users.service';
+import {User} from '../models/User';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class UserService {
-  // private _users = [
-  //   {
-  //     _id: "123",
-  //     username: "alice",
-  //     password: "alice",
-  //     firstName: "Alice",
-  //     lastName: "Wonder"
-  //   },
-  //   {
-  //     _id: "234",
-  //     username: "bob",
-  //     password: "bob",
-  //     firstName: "Bob",
-  //     lastName: "Marley"
-  //   },
-  //   {
-  //     _id: "345",
-  //     username: "charlie",
-  //     password: "charlie",
-  //     firstName: "Charlie",
-  //     lastName: "Garcia"
-  //   },
-  //   {
-  //     _id: "456",
-  //     username: "john",
-  //     password: "john",
-  //     firstName: "John",
-  //     lastName: "Doe"
-  //   }
-  // ];
   // private _users = [];
   // private _getUsersErrorMessage: string;
 
@@ -48,14 +18,15 @@ export class UserService {
   // }
 
   // the http REST call urls
-  private _findUserByIdUrl = "/api/user/";
-  private _findUserByUsernameUrl = "/api/user?username=";
-  private _findUserByCredentialsUrl = "/api/user?username=";
-  private _updateUserUrl = "/api/user/";
-  private _deleteUserUrl = "/api/user/";
+  private _findUserByIdUrl = '/api/user/';
+  private _findUserByUsernameUrl = '/api/user?username=';
+  private _findUserByCredentialsUrl = '/api/user?username=';
+  private _updateUserUrl = '/api/user/';
+  private _deleteUserUrl = '/api/user/';
   private _createUserUrl = '/api/user';
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient) {
+  }
 
   api = {
     createUser: this.createUser,
@@ -69,13 +40,11 @@ export class UserService {
   // adds the user parameter instance to the local users array
   createUser(user: any) {
     const new_user = {
-      _id: "",
       username: user.username,
       password: user.password,
       firstName: user.firstName,
       lastName: user.lastName
     };
-    new_user._id = Math.random() + "";
     return this._http.post<any>(this._createUserUrl, new_user);
   }
 
@@ -99,13 +68,13 @@ export class UserService {
   // returns the user whose username and password match the username and password parameters
   findUserByCredentials(username: string, password: string) {
     return this._http.get<any>(
-      this._findUserByCredentialsUrl + username + "&password=" + password
+      this._findUserByCredentialsUrl + username + '&password=' + password
     );
   }
 
   // updates the user in local users array whose _id matches the userId parameter
   updateUser(userId: string, user: any) {
-    console.log("Updated the user to: " + JSON.stringify(user));
+    console.log('Updated the user to: ' + JSON.stringify(user));
     return this._http.put<any>(this._updateUserUrl + userId, user);
   }
 

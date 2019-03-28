@@ -34,6 +34,9 @@ app.use(function (req, res, next) {
 // call the server services for each component
 require("./Assignment/app")(app);
 
+// db connection
+const dbConnection = require('./Assignment/models/models.server');
+
 // for other calls, render the index page in dist folder
 app.get('*', function (req, res) {
   res.sendFile(path.join(__dirname, 'dist/webdev-wang-wenbo/index.html'));

@@ -637,36 +637,6 @@ __webpack_require__.r(__webpack_exports__);
 var UserService = /** @class */ (function () {
     function UserService(_http) {
         this._http = _http;
-        // private _users = [
-        //   {
-        //     _id: "123",
-        //     username: "alice",
-        //     password: "alice",
-        //     firstName: "Alice",
-        //     lastName: "Wonder"
-        //   },
-        //   {
-        //     _id: "234",
-        //     username: "bob",
-        //     password: "bob",
-        //     firstName: "Bob",
-        //     lastName: "Marley"
-        //   },
-        //   {
-        //     _id: "345",
-        //     username: "charlie",
-        //     password: "charlie",
-        //     firstName: "Charlie",
-        //     lastName: "Garcia"
-        //   },
-        //   {
-        //     _id: "456",
-        //     username: "john",
-        //     password: "john",
-        //     firstName: "John",
-        //     lastName: "Doe"
-        //   }
-        // ];
         // private _users = [];
         // private _getUsersErrorMessage: string;
         // constructor(private _getUsersService: GetUsersService) {
@@ -676,11 +646,11 @@ var UserService = /** @class */ (function () {
         //   );
         // }
         // the http REST call urls
-        this._findUserByIdUrl = "/api/user/";
-        this._findUserByUsernameUrl = "/api/user?username=";
-        this._findUserByCredentialsUrl = "/api/user?username=";
-        this._updateUserUrl = "/api/user/";
-        this._deleteUserUrl = "/api/user/";
+        this._findUserByIdUrl = '/api/user/';
+        this._findUserByUsernameUrl = '/api/user?username=';
+        this._findUserByCredentialsUrl = '/api/user?username=';
+        this._updateUserUrl = '/api/user/';
+        this._deleteUserUrl = '/api/user/';
         this._createUserUrl = '/api/user';
         this.api = {
             createUser: this.createUser,
@@ -694,13 +664,11 @@ var UserService = /** @class */ (function () {
     // adds the user parameter instance to the local users array
     UserService.prototype.createUser = function (user) {
         var new_user = {
-            _id: "",
             username: user.username,
             password: user.password,
             firstName: user.firstName,
             lastName: user.lastName
         };
-        new_user._id = Math.random() + "";
         return this._http.post(this._createUserUrl, new_user);
     };
     // post new user to the database, the http version of the above method
@@ -718,11 +686,11 @@ var UserService = /** @class */ (function () {
     };
     // returns the user whose username and password match the username and password parameters
     UserService.prototype.findUserByCredentials = function (username, password) {
-        return this._http.get(this._findUserByCredentialsUrl + username + "&password=" + password);
+        return this._http.get(this._findUserByCredentialsUrl + username + '&password=' + password);
     };
     // updates the user in local users array whose _id matches the userId parameter
     UserService.prototype.updateUser = function (userId, user) {
-        console.log("Updated the user to: " + JSON.stringify(user));
+        console.log('Updated the user to: ' + JSON.stringify(user));
         return this._http.put(this._updateUserUrl + userId, user);
     };
     // removes the user whose _id matches the userId parameter
@@ -732,7 +700,7 @@ var UserService = /** @class */ (function () {
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
-            providedIn: "root"
+            providedIn: 'root'
         }),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
     ], UserService);
@@ -2070,9 +2038,10 @@ var RegisterComponent = /** @class */ (function () {
         this._router = _router;
         // capture the error for registering the new user
         this._registerError = false;
-        this._duplicateRegisterErrorMsg = "The username has been registered, please try with another one.";
+        this._duplicateRegisterErrorMsg = 'The username has been registered, please try with another one.';
     }
-    RegisterComponent.prototype.ngOnInit = function () { };
+    RegisterComponent.prototype.ngOnInit = function () {
+    };
     RegisterComponent.prototype.register = function () {
         var _this = this;
         // set the property values to the form values
@@ -2081,32 +2050,32 @@ var RegisterComponent = /** @class */ (function () {
         this._username = this._form.value.username;
         this._password = this._form.value.passwordGroup.password;
         this._verifyPassword = this._form.value.passwordGroup.verifyPassword;
-        console.log("username: " + this._username);
-        console.log("password: " + this._password);
-        console.log("verify password: " + this._verifyPassword);
+        console.log('username: ' + this._username);
+        console.log('password: ' + this._password);
+        console.log('verify password: ' + this._verifyPassword);
         // first, check if the username has been registered before
         this._userService.findUserByUsername(this._username).subscribe(function (data) {
             if (data == null) {
                 _this._registerError = false;
-                console.log("Username is valid!");
+                console.log('Username is valid!');
                 console.log(data);
                 // call UserService API to create the new user to the server
                 var newUser = {
                     username: _this._username,
                     password: _this._password,
-                    firstName: "",
-                    lastName: ""
+                    firstName: '',
+                    lastName: ''
                 };
-                _this._userService.createUser(newUser).subscribe(function (newUser) {
-                    console.log("Created new user: ");
-                    console.log(newUser);
-                    _this._newUserId = newUser._id;
-                    _this._router.navigate(["/user", _this._newUserId]);
+                _this._userService.createUser(newUser).subscribe(function (postedUser) {
+                    console.log('Created new user: ');
+                    console.log(postedUser);
+                    _this._newUserId = postedUser._id;
+                    _this._router.navigate(['/user', _this._newUserId]);
                 });
             }
             else {
                 _this._registerError = true;
-                console.log("Username is NOT valid!");
+                console.log('Username is NOT valid!');
                 console.log(data);
                 // if has register error, then stop
                 // if (this._registerError) return;
@@ -2131,12 +2100,12 @@ var RegisterComponent = /** @class */ (function () {
         // );
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("registerForm"),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('registerForm'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_2__["NgForm"])
     ], RegisterComponent.prototype, "_form", void 0);
     RegisterComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-register",
+            selector: 'app-register',
             template: __webpack_require__(/*! ./register.component.html */ "./src/app/views/user/register/register.component.html"),
             styles: [__webpack_require__(/*! ./register.component.css */ "./src/app/views/user/register/register.component.css")]
         }),

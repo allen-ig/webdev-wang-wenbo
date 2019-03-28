@@ -1,86 +1,75 @@
-module.exports = function(app) {
-  var users = [
-    {
-      _id: "123",
-      username: "alice",
-      password: "alice",
-      firstName: "Alice",
-      lastName: "Wonder"
-    },
-    {
-      _id: "234",
-      username: "bob",
-      password: "bob",
-      firstName: "Bob",
-      lastName: "Marley"
-    },
-    {
-      _id: "345",
-      username: "charlie",
-      password: "charlie",
-      firstName: "Charlie",
-      lastName: "Garcia"
-    },
-    {
-      _id: "456",
-      username: "john",
-      password: "john",
-      firstName: "John",
-      lastName: "Doe"
-    }
-  ];
+module.exports = function (app) {
+
+  // get hold of the userModel
+  const userModel = require('../models/user/user.model.server');
 
   // to get all the users to test
-  app.get('/api/users', function(req, res) {
+  app.get('/api/users', (req, res) => {
     console.log('Getting all users...');
-    res.json(users);
-  })
+    userModel.findAllUsers().exec((err, users) => {
+      if (err) {
+        console.log('Error getting all users!');
+      } else {
+        res.status(200).json(users);
+      }
+    });
+  });
 
   // Now implement the CRUD http call apis
 
   // find user by Id
-  app.get("/api/user/:uid", function(req, res) {
-    var userId = req.params.uid;
+  app.get("/api/user/:uid", function (req, res) {
+    const userId = req.params.uid;
     console.log("User Id to query: " + userId);
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]._id == userId) {
-        console.log("Found User: ");
-        console.log(users[i]);
-        res.json(users[i]);
-        return;
+    userModel.findUserById(userId).exec((err, user) => {
+      if (err) {
+        console.log('Error finding user by id!');
+        res.status(400).send(err);
+      } else {
+        console.log('Found the user with id: ' + userId);
+        res.status(200).json(user);
       }
-    }
-    res.send(null);
+    });
   });
 
   // find user by credentials and find user by username
   function findUserByUsername(res, username) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].username == username) {
-        console.log("Found User: ");
-        console.log(users[i]);
-        res.json(users[i]);
-        return;
+    userModel.findUserByUsername(username).exec((err, user) => {
+      if (err) {
+        console.log('Error finding the user by username!');
+        res.status(400).send(err);
+      } else {
+        if (user) {
+          console.log('Found the user with username: ' + username);
+          res.status(200).json(user);
+        } else {
+          console.log('No user found with username: ' + username + '!');
+          res.send(null);
+        }
       }
-    }
-    res.send(null);
+    });
   }
 
   function findUserByCredentials(res, username, password) {
-    for (var i = 0; i < users.length; i++) {
-      if (users[i].username == username && users[i].password == password) {
-        console.log("Found User: ");
-        console.log(users[i]);
-        res.json(users[i]);
-        return;
+    userModel.findUserByCredentials(username, password).exec((err, user) => {
+      if (err) {
+        console.log('Error finding the user by credentials!');
+        res.status(400).send(err);
+      } else {
+        if (user) {
+          console.log('Found the user with credentials.');
+          res.status(200).json(user);
+        } else {
+          console.log('Cannot find the user with the given credentials!');
+          res.send(null);
+        }
       }
-    }
-    res.send(null);
+    });
   }
 
-  app.get("/api/user", function(req, res) {
-    var username = req.query.username;
-    var password = req.query.password;
+  app.get("/api/user", function (req, res) {
+    const username = req.query.username;
+    const password = req.query.password;
     if (typeof username != "undefined" && typeof password != "undefined") {
       console.log(
         "User username to query: " + username + ", and password: " + password
@@ -94,46 +83,61 @@ module.exports = function(app) {
   });
 
   // update user
-  app.put("/api/user/:uid", function(req, res) {
-    var userId = req.params.uid;
-    var newUser = req.body;
+  app.put("/api/user/:uid", function (req, res) {
+    const userId = req.params.uid;
+    const newUser = req.body;
     console.log("New User Id: " + userId + ", and new user: ");
     console.log(newUser);
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]._id == userId) {
-        users[i] = newUser;
-        console.log("Updated to new user!");
-        res.json(newUser);
-        return;
+    userModel.updateUser(userId, newUser).exec((err, updatedUser) => {
+      if (err) {
+        console.log('Error updating the user with userId: ' + userId);
+        res.status(400).send(err);
+      } else {
+        if (updatedUser) {
+          console.log('Finished updating the user.');
+          res.status(200).json(updatedUser);
+        } else {
+          console.log('Cannot find the user given userId: ' + userId);
+          res.send(null);
+        }
       }
-    }
-    res.send(null);
+    });
   });
 
   // delete user
-  app.delete("/api/user/:uid", function(req, res) {
-    var userId = req.params.uid;
+  app.delete("/api/user/:uid", function (req, res) {
+    const userId = req.params.uid;
     console.log("User Id to delete: " + userId);
-    for (var i = 0; i < users.length; i++) {
-      if (users[i]._id == userId) {
-        console.log('Deleted user: ');
-        console.log(users[i]);
-        res.json(users[i]);
-        users.splice(i, 1);
-        console.log('Now rest users are: ');
-        console.log(users);
-        return;
+    userModel.deleteUser(userId).exec((err, deletedUser) => {
+      if (err) {
+        console.log('Error deleting the user given userId: ' + userId);
+        res.status(400).send(err);
+      } else {
+        if (deletedUser) {
+          console.log('Finished deleting the user given userId: ' + userId);
+          res.status(200).json(deletedUser);
+        } else {
+          console.log('Cannot find the user given userId: ' + userId);
+          res.send(null);
+        }
       }
-    }
-    res.send(null);
+    });
   });
 
   // create user
-  app.post('/api/user', function(req, res) {
-    var newUser = req.body;
+  app.post('/api/user', (req, res) => {
+    const newUser = req.body;
     console.log('Posted new user: ');
     console.log(newUser);
-    users.push(newUser);
-    res.json(newUser);
-  })
+    userModel.createUser(newUser).then(
+      (postedUser) => {
+        console.log('Finished posting the user.');
+        res.status(200).json(postedUser);
+      },
+      (err) => {
+        console.log('Error posting the new user!');
+        res.status(200).send(err);
+      }
+    );
+  });
 };
