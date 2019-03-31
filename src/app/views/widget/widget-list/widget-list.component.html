@@ -52,23 +52,23 @@
           </div>
         </div>
       </div>
-      <div *ngSwitchCase="'YOUTUBE'">
-        <div class="embed-responsive embed-responsive-16by9">
-          <iframe width="640" height="360"
-                  [src]="widget.url | safeUrl"
-                  frameborder="0"
-                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                  allowfullscreen></iframe>
-          <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
-             class="float-right">
-            <span class="fas fa-bars fontawsome_icon cl-text-blue bg-white-position"></span>
-          </a>
-          <a
-            [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+widget._id]"
-            class="float-right">
-            <span class="fas fa-cog fontawsome_icon cl-text-blue bg-white-position"></span>
-          </a>
-        </div>
+      <div *ngSwitchCase="'YOUTUBE'" class="youtube-widget">
+        <!--<div class="embed-responsive embed-responsive-16by9">-->
+        <iframe width="560" width="315"
+                [src]="widget.url | safeUrl"
+                frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+        <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"
+           class="float-right">
+          <span class="fas fa-bars fontawsome_icon cl-text-blue bg-white-position"></span>
+        </a>
+        <a
+          [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+widget._id]"
+          class="float-right">
+          <span class="fas fa-cog fontawsome_icon cl-text-blue bg-white-position"></span>
+        </a>
+        <!--</div>-->
       </div>
       <div *ngSwitchCase="'IMAGE'">
         <div>
@@ -84,6 +84,19 @@
           <img class="responsive-img img-rounded cl-widget-images"
                [src]="widget.url">
         </div>
+      </div>
+      <div *ngSwitchCase="'HTML'" [innerHTML]="widget.text"></div>
+      <div *ngSwitchCase="'Text'">
+        <div *ngIf="widget.formatted">
+          <quill-editor [(ngModel)]="widget.text" name="text"></quill-editor>
+        </div>
+
+        <input *ngIf="!widget.formatted && (!widget.rows || widget.rows===1)"
+               placeholder="{{widget.placeholder}}" class="form-control"/>
+
+        <textarea *ngIf="!widget.formatted && (widget.rows > 1)"
+                  rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                  class="form-control">{{widget.text}}</textarea>
       </div>
     </div>
   </div>

@@ -2,6 +2,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {QuillEditorModule} from 'ngx-quill-editor';
+import {QuillModule} from 'ngx-quill';
 
 import {AppRoutingModule, routingComponents} from './app-routing.module';
 // import { routing } from './app-routing.module';
@@ -38,6 +40,8 @@ import {FileInputValidator} from './shared/file-input.validator';
     // import this FormsModule in order to use ngModel directive
     FormsModule,
     HttpClientModule,
+    QuillEditorModule,
+    QuillModule
   ],
   providers: [UserService, WebsiteService, PageService, WidgetService, GetUsersService],
   bootstrap: [AppComponent]
