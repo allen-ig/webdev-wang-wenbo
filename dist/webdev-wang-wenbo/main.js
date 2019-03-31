@@ -269,28 +269,27 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
 /* harmony import */ var ngx_quill_editor__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ngx-quill-editor */ "./node_modules/ngx-quill-editor/index.js");
-/* harmony import */ var ngx_quill__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-quill */ "./node_modules/ngx-quill/fesm5/ngx-quill.js");
-/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
-/* harmony import */ var _services_website_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/website.service */ "./src/app/services/website.service.ts");
-/* harmony import */ var _services_page_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/page.service */ "./src/app/services/page.service.ts");
-/* harmony import */ var _services_widget_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/widget.service */ "./src/app/services/widget.service.ts");
-/* harmony import */ var _services_get_users_service__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./services/get-users.service */ "./src/app/services/get-users.service.ts");
-/* harmony import */ var _shared_confirm_equal_validator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./shared/confirm-equal.validator */ "./src/app/shared/confirm-equal.validator.ts");
-/* harmony import */ var _pipes_safe_url_pipe__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./pipes/safe-url.pipe */ "./src/app/pipes/safe-url.pipe.ts");
-/* harmony import */ var _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./directives/change-bg-color.directive */ "./src/app/directives/change-bg-color.directive.ts");
-/* harmony import */ var _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./shared/input-range.validator */ "./src/app/shared/input-range.validator.ts");
-/* harmony import */ var _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./shared/percentage-range.validator */ "./src/app/shared/percentage-range.validator.ts");
-/* harmony import */ var _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../../Assignment/directives/sortable.directive */ "./Assignment/directives/sortable.directive.ts");
-/* harmony import */ var _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./shared/file-input.validator */ "./src/app/shared/file-input.validator.ts");
+/* harmony import */ var _app_routing_module__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./app-routing.module */ "./src/app/app-routing.module.ts");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _services_website_service__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./services/website.service */ "./src/app/services/website.service.ts");
+/* harmony import */ var _services_page_service__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./services/page.service */ "./src/app/services/page.service.ts");
+/* harmony import */ var _services_widget_service__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./services/widget.service */ "./src/app/services/widget.service.ts");
+/* harmony import */ var _services_get_users_service__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./services/get-users.service */ "./src/app/services/get-users.service.ts");
+/* harmony import */ var _shared_confirm_equal_validator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./shared/confirm-equal.validator */ "./src/app/shared/confirm-equal.validator.ts");
+/* harmony import */ var _pipes_safe_url_pipe__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./pipes/safe-url.pipe */ "./src/app/pipes/safe-url.pipe.ts");
+/* harmony import */ var _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./directives/change-bg-color.directive */ "./src/app/directives/change-bg-color.directive.ts");
+/* harmony import */ var _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./shared/input-range.validator */ "./src/app/shared/input-range.validator.ts");
+/* harmony import */ var _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./shared/percentage-range.validator */ "./src/app/shared/percentage-range.validator.ts");
+/* harmony import */ var _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../Assignment/directives/sortable.directive */ "./Assignment/directives/sortable.directive.ts");
+/* harmony import */ var _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/file-input.validator */ "./src/app/shared/file-input.validator.ts");
 
 
 
 
 
 
-
+// import {QuillModule} from 'ngx-quill';
 
 // import { routing } from './app-routing.module';
 
@@ -312,27 +311,26 @@ var AppModule = /** @class */ (function () {
     AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
             declarations: [
-                _app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["routingComponents"],
-                _shared_confirm_equal_validator__WEBPACK_IMPORTED_MODULE_14__["ConfirmEqualValidator"],
-                _pipes_safe_url_pipe__WEBPACK_IMPORTED_MODULE_15__["SafeUrlPipe"],
-                _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_16__["ChangeBgColorDirective"],
-                _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_17__["InputRangeValidator"],
-                _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_18__["PercentageRangeValidator"],
-                _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_19__["SortableDirective"],
-                _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_20__["FileInputValidator"]
+                _app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["routingComponents"],
+                _shared_confirm_equal_validator__WEBPACK_IMPORTED_MODULE_13__["ConfirmEqualValidator"],
+                _pipes_safe_url_pipe__WEBPACK_IMPORTED_MODULE_14__["SafeUrlPipe"],
+                _directives_change_bg_color_directive__WEBPACK_IMPORTED_MODULE_15__["ChangeBgColorDirective"],
+                _shared_input_range_validator__WEBPACK_IMPORTED_MODULE_16__["InputRangeValidator"],
+                _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_17__["PercentageRangeValidator"],
+                _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_18__["SortableDirective"],
+                _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_19__["FileInputValidator"]
             ],
             imports: [
                 _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
-                _app_routing_module__WEBPACK_IMPORTED_MODULE_7__["AppRoutingModule"],
+                _app_routing_module__WEBPACK_IMPORTED_MODULE_6__["AppRoutingModule"],
                 // import this FormsModule in order to use ngModel directive
                 _angular_forms__WEBPACK_IMPORTED_MODULE_3__["FormsModule"],
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 ngx_quill_editor__WEBPACK_IMPORTED_MODULE_5__["QuillEditorModule"],
-                ngx_quill__WEBPACK_IMPORTED_MODULE_6__["QuillModule"]
             ],
-            providers: [_services_user_service__WEBPACK_IMPORTED_MODULE_9__["UserService"], _services_website_service__WEBPACK_IMPORTED_MODULE_10__["WebsiteService"], _services_page_service__WEBPACK_IMPORTED_MODULE_11__["PageService"], _services_widget_service__WEBPACK_IMPORTED_MODULE_12__["WidgetService"], _services_get_users_service__WEBPACK_IMPORTED_MODULE_13__["GetUsersService"]],
-            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_8__["AppComponent"]]
+            providers: [_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"], _services_website_service__WEBPACK_IMPORTED_MODULE_9__["WebsiteService"], _services_page_service__WEBPACK_IMPORTED_MODULE_10__["PageService"], _services_widget_service__WEBPACK_IMPORTED_MODULE_11__["WidgetService"], _services_get_users_service__WEBPACK_IMPORTED_MODULE_12__["GetUsersService"]],
+            bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
     return AppModule;
@@ -1851,23 +1849,23 @@ var ProfileComponent = /** @class */ (function () {
         this._userService = _userService;
         this._activatedRoute = _activatedRoute;
         this._user = {
-            _id: "",
-            username: "",
-            password: "",
-            firstName: "",
-            lastName: ""
+            _id: '',
+            username: '',
+            password: '',
+            firstName: '',
+            lastName: ''
         };
     }
     ProfileComponent.prototype.ngOnInit = function () {
         var _this = this;
         // get uid parameter
         this._activatedRoute.params.subscribe(function (params) {
-            console.log("User Id: " + JSON.stringify(params));
-            _this._userId = params["uid"];
+            console.log('User Id: ' + JSON.stringify(params));
+            _this._userId = params['uid'];
         });
         // use user service to find the user by Id
         this._userService.findUserById(this._userId).subscribe(function (data) {
-            console.log("data: " + JSON.stringify(data));
+            console.log('data: ' + JSON.stringify(data));
             _this._user._id = data._id;
             _this._user.username = data.username;
             _this._user.password = data.password;
@@ -1876,7 +1874,7 @@ var ProfileComponent = /** @class */ (function () {
             _this._findUserByIdError = null;
         }, function (error) {
             return (_this._findUserByIdError =
-                error.message || "Error getting the user by Id!");
+                error.message || 'Error getting the user by Id!');
         });
     };
     // to update the user info
@@ -1892,12 +1890,12 @@ var ProfileComponent = /** @class */ (function () {
         this._userService.updateUser(this._userId, newUser).subscribe(function (data) { return console.log(data); }, function (error) { return _this._updateUserError = error.message || 'Error updating the user!'; });
     };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])("profileForm"),
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('profileForm'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"])
     ], ProfileComponent.prototype, "_form", void 0);
     ProfileComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
-            selector: "app-profile",
+            selector: 'app-profile',
             template: __webpack_require__(/*! ./profile.component.html */ "./src/app/views/user/profile/profile.component.html"),
             styles: [__webpack_require__(/*! ./profile.component.css */ "./src/app/views/user/profile/profile.component.css")]
         }),

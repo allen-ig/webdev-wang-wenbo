@@ -1,26 +1,26 @@
-import { Component, OnInit, ViewChild } from "@angular/core";
-import { UserService } from "../../../services/user.service";
-import { ActivatedRoute } from "@angular/router";
-import { NgForm } from "@angular/forms";
-import { User } from "src/app/models/User";
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {UserService} from '../../../services/user.service';
+import {ActivatedRoute} from '@angular/router';
+import {NgForm} from '@angular/forms';
+import {User} from 'src/app/models/User';
 
 @Component({
-  selector: "app-profile",
-  templateUrl: "./profile.component.html",
-  styleUrls: ["./profile.component.css"]
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
   // the form reference variable
-  @ViewChild("profileForm") private _form: NgForm;
+  @ViewChild('profileForm') private _form: NgForm;
 
   // properties
   private _userId: string;
   private _user = {
-    _id: "",
-    username: "",
-    password: "",
-    firstName: "",
-    lastName: ""
+    _id: '',
+    username: '',
+    password: '',
+    firstName: '',
+    lastName: ''
   };
   // private _user: any;
   private _findUserByIdError: string;
@@ -29,18 +29,19 @@ export class ProfileComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _activatedRoute: ActivatedRoute
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     // get uid parameter
     this._activatedRoute.params.subscribe(params => {
-      console.log("User Id: " + JSON.stringify(params));
-      this._userId = params["uid"];
+      console.log('User Id: ' + JSON.stringify(params));
+      this._userId = params['uid'];
     });
     // use user service to find the user by Id
     this._userService.findUserById(this._userId).subscribe(
       data => {
-        console.log("data: " + JSON.stringify(data));
+        console.log('data: ' + JSON.stringify(data));
         this._user._id = data._id;
         this._user.username = data.username;
         this._user.password = data.password;
@@ -50,7 +51,7 @@ export class ProfileComponent implements OnInit {
       },
       error =>
         (this._findUserByIdError =
-          error.message || "Error getting the user by Id!")
+          error.message || 'Error getting the user by Id!')
     );
   }
 
