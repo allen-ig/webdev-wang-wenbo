@@ -1,7 +1,8 @@
 module.exports = function (app) {
-  // get hold of pageModel and websiteModel
+  // get hold of pageModel and websiteModel and widgetModel
   const pageModel = require('../models/page/page.model.server');
   const websiteModel = require('../models/website/website.model.server');
+  const widgetModel = require('../models/widget/widget.model.server');
 
   // the http calls
   // create a new page
@@ -104,6 +105,13 @@ module.exports = function (app) {
         res.status(400).send(err);
       } else {
         if (deletedPage) {
+          // delete all widgets for this page
+          for (let i = 0; i < deletedPage.widgets.length; i++) {
+            widgetModel.deleteWidget(deletedPage.widgets[i]).exec((err, deletedWidget) => {
+              console.log('Deleting one widget for pageId: ' + pageId);
+            });
+          }
+          console.log('Finished deleting the widgets for the pageId: ' + pageId);
           websiteModel.findWebsiteById(deletedPage.websiteId).exec((findWebsiteError, website) => {
             if (findWebsiteError) {
               console.log('Error finding the website when delete the page!');

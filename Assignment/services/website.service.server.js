@@ -1,8 +1,10 @@
 module.exports = function (app) {
 
-  // get hold of the websiteModel and userModel
+  // get hold of the websiteModel and userModel and pageModel and widgetModel
   const websiteModel = require('../models/website/website.model.server');
   const userModel = require('../models/user/user.model.server');
+  const pageModel = require('../models/page/page.model.server');
+  const widgetModel = require('../models/widget/widget.model.server');
 
   // the http CRUD operations on websites
 
@@ -72,6 +74,16 @@ module.exports = function (app) {
         res.status(400).send(err);
       } else {
         if (deletedWebsite) {
+          // delete all pages and widgets for the website
+          for (let i = 0; i < deletedWebsite.pages.length; i++) {
+            pageModel.findPageById(deletedWebsite.pages[i]).exec((errPage, p) => {
+              for (let j = 0; j < p.widgets.length; j++) {
+                widgetModel.deleteWidget(p.widgets[j]).exec();
+              }
+              pageModel.deletePage(deletedWebsite.pages[i]).exec();
+            });
+          }
+          console.log('Finished deleting the pages and widgets in the websiteId: ' + websiteId);
           userModel.findUserById(deletedWebsite.developerId).exec((findUserError, user) => {
             if (findUserError) {
               console.log('Error finding the user by Id when delete website!');

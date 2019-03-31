@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {User} from 'src/app/models/User';
 
@@ -25,10 +25,12 @@ export class ProfileComponent implements OnInit {
   // private _user: any;
   private _findUserByIdError: string;
   private _updateUserError: string;
+  private _deleteUserError: string;
 
   constructor(
     private _userService: UserService,
-    private _activatedRoute: ActivatedRoute
+    private _activatedRoute: ActivatedRoute,
+    private _router: Router
   ) {
   }
 
@@ -67,6 +69,22 @@ export class ProfileComponent implements OnInit {
     this._userService.updateUser(this._userId, newUser).subscribe(
       data => console.log(data),
       error => this._updateUserError = error.message || 'Error updating the user!'
+    );
+  }
+
+  // to delete the user completely from the database
+  onDeleteUser() {
+    this._userService.deleteUser(this._userId).subscribe(
+      data => {
+        console.log('Deleted the user with userId: ' + this._userId);
+        console.log(data);
+        this._deleteUserError = null;
+        this._router.navigate(['/login']);
+      },
+      error => {
+        console.log('Error deleting the user with userId: ' + this._userId);
+        this._deleteUserError = error || 'Error deleting the user!';
+      }
     );
   }
 }

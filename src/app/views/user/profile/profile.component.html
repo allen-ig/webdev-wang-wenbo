@@ -79,6 +79,15 @@
           [routerLink]="['/user/' + this._userId +'/website']">
     Websites
   </button>
+  <button type="button"
+          class="btn btn-light btn-block"
+          (click)="onDeleteUser()">
+    Delete User
+  </button>
+  <small class="alert alert-danger"
+         *ngIf="this._deleteUserError">
+    {{ this._deleteUserError }}
+  </small>
   <a class="btn btn-danger  btn-block"
      [routerLink]="['/login']">Logout</a>
 </div>

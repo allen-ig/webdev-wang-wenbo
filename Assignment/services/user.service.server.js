@@ -1,7 +1,10 @@
 module.exports = function (app) {
 
-  // get hold of the userModel
+  // get hold of the userModel, websiteModel, pageModel and widgetModel
   const userModel = require('../models/user/user.model.server');
+  const websiteModel = require('../models/website/website.model.server');
+  const pageModel = require('../models/page/page.model.server');
+  const widgetModel = require('../models/widget/widget.model.server');
 
   // to get all the users to test
   app.get('/api/users', (req, res) => {
@@ -114,6 +117,19 @@ module.exports = function (app) {
         res.status(400).send(err);
       } else {
         if (deletedUser) {
+          // delete all websites and pages and widgets
+          for (let i = 0; i < deletedUser.websites.length; i++) {
+            websiteModel.deleteWebsite(deletedUser.websites[i]).exec((errWebsite, w) => {
+              for (let j = 0; j < w.pages.length; j++) {
+                pageModel.deletePage(w.pages[j]).exec((errPage, p) => {
+                  for (let k = 0; k < p.widgets.length; k++) {
+                    widgetModel.deleteWidget(p.widgets[k]).exec();
+                  }
+                });
+              }
+            });
+          }
+          console.log('Finished deleting all the websites, pages and widgets for the userId: ' + userId);
           console.log('Finished deleting the user given userId: ' + userId);
           res.status(200).json(deletedUser);
         } else {
