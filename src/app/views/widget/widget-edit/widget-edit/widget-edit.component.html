@@ -39,4 +39,14 @@
                      (_deleteHtmlEvent)="this.deleteWidget($event)">
     </app-widget-html>
   </div>
+  <div *ngSwitchCase="'TEXT'">
+    <app-widget-text [_userId]="this._userId"
+                     [_websiteId]="this._websiteId"
+                     [_pageId]="this._pageId"
+                     [_widgetId]="this._widgetId"
+                     [_widget]="this._widget"
+                     (_updateTextEvent)="this.updateWidget($event)"
+                     (_deleteTextEvent)="this.deleteWidget($event)">
+    </app-widget-text>
+  </div>
 </div>

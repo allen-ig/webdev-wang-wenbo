@@ -11,20 +11,20 @@ Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 ## Updates:
 Updates so far:
 
-v4.0: Homework 4 - Latest version
+v5.1: Homework 5
 
- - 1. Created web services
- 
- - 2. Refactored angular services to use web services
- 
- - 3. Refactored angular services to send http requests
- 
- - 4. Refactored components to subscribe to the returned Observables
- 
- - 5. Added sorting to widget list view
- 
- - 6. Added image upload support
- 
+ - 1. Implement schema and model on views and refactor server side services to utilize mongoose functions.
+ - 2. Add delete user button in profile page and implement the delete user function.
+ - 3. Implemented Flickr Image Search Component
+ - 4. Implemented HTML widget Component
+ - 5. Implemented Text widget Component
+
+v5.0.1: Homework 5
+
+v5.0: Homework 5
+
+v4.0: Homework 4
+
 V3.4: Homework 3
 
 V3.3: Homework 3

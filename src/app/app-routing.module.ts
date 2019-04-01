@@ -23,6 +23,7 @@ import {AddTodoComponent} from './views/todolist/add-todo/add-todo.component';
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit/widget-edit.component';
 import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
+import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
 
 
 // The custom routes of the Angular app.
@@ -78,6 +79,7 @@ export const routingComponents =
     WidgetEditComponent,
     FlickrImageSearchComponent,
     WidgetHtmlComponent,
+    WidgetTextComponent,
     TodosComponent,
     TodoItemComponent,
     HeaderComponent,

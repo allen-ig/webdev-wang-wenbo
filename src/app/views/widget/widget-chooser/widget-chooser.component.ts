@@ -69,6 +69,18 @@ export class WidgetChooserComponent implements OnInit {
         };
         break;
       }
+      case 'TEXT': {
+        newWidget = {
+          widgetType: widgetType,
+          pageId: this._pageId,
+          name: 'Untitled',
+          text: 'Some text input...',
+          rows: 1,
+          placeholder: 'Placeholder',
+          formatted: false
+        };
+        break;
+      }
     }
 
     // then call the api service to create the new widget
