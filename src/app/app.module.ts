@@ -21,6 +21,7 @@ import {InputRangeValidator} from './shared/input-range.validator';
 import {PercentageRangeValidator} from './shared/percentage-range.validator';
 import {SortableDirective} from '../../Assignment/directives/sortable.directive';
 import {FileInputValidator} from './shared/file-input.validator';
+import {FlickrService} from './services/flickr.service';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,7 @@ import {FileInputValidator} from './shared/file-input.validator';
     QuillEditorModule,
     // QuillModule
   ],
-  providers: [UserService, WebsiteService, PageService, WidgetService, GetUsersService],
+  providers: [UserService, WebsiteService, PageService, WidgetService, GetUsersService, FlickrService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

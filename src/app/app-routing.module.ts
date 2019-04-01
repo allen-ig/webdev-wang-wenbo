@@ -21,6 +21,7 @@ import {TodoItemComponent} from './views/todolist/todo-item/todo-item.component'
 import {HeaderComponent} from './views/todolist/header/header.component';
 import {AddTodoComponent} from './views/todolist/add-todo/add-todo.component';
 import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit/widget-edit.component';
+import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 
 
 // The custom routes of the Angular app.
@@ -41,6 +42,7 @@ const routes: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid/widget/image', component: WidgetImageComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/youtube', component: WidgetYoutubeComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
+  {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent},
   {path: 'todos', component: TodosComponent},
   {path: 'about', component: AboutComponent},
 ];
@@ -73,6 +75,7 @@ export const routingComponents =
     WidgetImageComponent,
     WidgetHeaderComponent,
     WidgetEditComponent,
+    FlickrImageSearchComponent,
     TodosComponent,
     TodoItemComponent,
     HeaderComponent,

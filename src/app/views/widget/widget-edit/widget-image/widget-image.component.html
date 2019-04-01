@@ -125,6 +125,16 @@
       Upload Image
     </button>
   </form>
+  <button
+    type="button"
+    class="btn btn-primary btn-success btn-block my-2"
+    [routerLink]=
+      "['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widget._id+'/search']">
+    Search
+  </button>
+  <!--<app-flickr-image-search [class.d-none]="!this._showSearchComponent"-->
+  <!--(selectPhotoEvent)="this._widget.url=$event; this.updateImage()">-->
+  <!--</app-flickr-image-search>-->
   <button type="button"
           class="btn btn-danger  btn-block my-2"
           [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']"

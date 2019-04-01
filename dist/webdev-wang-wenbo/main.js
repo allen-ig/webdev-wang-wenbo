@@ -112,6 +112,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_todolist_header_header_component__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./views/todolist/header/header.component */ "./src/app/views/todolist/header/header.component.ts");
 /* harmony import */ var _views_todolist_add_todo_add_todo_component__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./views/todolist/add-todo/add-todo.component */ "./src/app/views/todolist/add-todo/add-todo.component.ts");
 /* harmony import */ var _views_widget_widget_edit_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-edit/widget-edit.component */ "./src/app/views/widget/widget-edit/widget-edit/widget-edit.component.ts");
+/* harmony import */ var _views_widget_widget_edit_widget_image_flickr_image_search_flickr_image_search_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component */ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.ts");
+
 
 
 
@@ -153,6 +155,7 @@ var routes = [
     { path: 'user/:uid/website/:wid/page/:pid/widget/image', component: _views_widget_widget_edit_widget_image_widget_image_component__WEBPACK_IMPORTED_MODULE_14__["WidgetImageComponent"] },
     { path: 'user/:uid/website/:wid/page/:pid/widget/youtube', component: _views_widget_widget_edit_widget_youtube_widget_youtube_component__WEBPACK_IMPORTED_MODULE_16__["WidgetYoutubeComponent"] },
     { path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: _views_widget_widget_edit_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_22__["WidgetEditComponent"] },
+    { path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: _views_widget_widget_edit_widget_image_flickr_image_search_flickr_image_search_component__WEBPACK_IMPORTED_MODULE_23__["FlickrImageSearchComponent"] },
     { path: 'todos', component: _views_todolist_todos_todos_component__WEBPACK_IMPORTED_MODULE_17__["TodosComponent"] },
     { path: 'about', component: _views_todolist_about_about_component__WEBPACK_IMPORTED_MODULE_18__["AboutComponent"] },
 ];
@@ -186,6 +189,7 @@ var routingComponents = [_views_user_login_login_component__WEBPACK_IMPORTED_MOD
     _views_widget_widget_edit_widget_image_widget_image_component__WEBPACK_IMPORTED_MODULE_14__["WidgetImageComponent"],
     _views_widget_widget_edit_widget_header_widget_header_component__WEBPACK_IMPORTED_MODULE_13__["WidgetHeaderComponent"],
     _views_widget_widget_edit_widget_edit_widget_edit_component__WEBPACK_IMPORTED_MODULE_22__["WidgetEditComponent"],
+    _views_widget_widget_edit_widget_image_flickr_image_search_flickr_image_search_component__WEBPACK_IMPORTED_MODULE_23__["FlickrImageSearchComponent"],
     _views_todolist_todos_todos_component__WEBPACK_IMPORTED_MODULE_17__["TodosComponent"],
     _views_todolist_todo_item_todo_item_component__WEBPACK_IMPORTED_MODULE_19__["TodoItemComponent"],
     _views_todolist_header_header_component__WEBPACK_IMPORTED_MODULE_20__["HeaderComponent"],
@@ -283,6 +287,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _shared_percentage_range_validator__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./shared/percentage-range.validator */ "./src/app/shared/percentage-range.validator.ts");
 /* harmony import */ var _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../Assignment/directives/sortable.directive */ "./Assignment/directives/sortable.directive.ts");
 /* harmony import */ var _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/file-input.validator */ "./src/app/shared/file-input.validator.ts");
+/* harmony import */ var _services_flickr_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/flickr.service */ "./src/app/services/flickr.service.ts");
 
 
 
@@ -292,6 +297,7 @@ __webpack_require__.r(__webpack_exports__);
 // import {QuillModule} from 'ngx-quill';
 
 // import { routing } from './app-routing.module';
+
 
 
 
@@ -329,7 +335,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 ngx_quill_editor__WEBPACK_IMPORTED_MODULE_5__["QuillEditorModule"],
             ],
-            providers: [_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"], _services_website_service__WEBPACK_IMPORTED_MODULE_9__["WebsiteService"], _services_page_service__WEBPACK_IMPORTED_MODULE_10__["PageService"], _services_widget_service__WEBPACK_IMPORTED_MODULE_11__["WidgetService"], _services_get_users_service__WEBPACK_IMPORTED_MODULE_12__["GetUsersService"]],
+            providers: [_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"], _services_website_service__WEBPACK_IMPORTED_MODULE_9__["WebsiteService"], _services_page_service__WEBPACK_IMPORTED_MODULE_10__["PageService"], _services_widget_service__WEBPACK_IMPORTED_MODULE_11__["WidgetService"], _services_get_users_service__WEBPACK_IMPORTED_MODULE_12__["GetUsersService"], _services_flickr_service__WEBPACK_IMPORTED_MODULE_20__["FlickrService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
@@ -439,6 +445,48 @@ var SafeUrlPipe = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
     ], SafeUrlPipe);
     return SafeUrlPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/flickr.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/flickr.service.ts ***!
+  \********************************************/
+/*! exports provided: FlickrService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FlickrService", function() { return FlickrService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+
+
+
+var FlickrService = /** @class */ (function () {
+    function FlickrService(_http) {
+        this._http = _http;
+        this._key = '90ea0df0685933f65ea96fab852a3023';
+        this._secret = '59b7fb7ceb0a467b';
+        this._urlBase = "https://api.flickr.com/services/rest/?method=flickr.photos.search&format=json&api_key=" + this._key + "&text=";
+    }
+    FlickrService.prototype.searchPhotos = function (searchTerm) {
+        var url = this._urlBase + searchTerm;
+        console.log('Search url: ');
+        console.log(url);
+        return this._http.get(url, { responseType: 'text' });
+    };
+    FlickrService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+    ], FlickrService);
+    return FlickrService;
 }());
 
 
@@ -2174,7 +2222,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/' + this._userId]\" class=\"navbar-link cl-text-white float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"cl-text-white navbar-brand cl-text-bold mr-auto\" [routerLink]=\"['/user/' + this._userId + '/website']\">\n      Websites\n    </a>\n    <a [routerLink]=\"['/user/' + this._userId + '/website/new']\"\n       class=\"navbar-link navbar-text float-right cl-text-white cl-icon-padding\">\n      <span class=\"fas fa-plus fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n\n<!--now for loop the websites retrieved using WebsiteService instead of static websites-->\n<div class=\"container\">\n  <ul class=\"list-group cl-list-group-borderless\"\n      *ngFor=\"let website of this._websites; index as i\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/' + this._userId + '/website/' + website._id]\">\n        <span class=\"fas fa-cog fontawsome_icon float-right cl-text-blue\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId + '/website/' + website._id + '/page']\"\n         class=\"cl-text-blue\">\n        {{ website.name }}\n      </a>\n    </li>\n  </ul>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/' + this._userId]\" class=\"navbar-link navbar-text ml-auto cl-text-white cl-icon-padding\">\n      <span class=\"fas fa-user fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/' + this._userId]\"\n       class=\"navbar-link cl-text-white float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"cl-text-white navbar-brand cl-text-bold mr-auto\"\n       [routerLink]=\"['/user/' + this._userId + '/website']\">\n      Websites\n    </a>\n    <a [routerLink]=\"['/user/' + this._userId + '/website/new']\"\n       class=\"navbar-link navbar-text float-right cl-text-white cl-icon-padding\">\n      <span class=\"fas fa-plus fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n\n<!--now for loop the websites retrieved using WebsiteService instead of static websites-->\n<div class=\"container\">\n  <ul class=\"list-group cl-list-group-borderless\"\n      *ngFor=\"let website of this._websites; index as i\">\n    <li class=\"list-group-item cl-list-item-borderless\">\n      <a [routerLink]=\"['/user/' + this._userId + '/website/' + website._id]\">\n        <span class=\"fas fa-cog fontawsome_icon float-right cl-text-blue\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId + '/website/' + website._id + '/page']\"\n         class=\"cl-text-blue\">\n        {{ website.name }}\n      </a>\n    </li>\n  </ul>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/' + this._userId]\"\n       class=\"navbar-link navbar-text ml-auto cl-text-white cl-icon-padding\">\n      <span class=\"fas fa-user fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -2648,6 +2696,119 @@ var WidgetHeaderComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.css":
+/*!*************************************************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.css ***!
+  \*************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL3ZpZXdzL3dpZGdldC93aWRnZXQtZWRpdC93aWRnZXQtaW1hZ2UvZmxpY2tyLWltYWdlLXNlYXJjaC9mbGlja3ItaW1hZ2Utc2VhcmNoLmNvbXBvbmVudC5jc3MifQ== */"
+
+/***/ }),
+
+/***/ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.html":
+/*!**************************************************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.html ***!
+  \**************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\n         \"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]\"\n       class=\"navbar-link cl-text-white float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"cl-text-white navbar-brand cl-text-bold mr-auto\"\n       [routerLink]=\n         \"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId+'/search']\">\n      Search Flickr\n    </a>\n  </div>\n</nav>\n\n<div class=\"container-fluid\">\n  <div class=\"input-group container-fluid\">\n    <input [(ngModel)]=\"this._searchText\"\n           type=\"text\"\n           class=\"form-control\"\n           placeholder=\"Search Images\">\n    <span class=\"input-group-btn\">\n    <a (click)=\"this.searchPhotos()\"\n       class=\"btn btn-default\"\n       type=\"button\">\n      <span class=\"fas fa-search\"></span>\n    </a>\n  </span>\n  </div>\n  <div class=\"alert alert-danger\"\n       *ngIf=\"this._searchPhotoError\">\n    {{ this._searchPhotoError }}\n  </div>\n  <div class=\"container-fluid my-2 ml-3 mr-auto\">\n    <div class=\"row\">\n      <div *ngFor=\"let pic of this._photos\"\n           class=\"col-xs-4\">\n        <img (click)=\"this.selectPhoto(pic)\"\n             width=\"100%\"\n             [src]=\"['https://farm'+pic.farm+'.staticflickr.com/'+pic.server+'/'+pic.id +'_'+pic.secret+'_s.jpg']\"/>\n        <p></p>\n      </div>\n    </div>\n  </div>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId]\"\n       class=\"navbar-link navbar-text ml-auto cl-text-white cl-icon-padding\">\n      <span class=\"fas fa-user fontawsome_icon\"></span>\n    </a>\n  </div>\n</nav>\n"
+
+/***/ }),
+
+/***/ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.ts":
+/*!************************************************************************************************************!*\
+  !*** ./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.ts ***!
+  \************************************************************************************************************/
+/*! exports provided: FlickrImageSearchComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FlickrImageSearchComponent", function() { return FlickrImageSearchComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+/* harmony import */ var _services_flickr_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../services/flickr.service */ "./src/app/services/flickr.service.ts");
+/* harmony import */ var _services_widget_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../services/widget.service */ "./src/app/services/widget.service.ts");
+
+
+
+
+
+var FlickrImageSearchComponent = /** @class */ (function () {
+    // @Output() selectPhotoEvent = new EventEmitter();
+    function FlickrImageSearchComponent(_activatedRoute, _flickrService, _router, _widgetService) {
+        this._activatedRoute = _activatedRoute;
+        this._flickrService = _flickrService;
+        this._router = _router;
+        this._widgetService = _widgetService;
+    }
+    FlickrImageSearchComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        // update the properties using the route parameters
+        this._activatedRoute.params.subscribe(function (params) {
+            console.log(params);
+            _this._userId = params.uid;
+            _this._websiteId = params.wid;
+            _this._pageId = params.pid;
+            _this._widgetId = params.wgid;
+        });
+    };
+    FlickrImageSearchComponent.prototype.searchPhotos = function () {
+        var _this = this;
+        console.log("Searching '" + this._searchText + "':");
+        this._flickrService.searchPhotos(this._searchText).subscribe(function (data) {
+            console.log("Done searching '" + _this._searchText + "' via flickrService, got the result!");
+            // console.log(data);
+            _this._searchPhotoError = null;
+            var val = data;
+            val = val.replace('jsonFlickrApi(', '');
+            val = val.substring(0, val.length - 1);
+            val = JSON.parse(val);
+            _this._photos = val.photos.photo;
+            // console.log(this._photos);
+        }, function (error) {
+            console.log('Error searching photos via flickrService!');
+            _this._searchPhotoError = error || 'Error searching photos on Flickr, please try again!!';
+        });
+    };
+    FlickrImageSearchComponent.prototype.selectPhoto = function (pic) {
+        var _this = this;
+        var url = 'https://farm' + pic.farm + '.staticflickr.com/' + pic.server + '/' + pic.id + '_' + pic.secret + '_s.jpg';
+        // console.log(url);
+        // this.selectPhotoEvent.emit(url);
+        this._widgetService.findWidgetById(this._widgetId).subscribe(function (data) {
+            var newWidget = data;
+            newWidget.url = url;
+            // console.log(newWidget);
+            _this._widgetService.updateWidget(_this._widgetId, newWidget).subscribe(function (updated) {
+                // console.log('Updated the image with new url after search.');
+                // console.log(updated);
+                _this._router.navigate(['/user', _this._userId, 'website', _this._websiteId, 'page', _this._pageId, 'widget']);
+            });
+        });
+    };
+    FlickrImageSearchComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+            selector: 'app-flickr-image-search',
+            template: __webpack_require__(/*! ./flickr-image-search.component.html */ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.html"),
+            styles: [__webpack_require__(/*! ./flickr-image-search.component.css */ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.css")]
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["ActivatedRoute"],
+            _services_flickr_service__WEBPACK_IMPORTED_MODULE_3__["FlickrService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _services_widget_service__WEBPACK_IMPORTED_MODULE_4__["WidgetService"]])
+    ], FlickrImageSearchComponent);
+    return FlickrImageSearchComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/views/widget/widget-edit/widget-image/widget-image.component.css":
 /*!**********************************************************************************!*\
   !*** ./src/app/views/widget/widget-edit/widget-image/widget-image.component.css ***!
@@ -2666,7 +2827,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar navbar-light bg-light fixed-top\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-text-black cl-icon-padding float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"navbar-text cl-text-white cl-text-bold mr-auto\"\n       [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]\">\n      Widgets Edit\n    </a>\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-icon-padding cl-text-black float-right\"\n       (click)=\"this.updateImage()\">\n      <button class=\"fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold\"\n              [disabled]=\"editImageForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form #editImageForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"imageURL\"\n             class=\"cl-text-bold\">URL</label>\n      <input type=\"text\"\n             required\n             ngModel\n             name=\"imageURL\"\n             #imageURL=\"ngModel\"\n             [(ngModel)]=\"this._widget.url\"\n             class=\"form-control\"\n             id=\"imageURL\"\n             placeholder=\"URL\"\n             [class.is-invalid]=\"imageURL.touched && imageURL.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"imageURL.touched && imageURL.invalid\">Image Url is required.\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"imageWidth\"\n             class=\"cl-text-bold\">Width</label>\n      <input type=\"text\"\n             required\n             appPercentageRangeValidator\n             [min]=\"this._minWidthPercentage\"\n             [max]=\"this._maxWidthPercentage\"\n             (input)=\"imageWidth.control.updateValueAndValidity()\"\n             ngModel\n             name=\"imageWidth\"\n             #imageWidth=\"ngModel\"\n             [(ngModel)]=\"this._widget.width\"\n             class=\"form-control\"\n             id=\"imageWidth\"\n             placeholder=\"100%\"\n             [class.is-invalid]=\"imageWidth.touched && imageWidth.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.required\">\n          Image Width is required.\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.notValid && !imageWidth.errors?.required\">\n          Image Width must be a percentage number and between\n          {{ this._minWidthPercentage }} and {{ this._maxWidthPercentage }}\n          (percent).\n        </small>\n      </div>\n    </div>\n  </form>\n  <!--upload form-->\n  <form #uploadImageForm\n        action=\"/api/upload\"\n        method=\"post\"\n        enctype=\"multipart/form-data\">\n    <div class=\"form-group\">\n      <label for=\"exampleInputFile\"\n             class=\"cl-text-bold\">Upload</label>\n      <input type=\"file\"\n             ngModel\n             required\n             appFileInputValidator\n             [maxSize]=\"this._maxSize\"\n             [allowedType]=\"this._allowedType\"\n             name=\"imageFile\"\n             #imageFile=\"ngModel\"\n             id=\"exampleInputFile\"\n             class=\"form-control\"\n             [class.is-invalid]=\"imageFile.touched && imageFile.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && imageFile.errors?.required\">\n          No Image Added!\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidType\">\n          Error: Only Images (jpeg/jpg/png/gif)!\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidSize\">\n          Error: Image File Size Exceeded {{ this._maxSize }} Bytes!\n        </small>\n      </div>\n    </div>\n    <!--&lt;!&ndash;the button to show the input element info&ndash;&gt;-->\n    <!--<button type=\"button\" classs=\"btn btn-light\" (click)=\"showInfo()\">show info</button>-->\n    <!--imageFile validity: {{ imageFile.valid }}-->\n\n    <div class=\"form-control d-none\">\n      <input name=\"userId\" value=\"{{ this._userId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"websiteId\" value=\"{{ this._websiteId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"pageId\" value=\"{{ this._pageId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"widgetId\" value=\"{{ this._widgetId }}\">\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            (click)=\"uploadImageForm.submit()\"\n            [disabled]=\"imageFile.invalid\">\n      Upload Image\n    </button>\n  </form>\n  <button type=\"button\"\n          class=\"btn btn-danger  btn-block my-2\"\n          [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n          (click)=\"this.deleteImage()\">\n    Delete\n  </button>\n</div>\n\n<nav class=\"navbar navbar-light bg-light fixed-bottom\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId]\"\n       class=\"navbar-link cl-icon-padding ml-auto\">\n      <span class=\"fas fa-user fontawsome_icon cl-text-blue\"></span>\n    </a>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar navbar-light bg-light fixed-top\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-text-black cl-icon-padding float-left mr-4\">\n      <span class=\"fas fa-chevron-left fontawsome_icon\"></span>\n    </a>\n    <a class=\"navbar-text cl-text-white cl-text-bold mr-auto\"\n       [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]\">\n      Widgets Edit\n    </a>\n    <a [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n       class=\"navbar-link cl-icon-padding cl-text-black float-right\"\n       (click)=\"this.updateImage()\">\n      <button class=\"fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold\"\n              [disabled]=\"editImageForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n<div class=\"container\">\n  <form #editImageForm=\"ngForm\">\n    <div class=\"form-group\">\n      <label for=\"imageURL\"\n             class=\"cl-text-bold\">URL</label>\n      <input type=\"text\"\n             required\n             ngModel\n             name=\"imageURL\"\n             #imageURL=\"ngModel\"\n             [(ngModel)]=\"this._widget.url\"\n             class=\"form-control\"\n             id=\"imageURL\"\n             placeholder=\"URL\"\n             [class.is-invalid]=\"imageURL.touched && imageURL.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"imageURL.touched && imageURL.invalid\">Image Url is required.\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"imageWidth\"\n             class=\"cl-text-bold\">Width</label>\n      <input type=\"text\"\n             required\n             appPercentageRangeValidator\n             [min]=\"this._minWidthPercentage\"\n             [max]=\"this._maxWidthPercentage\"\n             (input)=\"imageWidth.control.updateValueAndValidity()\"\n             ngModel\n             name=\"imageWidth\"\n             #imageWidth=\"ngModel\"\n             [(ngModel)]=\"this._widget.width\"\n             class=\"form-control\"\n             id=\"imageWidth\"\n             placeholder=\"100%\"\n             [class.is-invalid]=\"imageWidth.touched && imageWidth.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.required\">\n          Image Width is required.\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageWidth.touched && imageWidth.errors?.notValid && !imageWidth.errors?.required\">\n          Image Width must be a percentage number and between\n          {{ this._minWidthPercentage }} and {{ this._maxWidthPercentage }}\n          (percent).\n        </small>\n      </div>\n    </div>\n  </form>\n  <!--upload form-->\n  <form #uploadImageForm\n        action=\"/api/upload\"\n        method=\"post\"\n        enctype=\"multipart/form-data\">\n    <div class=\"form-group\">\n      <label for=\"exampleInputFile\"\n             class=\"cl-text-bold\">Upload</label>\n      <input type=\"file\"\n             ngModel\n             required\n             appFileInputValidator\n             [maxSize]=\"this._maxSize\"\n             [allowedType]=\"this._allowedType\"\n             name=\"imageFile\"\n             #imageFile=\"ngModel\"\n             id=\"exampleInputFile\"\n             class=\"form-control\"\n             [class.is-invalid]=\"imageFile.touched && imageFile.invalid\">\n      <div>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && imageFile.errors?.required\">\n          No Image Added!\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidType\">\n          Error: Only Images (jpeg/jpg/png/gif)!\n        </small>\n        <small class=\"text-danger\"\n               *ngIf=\"imageFile.touched && !imageFile.errors?.required && imageFile.errors?.invalidSize\">\n          Error: Image File Size Exceeded {{ this._maxSize }} Bytes!\n        </small>\n      </div>\n    </div>\n    <!--&lt;!&ndash;the button to show the input element info&ndash;&gt;-->\n    <!--<button type=\"button\" classs=\"btn btn-light\" (click)=\"showInfo()\">show info</button>-->\n    <!--imageFile validity: {{ imageFile.valid }}-->\n\n    <div class=\"form-control d-none\">\n      <input name=\"userId\" value=\"{{ this._userId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"websiteId\" value=\"{{ this._websiteId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"pageId\" value=\"{{ this._pageId }}\">\n    </div>\n    <div class=\"form-control d-none\">\n      <input name=\"widgetId\" value=\"{{ this._widgetId }}\">\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            (click)=\"uploadImageForm.submit()\"\n            [disabled]=\"imageFile.invalid\">\n      Upload Image\n    </button>\n  </form>\n  <button\n    type=\"button\"\n    class=\"btn btn-primary btn-success btn-block my-2\"\n    [routerLink]=\n      \"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widget._id+'/search']\">\n    Search\n  </button>\n  <!--<app-flickr-image-search [class.d-none]=\"!this._showSearchComponent\"-->\n  <!--(selectPhotoEvent)=\"this._widget.url=$event; this.updateImage()\">-->\n  <!--</app-flickr-image-search>-->\n  <button type=\"button\"\n          class=\"btn btn-danger  btn-block my-2\"\n          [routerLink]=\"['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget']\"\n          (click)=\"this.deleteImage()\">\n    Delete\n  </button>\n</div>\n\n<nav class=\"navbar navbar-light bg-light fixed-bottom\">\n  <div class=\"container-fluid\">\n    <a [routerLink]=\"['/user/'+this._userId]\"\n       class=\"navbar-link cl-icon-padding ml-auto\">\n      <span class=\"fas fa-user fontawsome_icon cl-text-blue\"></span>\n    </a>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -2694,6 +2855,7 @@ var WidgetImageComponent = /** @class */ (function () {
         // the preset strict on file size and file type
         this._maxSize = 10000000;
         this._allowedType = /jpeg|jpg|png|gif/;
+        // private _showSearchComponent = true;
         // to pass back the widget to parent component to update
         this._updateImageEvent = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
         // to pass back the widget to parent component to delete

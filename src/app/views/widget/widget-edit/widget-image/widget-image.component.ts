@@ -33,6 +33,8 @@ export class WidgetImageComponent implements OnInit {
   @Input() _widgetId: string;
   @Input() _widget: any;
 
+  // private _showSearchComponent = true;
+
   // to pass back the widget to parent component to update
   @Output() _updateImageEvent = new EventEmitter();
   // to pass back the widget to parent component to delete
