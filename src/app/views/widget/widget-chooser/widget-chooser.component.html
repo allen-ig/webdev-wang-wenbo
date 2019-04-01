@@ -22,7 +22,7 @@
          class="cl-text-blue btn btn-light">Label</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/new']"
+      <a (click)="this.onCreateNewWidget('HTML')"
          class="cl-text-blue btn btn-light">HTML</a>
     </li>
     <li class="list-group-item cl-list-item-borderless">

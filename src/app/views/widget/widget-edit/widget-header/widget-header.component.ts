@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Input, OnInit, Output } from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
-  selector: "app-widget-header",
-  templateUrl: "./widget-header.component.html",
-  styleUrls: ["./widget-header.component.css"]
+  selector: 'app-widget-header',
+  templateUrl: './widget-header.component.html',
+  styleUrls: ['./widget-header.component.css']
 })
 export class WidgetHeaderComponent implements OnInit {
   // the header size input has both min and max value
@@ -23,9 +23,11 @@ export class WidgetHeaderComponent implements OnInit {
   // to pass back the delete event to parent component
   @Output() _deleteHeaderEvent = new EventEmitter();
 
-  constructor() {}
+  constructor() {
+  }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   updateHeader() {
     this._updateHeaderEvent.emit(this._widget);
