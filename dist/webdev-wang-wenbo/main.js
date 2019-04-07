@@ -684,6 +684,9 @@ var UserService = /** @class */ (function () {
         //     error => this._getUsersErrorMessage = error
         //   );
         // }
+        this.options = {
+            withCredentials: false
+        };
         // the http REST call urls
         this._findUserByIdUrl = '/api/user/';
         this._findUserByUsernameUrl = '/api/user?username=';
@@ -691,15 +694,47 @@ var UserService = /** @class */ (function () {
         this._updateUserUrl = '/api/user/';
         this._deleteUserUrl = '/api/user/';
         this._createUserUrl = '/api/user';
+        this._loginUrl = '/api/login';
+        this._logoutUrl = '/api/logout';
+        this._registerUrl = '/api/register';
         this.api = {
             createUser: this.createUser,
             findUserById: this.findUserById,
             findUserByUsername: this.findUserByUsername,
             findUserByCredentials: this.findUserByCredentials,
             updateUser: this.updateUser,
-            deleteUser: this.deleteUser
+            deleteUser: this.deleteUser,
+            login: this.login,
+            logout: this.logout,
+            register: this.register
         };
     }
+    // login service function
+    UserService.prototype.login = function (username, password) {
+        this.options.withCredentials = true;
+        var body = {
+            username: username,
+            password: password
+        };
+        return this._http.post(this._loginUrl, body, this.options);
+    };
+    // logout service function
+    UserService.prototype.logout = function () {
+        console.log('Logging out...');
+        this.options.withCredentials = false;
+        return this._http.post(this._logoutUrl, '', this.options);
+    };
+    // register new user service function
+    UserService.prototype.register = function (username, password) {
+        this.options.withCredentials = true;
+        var newUser = {
+            username: username,
+            password: password,
+            firstName: '',
+            lastName: ''
+        };
+        return this._http.post(this._registerUrl, newUser, this.options);
+    };
     // adds the user parameter instance to the local users array
     UserService.prototype.createUser = function (user) {
         var new_user = {
@@ -1797,9 +1832,27 @@ var LoginComponent = /** @class */ (function () {
         console.log(this.username);
         console.log(this.password);
         // secondly, decide if the entered data match via the credential service, UserService
-        this._userService
-            .findUserByCredentials(this.username, this.password)
-            .subscribe(function (user) {
+        // this._userService
+        //   .findUserByCredentials(this.username, this.password)
+        //   .subscribe(
+        //     user => {
+        //       console.log('login() return: ');
+        //       console.log(user);
+        //       if (user) {
+        //         console.log('Login successful!');
+        //         this.errorFlag = false;
+        //         this._router.navigate(['/user', user._id]);
+        //       } else {
+        //         console.log('Login failed!');
+        //         this.errorFlag = true;
+        //       }
+        //     },
+        //     error => {
+        //       console.log(error.message || 'User not found while loging in...');
+        //       this.errorFlag = true;
+        //     }
+        //   );
+        this._userService.login(this.username, this.password).subscribe(function (user) {
             console.log('login() return: ');
             console.log(user);
             if (user) {
@@ -1874,7 +1927,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container\">\n    <a class=\"cl-text-white navbar-brand cl-text-bold\" [routerLink]=\"['/user/' + this._userId]\">\n      Profile\n    </a>\n    <a (click)=\"onUpdateUser()\"\n       class=\"navbar-link\">\n      <button class=\"fas fa-check fontawesome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar\"\n              [disabled]=\"profileForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <!--<h1 class=\"text-white bg-primary\">Profile</h1>-->\n\n  <form #profileForm=\"ngForm\">\n    <!-- show the findUserByIdError if possible -->\n    <div>\n      <p class=\"alert-danger\">{{ this._findUserByIdError }}</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"username\" class=\"cl-text-bold\">Username</label>\n      <input type=\"text\"\n             required\n             [(ngModel)]=\"this._user.username\"\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             id=\"username\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"password\" class=\"cl-text-bold\">Password</label>\n      <input type=\"password\"\n             required\n             [(ngModel)]=\"this._user.password\"\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             id=\"password\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">Password is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\" class=\"cl-text-bold\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.firstName\"\n             name=\"firstName\"\n             #firstName=\"ngModel\"\n             class=\"form-control\"\n             id=\"first-name\"\n             placeholder=\"First name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\" class=\"cl-text-bold\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.lastName\"\n             name=\"lastName\"\n             #lastName=\"ngModel\"\n             class=\"form-control\"\n             id=\"last-name\"\n             placeholder=\"Last name\">\n    </div>\n  </form>\n\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/' + this._userId +'/website']\">\n    Websites\n  </button>\n  <button type=\"button\"\n          class=\"btn btn-light btn-block\"\n          (click)=\"onDeleteUser()\">\n    Delete User\n  </button>\n  <small class=\"alert alert-danger\"\n         *ngIf=\"this._deleteUserError\">\n    {{ this._deleteUserError }}\n  </small>\n  <a class=\"btn btn-danger  btn-block\"\n     [routerLink]=\"['/login']\">Logout</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container m-auto\">\n    <div class=\"navbar-text\">\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-check fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-plus fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-star fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-heart fontawsome_icon mx-2 color-white\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container\">\n    <a class=\"cl-text-white navbar-brand cl-text-bold\" [routerLink]=\"['/user/' + this._userId]\">\n      Profile\n    </a>\n    <a (click)=\"onUpdateUser()\"\n       class=\"navbar-link\">\n      <button class=\"fas fa-check fontawesome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar\"\n              [disabled]=\"profileForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <!--<h1 class=\"text-white bg-primary\">Profile</h1>-->\n\n  <form #profileForm=\"ngForm\">\n    <!-- show the findUserByIdError if possible -->\n    <div *ngIf=\"this._findUserByIdError\">\n      <p class=\"alert alert-danger\">{{ this._findUserByIdError }}</p>\n    </div>\n\n    <div *ngIf=\"this._logoutError\">\n      <p class=\"alert alert-danger\">{{ this._logoutError }}</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"username\" class=\"cl-text-bold\">Username</label>\n      <input type=\"text\"\n             required\n             [(ngModel)]=\"this._user.username\"\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             id=\"username\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"password\" class=\"cl-text-bold\">Password</label>\n      <input type=\"password\"\n             required\n             [(ngModel)]=\"this._user.password\"\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             id=\"password\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">Password is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\" class=\"cl-text-bold\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.firstName\"\n             name=\"firstName\"\n             #firstName=\"ngModel\"\n             class=\"form-control\"\n             id=\"first-name\"\n             placeholder=\"First name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\" class=\"cl-text-bold\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.lastName\"\n             name=\"lastName\"\n             #lastName=\"ngModel\"\n             class=\"form-control\"\n             id=\"last-name\"\n             placeholder=\"Last name\">\n    </div>\n  </form>\n\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/' + this._userId +'/website']\">\n    Websites\n  </button>\n  <button type=\"button\"\n          class=\"btn btn-light btn-block\"\n          (click)=\"onDeleteUser()\">\n    Delete User\n  </button>\n  <small class=\"alert alert-danger\"\n         *ngIf=\"this._deleteUserError\">\n    {{ this._deleteUserError }}\n  </small>\n  <a class=\"btn btn-danger  btn-block\"\n     (click)=\"this.onLogout()\">\n    Logout</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container m-auto\">\n    <div class=\"navbar-text\">\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-check fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-plus fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-star fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-heart fontawsome_icon mx-2 color-white\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -1957,6 +2010,18 @@ var ProfileComponent = /** @class */ (function () {
             _this._deleteUserError = error || 'Error deleting the user!';
         });
     };
+    // the event handler to logout user
+    ProfileComponent.prototype.onLogout = function () {
+        var _this = this;
+        this._userService.logout().subscribe(function (data) {
+            _this._logoutError = null;
+            _this._user = null;
+            _this._router.navigate(['/login']);
+            console.log('User successfully logged out!');
+        }, function (error) {
+            _this._logoutError = error || 'Error logging out!';
+        });
+    };
     tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChild"])('profileForm'),
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:type", _angular_forms__WEBPACK_IMPORTED_MODULE_4__["NgForm"])
@@ -1996,7 +2061,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <form #registerForm=\"ngForm\"\n        (ngSubmit)=\"register()\"\n        novalidate>\n    <h1>Register</h1>\n\n    <!--display the register error if possible-->\n    <div class=\"alert alert-danger\"\n         *ngIf=\"this._registerError\">\n      {{ this._duplicateRegisterErrorMsg }}\n    </div>\n\n    <div class=\"form-group\">\n      <input type=\"text\"\n             ngModel\n             name=\"username\"\n             required\n             [class.is-invalid]=\"username.invalid && username.touched\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Username\"/>\n      <div class=\"invalid-feedback\"\n           [class.d-none]=\"username.valid || username.untouched\">\n        Username is required!\n      </div>\n    </div>\n    <div ngModelGroup=\"passwordGroup\"\n         #passwordGroup=\"ngModelGroup\">\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"password\"\n               required\n               #password=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Password\"\n               [class.is-invalid]=\"(password.invalid && password.touched) || (verifyPassword.touched && verifyPassword.invalid && !verifyPassword.errors?.required)\"\n               (input)=\"verifyPassword.control.updateValueAndValidity()\"/>\n        <small class=\"text-danger\"\n               [class.d-none]=\"password.valid || password.untouched\">\n          Password is required!\n        </small>\n      </div>\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"verifyPassword\"\n               required\n               appConfirmEqualValidator=\"password\"\n               [class.is-invalid]=\"verifyPassword.invalid && verifyPassword.touched\"\n               #verifyPassword=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Verify password\"/>\n        <div>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.required\">\n            Verify password is required!\n          </small>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.notEqual && !verifyPassword.errors?.required\">\n            Password and Verify password DO NOT match!\n          </small>\n        </div>\n      </div>\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            [disabled]=\"registerForm.invalid\">\n      Register\n    </button>\n    <button type=\"button\"\n            class=\"btn btn-danger  btn-block\"\n            [routerLink]=\"['/login']\">\n      Cancel\n    </button>\n  </form>\n</div>\n"
+module.exports = "<div class=\"container\">\n  <form #registerForm=\"ngForm\"\n        (ngSubmit)=\"this.onRegister()\"\n        novalidate>\n    <h1>Register</h1>\n\n    <!--display the register error if possible-->\n    <div class=\"alert alert-danger\"\n         *ngIf=\"this._registerError\">\n      {{ this._duplicateRegisterErrorMsg }}\n    </div>\n\n    <div class=\"form-group\">\n      <input type=\"text\"\n             ngModel\n             name=\"username\"\n             required\n             [class.is-invalid]=\"username.invalid && username.touched\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             placeholder=\"Username\"/>\n      <div class=\"invalid-feedback\"\n           [class.d-none]=\"username.valid || username.untouched\">\n        Username is required!\n      </div>\n    </div>\n    <div ngModelGroup=\"passwordGroup\"\n         #passwordGroup=\"ngModelGroup\">\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"password\"\n               required\n               #password=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Password\"\n               [class.is-invalid]=\"(password.invalid && password.touched) || (verifyPassword.touched && verifyPassword.invalid && !verifyPassword.errors?.required)\"\n               (input)=\"verifyPassword.control.updateValueAndValidity()\"/>\n        <small class=\"text-danger\"\n               [class.d-none]=\"password.valid || password.untouched\">\n          Password is required!\n        </small>\n      </div>\n      <div class=\"form-group\">\n        <input type=\"password\"\n               ngModel\n               name=\"verifyPassword\"\n               required\n               appConfirmEqualValidator=\"password\"\n               [class.is-invalid]=\"verifyPassword.invalid && verifyPassword.touched\"\n               #verifyPassword=\"ngModel\"\n               class=\"form-control\"\n               placeholder=\"Verify password\"/>\n        <div>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.required\">\n            Verify password is required!\n          </small>\n          <small class=\"text-danger\"\n                 *ngIf=\"verifyPassword.touched && verifyPassword.errors?.notEqual && !verifyPassword.errors?.required\">\n            Password and Verify password DO NOT match!\n          </small>\n        </div>\n      </div>\n    </div>\n    <button type=\"submit\"\n            class=\"btn btn-primary btn-block\"\n            [disabled]=\"registerForm.invalid\">\n      Register\n    </button>\n    <button type=\"button\"\n            class=\"btn btn-danger  btn-block\"\n            [routerLink]=\"['/login']\">\n      Cancel\n    </button>\n  </form>\n</div>\n"
 
 /***/ }),
 
@@ -2030,7 +2095,7 @@ var RegisterComponent = /** @class */ (function () {
     }
     RegisterComponent.prototype.ngOnInit = function () {
     };
-    RegisterComponent.prototype.register = function () {
+    RegisterComponent.prototype.onRegister = function () {
         var _this = this;
         // set the property values to the form values
         // and inspect the input values in console
@@ -2048,18 +2113,25 @@ var RegisterComponent = /** @class */ (function () {
                 console.log('Username is valid!');
                 console.log(data);
                 // call UserService API to create the new user to the server
-                var newUser = {
-                    username: _this._username,
-                    password: _this._password,
-                    firstName: '',
-                    lastName: ''
-                };
-                _this._userService.createUser(newUser).subscribe(function (postedUser) {
+                // const newUser = {
+                //   username: this._username,
+                //   password: this._password,
+                //   firstName: '',
+                //   lastName: ''
+                // };
+                // then call register service api
+                _this._userService.register(_this._username, _this._password).subscribe(function (postedUser) {
                     console.log('Created new user: ');
                     console.log(postedUser);
                     _this._newUserId = postedUser._id;
                     _this._router.navigate(['/user', _this._newUserId]);
                 });
+                // this._userService.createUser(newUser).subscribe(postedUser => {
+                //   console.log('Created new user: ');
+                //   console.log(postedUser);
+                //   this._newUserId = postedUser._id;
+                //   this._router.navigate(['/user', this._newUserId]);
+                // });
             }
             else {
                 _this._registerError = true;

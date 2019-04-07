@@ -26,6 +26,7 @@ export class ProfileComponent implements OnInit {
   private _findUserByIdError: string;
   private _updateUserError: string;
   private _deleteUserError: string;
+  private _logoutError: string;
 
   constructor(
     private _userService: UserService,
@@ -84,6 +85,21 @@ export class ProfileComponent implements OnInit {
       error => {
         console.log('Error deleting the user with userId: ' + this._userId);
         this._deleteUserError = error || 'Error deleting the user!';
+      }
+    );
+  }
+
+  // the event handler to logout user
+  onLogout() {
+    this._userService.logout().subscribe(
+      data => {
+        this._logoutError = null;
+        this._user = null;
+        this._router.navigate(['/login']);
+        console.log('User successfully logged out!');
+      },
+      error => {
+        this._logoutError = error || 'Error logging out!';
       }
     );
   }

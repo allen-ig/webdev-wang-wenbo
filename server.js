@@ -3,11 +3,20 @@ const express = require("express");
 const path = require("path");
 const http = require("http");
 const bodyParser = require("body-parser");
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const sessionSecret = 'hello world';
+const passport = require('passport');
 
 // Init express server app...
 const app = express();
 // const api = require("./server/routes/api");
 // const api = require('./Assignment/app')(app);
+
+app.use(cookieParser());
+app.use(session({secret: process.env.SESSION_SECRET || sessionSecret}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Point static path to dist -- For building -- REMOVE
 app.use(express.static(path.join(__dirname, "dist/webdev-wang-wenbo")));

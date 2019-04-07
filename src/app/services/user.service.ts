@@ -17,6 +17,10 @@ export class UserService {
   //   );
   // }
 
+  options = {
+    withCredentials: false
+  };
+
   // the http REST call urls
   private _findUserByIdUrl = '/api/user/';
   private _findUserByUsernameUrl = '/api/user?username=';
@@ -24,6 +28,9 @@ export class UserService {
   private _updateUserUrl = '/api/user/';
   private _deleteUserUrl = '/api/user/';
   private _createUserUrl = '/api/user';
+  private _loginUrl = '/api/login';
+  private _logoutUrl = '/api/logout';
+  private _registerUrl = '/api/register';
 
   constructor(private _http: HttpClient) {
   }
@@ -34,8 +41,40 @@ export class UserService {
     findUserByUsername: this.findUserByUsername,
     findUserByCredentials: this.findUserByCredentials,
     updateUser: this.updateUser,
-    deleteUser: this.deleteUser
+    deleteUser: this.deleteUser,
+    login: this.login,
+    logout: this.logout,
+    register: this.register
   };
+
+  // login service function
+  login(username: String, password: String) {
+    this.options.withCredentials = true;
+    const body = {
+      username: username,
+      password: password
+    };
+    return this._http.post<any>(this._loginUrl, body, this.options);
+  }
+
+  // logout service function
+  logout() {
+    console.log('Logging out...');
+    this.options.withCredentials = false;
+    return this._http.post(this._logoutUrl, '', this.options);
+  }
+
+  // register new user service function
+  register(username: String, password: String) {
+    this.options.withCredentials = true;
+    const newUser = {
+      username: username,
+      password: password,
+      firstName: '',
+      lastName: ''
+    };
+    return this._http.post<any>(this._registerUrl, newUser, this.options);
+  }
 
   // adds the user parameter instance to the local users array
   createUser(user: any) {

@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  register() {
+  onRegister() {
     // set the property values to the form values
     // and inspect the input values in console
     // console.log(this._form);
@@ -49,18 +49,27 @@ export class RegisterComponent implements OnInit {
         console.log(data);
 
         // call UserService API to create the new user to the server
-        const newUser = {
-          username: this._username,
-          password: this._password,
-          firstName: '',
-          lastName: ''
-        };
-        this._userService.createUser(newUser).subscribe(postedUser => {
-          console.log('Created new user: ');
-          console.log(postedUser);
-          this._newUserId = postedUser._id;
-          this._router.navigate(['/user', this._newUserId]);
-        });
+        // const newUser = {
+        //   username: this._username,
+        //   password: this._password,
+        //   firstName: '',
+        //   lastName: ''
+        // };
+        // then call register service api
+        this._userService.register(this._username, this._password).subscribe(
+          postedUser => {
+            console.log('Created new user: ');
+            console.log(postedUser);
+            this._newUserId = postedUser._id;
+            this._router.navigate(['/user', this._newUserId]);
+          }
+        );
+        // this._userService.createUser(newUser).subscribe(postedUser => {
+        //   console.log('Created new user: ');
+        //   console.log(postedUser);
+        //   this._newUserId = postedUser._id;
+        //   this._router.navigate(['/user', this._newUserId]);
+        // });
       } else {
         this._registerError = true;
         console.log('Username is NOT valid!');

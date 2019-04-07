@@ -5,6 +5,71 @@ module.exports = function (app) {
   const websiteModel = require('../models/website/website.model.server');
   const pageModel = require('../models/page/page.model.server');
   const widgetModel = require('../models/widget/widget.model.server');
+  const passport = require('passport');
+  const LocalStrategy = require('passport-local').Strategy;
+
+  // to serialize and deserialize the user
+  passport.serializeUser(serializeUser);
+  passport.deserializeUser(deserializeUser);
+  passport.use(new LocalStrategy(localStrategyCallback));
+
+  function serializeUser(user, done) {
+    done(null, user);
+  }
+
+  function deserializeUser(user, done) {
+    userModel.findUserById(user._id).then(
+      (user) => done(null, user),
+      (err) => done(err, null)
+    );
+  }
+
+  function localStrategyCallback(username, password, done) {
+    userModel.findUserByCredentials(username, password).then(
+      (user) => {
+        if (user && user.username === username && user.password === password) {
+          return done(null, user);
+        } else {
+          return done(null, false);
+        }
+      },
+      (err) => {
+        if (err) {
+          return done(err, null);
+        }
+      }
+    );
+  }
+
+  // login service call
+  app.post('/api/login', passport.authenticate('local'), (req, res) => {
+    const user = req.user;
+    console.log('Logged in...');
+    res.json(user);
+  });
+
+  // logout service call
+  app.post('/api/logout', (req, res) => {
+    req.logOut();
+    console.log('Logged out...');
+    res.status(200).send({});
+  });
+
+  // register service call
+  app.post('/api/register', (req, res) => {
+    const user = req.body;
+    userModel.createUser(user).then((postedUser) => {
+      if (postedUser) {
+        req.login(postedUser, (err) => {
+          if (err) {
+            res.status(400).send(err);
+          } else {
+            res.status(200).json(postedUser);
+          }
+        })
+      }
+    });
+  });
 
   // to get all the users to test
   app.get('/api/users', (req, res) => {

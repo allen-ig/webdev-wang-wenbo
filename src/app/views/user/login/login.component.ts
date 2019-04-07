@@ -42,26 +42,44 @@ export class LoginComponent implements OnInit {
     console.log(this.username);
     console.log(this.password);
     // secondly, decide if the entered data match via the credential service, UserService
-    this._userService
-      .findUserByCredentials(this.username, this.password)
-      .subscribe(
-        user => {
-          console.log('login() return: ');
-          console.log(user);
-          if (user) {
-            console.log('Login successful!');
-            this.errorFlag = false;
-            this._router.navigate(['/user', user._id]);
-          } else {
-            console.log('Login failed!');
-            this.errorFlag = true;
-          }
-        },
-        error => {
-          console.log(error.message || 'User not found while loging in...');
+    // this._userService
+    //   .findUserByCredentials(this.username, this.password)
+    //   .subscribe(
+    //     user => {
+    //       console.log('login() return: ');
+    //       console.log(user);
+    //       if (user) {
+    //         console.log('Login successful!');
+    //         this.errorFlag = false;
+    //         this._router.navigate(['/user', user._id]);
+    //       } else {
+    //         console.log('Login failed!');
+    //         this.errorFlag = true;
+    //       }
+    //     },
+    //     error => {
+    //       console.log(error.message || 'User not found while loging in...');
+    //       this.errorFlag = true;
+    //     }
+    //   );
+    this._userService.login(this.username, this.password).subscribe(
+      user => {
+        console.log('login() return: ');
+        console.log(user);
+        if (user) {
+          console.log('Login successful!');
+          this.errorFlag = false;
+          this._router.navigate(['/user', user._id]);
+        } else {
+          console.log('Login failed!');
           this.errorFlag = true;
         }
-      );
+      },
+      error => {
+        console.log(error.message || 'User not found while loging in...');
+        this.errorFlag = true;
+      }
+    );
   }
 
   reorderItems(indices) {
