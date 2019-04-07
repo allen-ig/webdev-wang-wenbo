@@ -24,6 +24,7 @@ import {WidgetEditComponent} from './views/widget/widget-edit/widget-edit/widget
 import {FlickrImageSearchComponent} from './views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component';
 import {WidgetHtmlComponent} from './views/widget/widget-edit/widget-html/widget-html.component';
 import {WidgetTextComponent} from './views/widget/widget-edit/widget-text/widget-text.component';
+import {AuthGuardService} from './services/auth-guard.service';
 
 
 // The custom routes of the Angular app.
@@ -31,7 +32,7 @@ const routes: Routes = [
   {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'user/:uid', component: ProfileComponent},
+  {path: 'user/:uid', component: ProfileComponent, canActivate: [AuthGuardService]},
   {path: 'user/:uid/website', component: WebsiteListComponent},
   {path: 'user/:uid/website/new', component: WebsiteNewComponent},
   {path: 'user/:uid/website/:wid', component: WebsiteEditComponent},

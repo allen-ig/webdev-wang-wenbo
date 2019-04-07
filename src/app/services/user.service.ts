@@ -2,6 +2,10 @@ import {Injectable} from '@angular/core';
 import {GetUsersService} from './get-users.service';
 import {User} from '../models/User';
 import {HttpClient} from '@angular/common/http';
+import {SharedService} from './shared.service';
+import {map} from 'rxjs/operators';
+import 'rxjs/add/operator/map';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -31,8 +35,11 @@ export class UserService {
   private _loginUrl = '/api/login';
   private _logoutUrl = '/api/logout';
   private _registerUrl = '/api/register';
+  private _loggedinUrl = '/api/loggedin';
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+              private _sharedService: SharedService,
+              private _router: Router) {
   }
 
   api = {
@@ -44,7 +51,8 @@ export class UserService {
     deleteUser: this.deleteUser,
     login: this.login,
     logout: this.logout,
-    register: this.register
+    register: this.register,
+    loggedIn: this.loggedIn
   };
 
   // login service function
@@ -74,6 +82,23 @@ export class UserService {
       lastName: ''
     };
     return this._http.post<any>(this._registerUrl, newUser, this.options);
+  }
+
+  // loggedIn function to store the currently logged user in SharedService
+  loggedIn() {
+    this.options.withCredentials = true;
+    return this._http.get<any>(this._loggedinUrl, this.options).map(
+      (res: Response) => {
+        const user = JSON.stringify(res);
+        if (user !== '0') {
+          this._sharedService.user = user;
+          return true;
+        } else {
+          this._router.navigate(['login']);
+          return false;
+        }
+      }
+    );
   }
 
   // adds the user parameter instance to the local users array

@@ -4,6 +4,7 @@ import {NgForm} from '@angular/forms';
 import {ViewChild} from '@angular/core';
 import {UserService} from '../../../services/user.service';
 import {User} from '../../../models/User';
+import {SharedService} from '../../../services/shared.service';
 
 // Array.prototype.insert = function (index, item) {
 //   this.splice(index, 0, item);
@@ -31,7 +32,9 @@ export class LoginComponent implements OnInit {
     'Xbox One', 'Xbox One X', 'PS4', 'PS4 Pro', 'Nintendo Switch', 'PC'
   ];
 
-  constructor(private _router: Router, private _userService: UserService) {
+  constructor(private _router: Router,
+              private _userService: UserService,
+              private _sharedService: SharedService) {
     this.errorFlag = false;
   }
 
@@ -69,15 +72,18 @@ export class LoginComponent implements OnInit {
         if (user) {
           console.log('Login successful!');
           this.errorFlag = false;
+          this._sharedService.user = user;
           this._router.navigate(['/user', user._id]);
         } else {
           console.log('Login failed!');
           this.errorFlag = true;
+          this._sharedService.user = '';
         }
       },
       error => {
         console.log(error.message || 'User not found while loging in...');
         this.errorFlag = true;
+        this._sharedService.user = '';
       }
     );
   }

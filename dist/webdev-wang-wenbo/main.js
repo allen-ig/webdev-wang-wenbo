@@ -115,6 +115,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _views_widget_widget_edit_widget_image_flickr_image_search_flickr_image_search_component__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component */ "./src/app/views/widget/widget-edit/widget-image/flickr-image-search/flickr-image-search.component.ts");
 /* harmony import */ var _views_widget_widget_edit_widget_html_widget_html_component__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-html/widget-html.component */ "./src/app/views/widget/widget-edit/widget-html/widget-html.component.ts");
 /* harmony import */ var _views_widget_widget_edit_widget_text_widget_text_component__WEBPACK_IMPORTED_MODULE_25__ = __webpack_require__(/*! ./views/widget/widget-edit/widget-text/widget-text.component */ "./src/app/views/widget/widget-edit/widget-text/widget-text.component.ts");
+/* harmony import */ var _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_26__ = __webpack_require__(/*! ./services/auth-guard.service */ "./src/app/services/auth-guard.service.ts");
+
 
 
 
@@ -146,7 +148,7 @@ var routes = [
     { path: '', redirectTo: 'login', pathMatch: 'full' },
     { path: 'login', component: _views_user_login_login_component__WEBPACK_IMPORTED_MODULE_3__["LoginComponent"] },
     { path: 'register', component: _views_user_register_register_component__WEBPACK_IMPORTED_MODULE_5__["RegisterComponent"] },
-    { path: 'user/:uid', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_4__["ProfileComponent"] },
+    { path: 'user/:uid', component: _views_user_profile_profile_component__WEBPACK_IMPORTED_MODULE_4__["ProfileComponent"], canActivate: [_services_auth_guard_service__WEBPACK_IMPORTED_MODULE_26__["AuthGuardService"]] },
     { path: 'user/:uid/website', component: _views_website_website_list_website_list_component__WEBPACK_IMPORTED_MODULE_7__["WebsiteListComponent"] },
     { path: 'user/:uid/website/new', component: _views_website_website_new_website_new_component__WEBPACK_IMPORTED_MODULE_6__["WebsiteNewComponent"] },
     { path: 'user/:uid/website/:wid', component: _views_website_website_edit_website_edit_component__WEBPACK_IMPORTED_MODULE_8__["WebsiteEditComponent"] },
@@ -294,6 +296,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Assignment_directives_sortable_directive__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../Assignment/directives/sortable.directive */ "./Assignment/directives/sortable.directive.ts");
 /* harmony import */ var _shared_file_input_validator__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./shared/file-input.validator */ "./src/app/shared/file-input.validator.ts");
 /* harmony import */ var _services_flickr_service__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./services/flickr.service */ "./src/app/services/flickr.service.ts");
+/* harmony import */ var _services_shared_service__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./services/shared.service */ "./src/app/services/shared.service.ts");
+/* harmony import */ var _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./services/auth-guard.service */ "./src/app/services/auth-guard.service.ts");
 
 
 
@@ -303,6 +307,8 @@ __webpack_require__.r(__webpack_exports__);
 // import {QuillModule} from 'ngx-quill';
 
 // import { routing } from './app-routing.module';
+
+
 
 
 
@@ -341,7 +347,7 @@ var AppModule = /** @class */ (function () {
                 _angular_common_http__WEBPACK_IMPORTED_MODULE_4__["HttpClientModule"],
                 ngx_quill_editor__WEBPACK_IMPORTED_MODULE_5__["QuillEditorModule"],
             ],
-            providers: [_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"], _services_website_service__WEBPACK_IMPORTED_MODULE_9__["WebsiteService"], _services_page_service__WEBPACK_IMPORTED_MODULE_10__["PageService"], _services_widget_service__WEBPACK_IMPORTED_MODULE_11__["WidgetService"], _services_get_users_service__WEBPACK_IMPORTED_MODULE_12__["GetUsersService"], _services_flickr_service__WEBPACK_IMPORTED_MODULE_20__["FlickrService"]],
+            providers: [_services_user_service__WEBPACK_IMPORTED_MODULE_8__["UserService"], _services_website_service__WEBPACK_IMPORTED_MODULE_9__["WebsiteService"], _services_page_service__WEBPACK_IMPORTED_MODULE_10__["PageService"], _services_widget_service__WEBPACK_IMPORTED_MODULE_11__["WidgetService"], _services_get_users_service__WEBPACK_IMPORTED_MODULE_12__["GetUsersService"], _services_flickr_service__WEBPACK_IMPORTED_MODULE_20__["FlickrService"], _services_shared_service__WEBPACK_IMPORTED_MODULE_21__["SharedService"], _services_auth_guard_service__WEBPACK_IMPORTED_MODULE_22__["AuthGuardService"]],
             bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_7__["AppComponent"]]
         })
     ], AppModule);
@@ -451,6 +457,42 @@ var SafeUrlPipe = /** @class */ (function () {
         tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["DomSanitizer"]])
     ], SafeUrlPipe);
     return SafeUrlPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/services/auth-guard.service.ts":
+/*!************************************************!*\
+  !*** ./src/app/services/auth-guard.service.ts ***!
+  \************************************************/
+/*! exports provided: AuthGuardService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AuthGuardService", function() { return AuthGuardService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _user_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./user.service */ "./src/app/services/user.service.ts");
+
+
+
+var AuthGuardService = /** @class */ (function () {
+    function AuthGuardService(_userService) {
+        this._userService = _userService;
+    }
+    AuthGuardService.prototype.canActivate = function () {
+        return this._userService.loggedIn();
+    };
+    AuthGuardService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_user_service__WEBPACK_IMPORTED_MODULE_2__["UserService"]])
+    ], AuthGuardService);
+    return AuthGuardService;
 }());
 
 
@@ -601,6 +643,37 @@ var PageService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/shared.service.ts":
+/*!********************************************!*\
+  !*** ./src/app/services/shared.service.ts ***!
+  \********************************************/
+/*! exports provided: SharedService */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SharedService", function() { return SharedService; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+
+
+var SharedService = /** @class */ (function () {
+    function SharedService() {
+        this.user = '';
+    }
+    SharedService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
+            providedIn: 'root'
+        }),
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [])
+    ], SharedService);
+    return SharedService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/todo.service.ts":
 /*!******************************************!*\
   !*** ./src/app/services/todo.service.ts ***!
@@ -670,12 +743,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/common/http */ "./node_modules/@angular/common/fesm5/http.js");
+/* harmony import */ var _shared_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./shared.service */ "./src/app/services/shared.service.ts");
+/* harmony import */ var rxjs_add_operator_map__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! rxjs/add/operator/map */ "./node_modules/rxjs-compat/_esm5/add/operator/map.js");
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
+
+
+
 
 
 
 var UserService = /** @class */ (function () {
-    function UserService(_http) {
+    function UserService(_http, _sharedService, _router) {
         this._http = _http;
+        this._sharedService = _sharedService;
+        this._router = _router;
         // private _users = [];
         // private _getUsersErrorMessage: string;
         // constructor(private _getUsersService: GetUsersService) {
@@ -697,6 +778,7 @@ var UserService = /** @class */ (function () {
         this._loginUrl = '/api/login';
         this._logoutUrl = '/api/logout';
         this._registerUrl = '/api/register';
+        this._loggedinUrl = '/api/loggedin';
         this.api = {
             createUser: this.createUser,
             findUserById: this.findUserById,
@@ -706,7 +788,8 @@ var UserService = /** @class */ (function () {
             deleteUser: this.deleteUser,
             login: this.login,
             logout: this.logout,
-            register: this.register
+            register: this.register,
+            loggedIn: this.loggedIn
         };
     }
     // login service function
@@ -734,6 +817,22 @@ var UserService = /** @class */ (function () {
             lastName: ''
         };
         return this._http.post(this._registerUrl, newUser, this.options);
+    };
+    // loggedIn function to store the currently logged user in SharedService
+    UserService.prototype.loggedIn = function () {
+        var _this = this;
+        this.options.withCredentials = true;
+        return this._http.get(this._loggedinUrl, this.options).map(function (res) {
+            var user = JSON.stringify(res);
+            if (user !== '0') {
+                _this._sharedService.user = user;
+                return true;
+            }
+            else {
+                _this._router.navigate(['login']);
+                return false;
+            }
+        });
     };
     // adds the user parameter instance to the local users array
     UserService.prototype.createUser = function (user) {
@@ -776,7 +875,9 @@ var UserService = /** @class */ (function () {
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
             providedIn: 'root'
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_common_http__WEBPACK_IMPORTED_MODULE_2__["HttpClient"],
+            _shared_service__WEBPACK_IMPORTED_MODULE_3__["SharedService"],
+            _angular_router__WEBPACK_IMPORTED_MODULE_5__["Router"]])
     ], UserService);
     return UserService;
 }());
@@ -1802,6 +1903,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/router */ "./node_modules/@angular/router/fesm5/router.js");
 /* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/forms */ "./node_modules/@angular/forms/fesm5/forms.js");
 /* harmony import */ var _services_user_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../services/user.service */ "./src/app/services/user.service.ts");
+/* harmony import */ var _services_shared_service__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../services/shared.service */ "./src/app/services/shared.service.ts");
+
 
 
 
@@ -1812,9 +1915,10 @@ __webpack_require__.r(__webpack_exports__);
 //   this.splice(index, 0, item);
 // };
 var LoginComponent = /** @class */ (function () {
-    function LoginComponent(_router, _userService) {
+    function LoginComponent(_router, _userService, _sharedService) {
         this._router = _router;
         this._userService = _userService;
+        this._sharedService = _sharedService;
         this.errorMsg = 'Invalid username or password!';
         this._bgColor = 'green';
         // the array of items to test sortable directive
@@ -1858,15 +1962,18 @@ var LoginComponent = /** @class */ (function () {
             if (user) {
                 console.log('Login successful!');
                 _this.errorFlag = false;
+                _this._sharedService.user = user;
                 _this._router.navigate(['/user', user._id]);
             }
             else {
                 console.log('Login failed!');
                 _this.errorFlag = true;
+                _this._sharedService.user = '';
             }
         }, function (error) {
             console.log(error.message || 'User not found while loging in...');
             _this.errorFlag = true;
+            _this._sharedService.user = '';
         });
     };
     LoginComponent.prototype.reorderItems = function (indices) {
@@ -1900,7 +2007,9 @@ var LoginComponent = /** @class */ (function () {
             template: __webpack_require__(/*! ./login.component.html */ "./src/app/views/user/login/login.component.html"),
             styles: [__webpack_require__(/*! ./login.component.css */ "./src/app/views/user/login/login.component.css")]
         }),
-        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"], _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"]])
+        tslib__WEBPACK_IMPORTED_MODULE_0__["__metadata"]("design:paramtypes", [_angular_router__WEBPACK_IMPORTED_MODULE_2__["Router"],
+            _services_user_service__WEBPACK_IMPORTED_MODULE_4__["UserService"],
+            _services_shared_service__WEBPACK_IMPORTED_MODULE_5__["SharedService"]])
     ], LoginComponent);
     return LoginComponent;
 }());

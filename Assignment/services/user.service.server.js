@@ -71,6 +71,11 @@ module.exports = function (app) {
     });
   });
 
+  // the check log in service endpoint
+  app.get('/api/loggedin', (req, res) => {
+    res.send(req.isAuthenticated() ? req.user : '0');
+  });
+
   // to get all the users to test
   app.get('/api/users', (req, res) => {
     console.log('Getting all users...');
