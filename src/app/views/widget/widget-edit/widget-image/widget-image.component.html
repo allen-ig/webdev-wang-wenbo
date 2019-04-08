@@ -21,6 +21,23 @@
 <div class="container">
   <form #editImageForm="ngForm">
     <div class="form-group">
+      <label for="imageName"
+             class="cl-text-bold">Name</label>
+      <input type="text"
+             required
+             ngModel
+             name="imageName"
+             #imageName="ngModel"
+             [(ngModel)]="this._widget.name"
+             class="form-control"
+             id="imageName"
+             placeholder="Name"
+             [class.is-invalid]="imageName.touched && imageName.invalid">
+      <small class="text-danger"
+             *ngIf="imageName.touched && imageName.invalid">Image Name is required.
+      </small>
+    </div>
+    <div class="form-group">
       <label for="imageURL"
              class="cl-text-bold">URL</label>
       <input type="text"

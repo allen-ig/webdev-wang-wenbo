@@ -20,6 +20,23 @@
 
 <div class="container">
   <form #editHeaderForm="ngForm">
+    <div>
+      <label for="header-name"
+             class="cl-text-bold">Name</label>
+      <input type="text"
+             required
+             ngModel
+             name="header-name"
+             #headerName="ngModel"
+             [(ngModel)]="this._widget.name"
+             class="form-control"
+             id="header-name"
+             placeholder="Name"
+             [class.is-invalid]="headerName.touched && headerName.invalid">
+      <small class="text-danger"
+             *ngIf="headerName.touched && headerName.invalid">Header Name is required!
+      </small>
+    </div>
     <div class="form-group">
       <label for="header-text"
              class="cl-text-bold">Text</label>

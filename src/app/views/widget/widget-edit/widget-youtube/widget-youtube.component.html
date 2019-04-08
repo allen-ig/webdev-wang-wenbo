@@ -21,6 +21,23 @@
 <div class="container">
   <form #editYoutubeForm="ngForm">
     <div class="form-group">
+      <label for="youtube-Name"
+             class="cl-text-bold">Name</label>
+      <input type="text"
+             required
+             ngModel
+             name="youtube-Name"
+             #youtubeName="ngModel"
+             [(ngModel)]="this._widget.name"
+             class="form-control"
+             id="youtube-Name"
+             placeholder="Name"
+             [class.is-invalid]="youtubeName.touched && youtubeName.invalid">
+      <small class="text-danger"
+             *ngIf="youtubeName.touched && youtubeName.invalid">Youtube Name is required.
+      </small>
+    </div>
+    <div class="form-group">
       <label for="youtube-URL"
              class="cl-text-bold">URL</label>
       <input type="text"

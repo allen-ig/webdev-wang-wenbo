@@ -37,6 +37,7 @@ export class WidgetChooserComponent implements OnInit {
         newWidget = {
           widgetType: widgetType,
           pageId: this._pageId,
+          name: 'Untitled',
           size: '1',
           text: 'Untitled Header'
         };
@@ -46,6 +47,7 @@ export class WidgetChooserComponent implements OnInit {
         newWidget = {
           widgetType: widgetType,
           pageId: this._pageId,
+          name: 'Untitled',
           width: '100%',
           url: ''
         };
@@ -55,6 +57,7 @@ export class WidgetChooserComponent implements OnInit {
         newWidget = {
           widgetType: widgetType,
           pageId: this._pageId,
+          name: 'Untitled',
           width: '100%',
           url: ''
         };
