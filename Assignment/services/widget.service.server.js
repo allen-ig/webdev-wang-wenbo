@@ -230,8 +230,8 @@ module.exports = function (app) {
       const websiteId = req.body.websiteId;
       const pageId = req.body.pageId;
       const widgetId = req.body.widgetId;
-      const widgetEditUrl = `/website/${websiteId}/page/${pageId}/widget/${widgetId}`;
-      const widgetListUrl = `/website/${websiteId}/page/${pageId}/widget`;
+      const widgetEditUrl = `#/website/${websiteId}/page/${pageId}/widget/${widgetId}`;
+      const widgetListUrl = `#/website/${websiteId}/page/${pageId}/widget`;
       if (err) {
         console.log(err.message);
         res.status(400).send(err.message);

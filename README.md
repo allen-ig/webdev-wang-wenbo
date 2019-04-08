@@ -11,11 +11,11 @@ Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 ## Updates:
 Updates so far:
 
-v6.0: Homework 6
+v6.1: Homework 6
 
-  - 1. Implemented local strategy
-  - 2. Implemented facebook strategy
-  - 3. Refactored secure links
+  - 1. minor update on upload image functionality
+
+v6.0: Homework 6
 
 v5.1: Homework 5
 
