@@ -11,13 +11,13 @@ Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 ## Updates:
 Updates so far:
 
-v5.1: Homework 5
+v6.0: Homework 6
 
- - 1. Implement schema and model on views and refactor server side services to utilize mongoose functions.
- - 2. Add delete user button in profile page and implement the delete user function.
- - 3. Implemented Flickr Image Search Component
- - 4. Implemented HTML widget Component
- - 5. Implemented Text widget Component
+  - 1. Implemented local strategy
+  - 2. Implemented facebook strategy
+  - 3. Refactored secure links
+
+v5.1: Homework 5
 
 v5.0.1: Homework 5
 
