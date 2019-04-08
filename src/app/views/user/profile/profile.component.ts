@@ -18,9 +18,10 @@ export class ProfileComponent implements OnInit {
   private _user = {
     _id: '',
     username: '',
-    password: '',
     firstName: '',
-    lastName: ''
+    lastName: '',
+    email: '',
+    phone: ''
   };
   // private _user: any;
   private _findUserByIdError: string;
@@ -47,7 +48,7 @@ export class ProfileComponent implements OnInit {
         console.log('data: ' + JSON.stringify(data));
         this._user._id = data._id;
         this._user.username = data.username;
-        this._user.password = data.password;
+        this._user.email = data.email;
         this._user.firstName = data.firstName;
         this._user.lastName = data.lastName;
         this._findUserByIdError = null;
@@ -63,9 +64,9 @@ export class ProfileComponent implements OnInit {
     const newUser = {
       _id: this._userId,
       username: this._form.value.username,
-      password: this._form.value.password,
       firstName: this._form.value.firstName,
-      lastName: this._form.value.lastName
+      lastName: this._form.value.lastName,
+      email: this._form.value.email
     };
     this._userService.updateUser(this._userId, newUser).subscribe(
       data => console.log(data),
@@ -80,7 +81,9 @@ export class ProfileComponent implements OnInit {
         console.log('Deleted the user with userId: ' + this._userId);
         console.log(data);
         this._deleteUserError = null;
+        this._user = null;
         this._router.navigate(['/login']);
+        console.log('User successfully deleted!');
       },
       error => {
         console.log('Error deleting the user with userId: ' + this._userId);

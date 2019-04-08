@@ -814,7 +814,9 @@ var UserService = /** @class */ (function () {
             username: username,
             password: password,
             firstName: '',
-            lastName: ''
+            lastName: '',
+            email: '',
+            phone: ''
         };
         return this._http.post(this._registerUrl, newUser, this.options);
     };
@@ -869,7 +871,8 @@ var UserService = /** @class */ (function () {
     // removes the user whose _id matches the userId parameter
     UserService.prototype.deleteUser = function (userId) {
         console.log('Deleting the user with Id: ' + userId);
-        return this._http.delete(this._deleteUserUrl + userId);
+        this.options.withCredentials = false;
+        return this._http.delete(this._deleteUserUrl + userId, this.options);
     };
     UserService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Injectable"])({
@@ -2036,7 +2039,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container\">\n    <a class=\"cl-text-white navbar-brand cl-text-bold\" [routerLink]=\"['/user/' + this._userId]\">\n      Profile\n    </a>\n    <a (click)=\"onUpdateUser()\"\n       class=\"navbar-link\">\n      <button class=\"fas fa-check fontawesome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar\"\n              [disabled]=\"profileForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <!--<h1 class=\"text-white bg-primary\">Profile</h1>-->\n\n  <form #profileForm=\"ngForm\">\n    <!-- show the findUserByIdError if possible -->\n    <div *ngIf=\"this._findUserByIdError\">\n      <p class=\"alert alert-danger\">{{ this._findUserByIdError }}</p>\n    </div>\n\n    <div *ngIf=\"this._logoutError\">\n      <p class=\"alert alert-danger\">{{ this._logoutError }}</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"username\" class=\"cl-text-bold\">Username</label>\n      <input type=\"text\"\n             required\n             [(ngModel)]=\"this._user.username\"\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             id=\"username\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"password\" class=\"cl-text-bold\">Password</label>\n      <input type=\"password\"\n             required\n             [(ngModel)]=\"this._user.password\"\n             name=\"password\"\n             #password=\"ngModel\"\n             class=\"form-control\"\n             id=\"password\"\n             placeholder=\"Password\"\n             [class.is-invalid]=\"password.touched && password.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"password.touched && password.invalid\">Password is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\" class=\"cl-text-bold\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.firstName\"\n             name=\"firstName\"\n             #firstName=\"ngModel\"\n             class=\"form-control\"\n             id=\"first-name\"\n             placeholder=\"First name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\" class=\"cl-text-bold\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.lastName\"\n             name=\"lastName\"\n             #lastName=\"ngModel\"\n             class=\"form-control\"\n             id=\"last-name\"\n             placeholder=\"Last name\">\n    </div>\n  </form>\n\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/' + this._userId +'/website']\">\n    Websites\n  </button>\n  <button type=\"button\"\n          class=\"btn btn-light btn-block\"\n          (click)=\"onDeleteUser()\">\n    Delete User\n  </button>\n  <small class=\"alert alert-danger\"\n         *ngIf=\"this._deleteUserError\">\n    {{ this._deleteUserError }}\n  </small>\n  <a class=\"btn btn-danger  btn-block\"\n     (click)=\"this.onLogout()\">\n    Logout</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container m-auto\">\n    <div class=\"navbar-text\">\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-check fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-plus fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-star fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-heart fontawsome_icon mx-2 color-white\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
+module.exports = "<nav class=\"navbar fixed-top cl-blue-navbar\">\n  <div class=\"container\">\n    <a class=\"cl-text-white navbar-brand cl-text-bold\" [routerLink]=\"['/user/' + this._userId]\">\n      Profile\n    </a>\n    <a (click)=\"onUpdateUser()\"\n       class=\"navbar-link\">\n      <button class=\"fas fa-check fontawesome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar\"\n              [disabled]=\"profileForm.invalid\">\n      </button>\n    </a>\n  </div>\n</nav>\n\n\n<div class=\"container\">\n  <!--<h1 class=\"text-white bg-primary\">Profile</h1>-->\n\n  <form #profileForm=\"ngForm\">\n    <!-- show the findUserByIdError if possible -->\n    <div *ngIf=\"this._findUserByIdError\">\n      <p class=\"alert alert-danger\">{{ this._findUserByIdError }}</p>\n    </div>\n\n    <div *ngIf=\"this._logoutError\">\n      <p class=\"alert alert-danger\">{{ this._logoutError }}</p>\n    </div>\n\n    <div class=\"form-group\">\n      <label for=\"username\" class=\"cl-text-bold\">Username</label>\n      <input type=\"text\"\n             required\n             [(ngModel)]=\"this._user.username\"\n             name=\"username\"\n             #username=\"ngModel\"\n             class=\"form-control\"\n             id=\"username\"\n             placeholder=\"Username\"\n             [class.is-invalid]=\"username.touched && username.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"username.touched && username.invalid\">Username is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"email\" class=\"cl-text-bold\">Email</label>\n      <input type=\"email\"\n             required\n             [(ngModel)]=\"this._user.email\"\n             name=\"email\"\n             #email=\"ngModel\"\n             class=\"form-control\"\n             id=\"email\"\n             placeholder=\"Email\"\n             [class.is-invalid]=\"email.touched && email.invalid\">\n      <small class=\"text-danger\"\n             *ngIf=\"email.touched && email.invalid\">Email is required!\n      </small>\n    </div>\n    <div class=\"form-group\">\n      <label for=\"first-name\" class=\"cl-text-bold\">First Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.firstName\"\n             name=\"firstName\"\n             #firstName=\"ngModel\"\n             class=\"form-control\"\n             id=\"first-name\"\n             placeholder=\"First name\">\n    </div>\n    <div class=\"form-group\">\n      <label for=\"last-name\" class=\"cl-text-bold\">Last Name</label>\n      <input type=\"text\"\n             [(ngModel)]=\"this._user.lastName\"\n             name=\"lastName\"\n             #lastName=\"ngModel\"\n             class=\"form-control\"\n             id=\"last-name\"\n             placeholder=\"Last name\">\n    </div>\n  </form>\n\n  <button type=\"button\"\n          class=\"btn btn-primary btn-block\"\n          [routerLink]=\"['/user/' + this._userId +'/website']\">\n    Websites\n  </button>\n  <button type=\"button\"\n          class=\"btn btn-light btn-block\"\n          (click)=\"onDeleteUser()\">\n    Delete User\n  </button>\n  <small class=\"alert alert-danger\"\n         *ngIf=\"this._deleteUserError\">\n    {{ this._deleteUserError }}\n  </small>\n  <a class=\"btn btn-danger  btn-block\"\n     (click)=\"this.onLogout()\">\n    Logout</a>\n</div>\n\n<nav class=\"navbar fixed-bottom cl-blue-navbar\">\n  <div class=\"container m-auto\">\n    <div class=\"navbar-text\">\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-check fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-plus fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-star fontawsome_icon mx-2 color-white\"></span>\n      </a>\n      <a [routerLink]=\"['/user/' + this._userId]\">\n        <span class=\"fas fa-heart fontawsome_icon mx-2 color-white\"></span>\n      </a>\n    </div>\n  </div>\n</nav>\n"
 
 /***/ }),
 
@@ -2068,9 +2071,10 @@ var ProfileComponent = /** @class */ (function () {
         this._user = {
             _id: '',
             username: '',
-            password: '',
             firstName: '',
-            lastName: ''
+            lastName: '',
+            email: '',
+            phone: ''
         };
     }
     ProfileComponent.prototype.ngOnInit = function () {
@@ -2085,7 +2089,7 @@ var ProfileComponent = /** @class */ (function () {
             console.log('data: ' + JSON.stringify(data));
             _this._user._id = data._id;
             _this._user.username = data.username;
-            _this._user.password = data.password;
+            _this._user.email = data.email;
             _this._user.firstName = data.firstName;
             _this._user.lastName = data.lastName;
             _this._findUserByIdError = null;
@@ -2100,9 +2104,9 @@ var ProfileComponent = /** @class */ (function () {
         var newUser = {
             _id: this._userId,
             username: this._form.value.username,
-            password: this._form.value.password,
             firstName: this._form.value.firstName,
-            lastName: this._form.value.lastName
+            lastName: this._form.value.lastName,
+            email: this._form.value.email
         };
         this._userService.updateUser(this._userId, newUser).subscribe(function (data) { return console.log(data); }, function (error) { return _this._updateUserError = error.message || 'Error updating the user!'; });
     };
@@ -2113,7 +2117,9 @@ var ProfileComponent = /** @class */ (function () {
             console.log('Deleted the user with userId: ' + _this._userId);
             console.log(data);
             _this._deleteUserError = null;
+            _this._user = null;
             _this._router.navigate(['/login']);
+            console.log('User successfully deleted!');
         }, function (error) {
             console.log('Error deleting the user with userId: ' + _this._userId);
             _this._deleteUserError = error || 'Error deleting the user!';

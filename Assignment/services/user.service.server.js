@@ -9,10 +9,11 @@ module.exports = function (app) {
   const LocalStrategy = require('passport-local').Strategy;
   const FacebookStrategy = require('passport-facebook').Strategy;
   const facebookConfig = {
-    clientID: process.env.FACEBOOK_CLIENT_ID,
-    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
-    callbackURL: process.env.FACEBOOK_CALLBACK_URL
+    clientID: process.env.FACEBOOK_CLIENT_ID || '263678167908950',
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET || 'e3673569bc87b2b5c222a742445585b3',
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL || 'http://localhost:3200/auth/facebook/callback'
   };
+  const bcrypt = require('bcrypt-nodejs');
 
   // to serialize and deserialize the user
   passport.serializeUser(serializeUser);
@@ -32,9 +33,9 @@ module.exports = function (app) {
   }
 
   function localStrategyCallback(username, password, done) {
-    userModel.findUserByCredentials(username, password).then(
+    userModel.findUserByUsername(username).then(
       (user) => {
-        if (user && user.username === username && user.password === password) {
+        if (user && bcrypt.compareSync(password, user.password)) {
           return done(null, user);
         } else {
           return done(null, false);
@@ -101,13 +102,15 @@ module.exports = function (app) {
 
   // register service call
   app.post('/api/register', (req, res) => {
-    const user = req.body;
+    let user = req.body;
+    user.password = bcrypt.hashSync(user.password);
     userModel.createUser(user).then((postedUser) => {
       if (postedUser) {
         req.login(postedUser, (err) => {
           if (err) {
             res.status(400).send(err);
           } else {
+            console.log('Registered a new user!');
             res.status(200).json(postedUser);
           }
         })
@@ -225,6 +228,7 @@ module.exports = function (app) {
   app.delete("/api/user/:uid", function (req, res) {
     const userId = req.params.uid;
     console.log("User Id to delete: " + userId);
+    req.logOut();
     userModel.deleteUser(userId).exec((err, deletedUser) => {
       if (err) {
         console.log('Error deleting the user given userId: ' + userId);

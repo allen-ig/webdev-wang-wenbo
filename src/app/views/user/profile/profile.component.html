@@ -42,18 +42,18 @@
       </small>
     </div>
     <div class="form-group">
-      <label for="password" class="cl-text-bold">Password</label>
-      <input type="password"
+      <label for="email" class="cl-text-bold">Email</label>
+      <input type="email"
              required
-             [(ngModel)]="this._user.password"
-             name="password"
-             #password="ngModel"
+             [(ngModel)]="this._user.email"
+             name="email"
+             #email="ngModel"
              class="form-control"
-             id="password"
-             placeholder="Password"
-             [class.is-invalid]="password.touched && password.invalid">
+             id="email"
+             placeholder="Email"
+             [class.is-invalid]="email.touched && email.invalid">
       <small class="text-danger"
-             *ngIf="password.touched && password.invalid">Password is required!
+             *ngIf="email.touched && email.invalid">Email is required!
       </small>
     </div>
     <div class="form-group">

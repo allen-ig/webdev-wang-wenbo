@@ -79,7 +79,9 @@ export class UserService {
       username: username,
       password: password,
       firstName: '',
-      lastName: ''
+      lastName: '',
+      email: '',
+      phone: ''
     };
     return this._http.post<any>(this._registerUrl, newUser, this.options);
   }
@@ -145,7 +147,8 @@ export class UserService {
   // removes the user whose _id matches the userId parameter
   deleteUser(userId: string) {
     console.log('Deleting the user with Id: ' + userId);
-    return this._http.delete<any>(this._deleteUserUrl + userId);
+    this.options.withCredentials = false;
+    return this._http.delete<any>(this._deleteUserUrl + userId, this.options);
   }
 
   // to return the error message while getting the users

@@ -41,9 +41,9 @@ function updateUser(uid, user) {
     {
       $set: {
         username: user.username,
-        password: user.password,
         firstName: user.firstName,
-        lastName: user.lastName
+        lastName: user.lastName,
+        email: user.email
       }
     },
     {new: true});
