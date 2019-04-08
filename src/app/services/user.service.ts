@@ -93,7 +93,7 @@ export class UserService {
       (res: Response) => {
         const user = JSON.stringify(res);
         if (user !== '0') {
-          this._sharedService.user = user;
+          this._sharedService.user = JSON.parse(user);
           return true;
         } else {
           this._router.navigate(['login']);

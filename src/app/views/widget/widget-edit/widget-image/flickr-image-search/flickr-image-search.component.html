@@ -1,13 +1,13 @@
 <nav class="navbar fixed-top cl-blue-navbar">
   <div class="container-fluid">
     <a [routerLink]=
-         "['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]"
+         "['/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId]"
        class="navbar-link cl-text-white float-left mr-4">
       <span class="fas fa-chevron-left fontawsome_icon"></span>
     </a>
     <a class="cl-text-white navbar-brand cl-text-bold mr-auto"
        [routerLink]=
-         "['/user/'+this._userId+'/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId+'/search']">
+         "['/website/'+this._websiteId+'/page/'+this._pageId+'/widget/'+this._widgetId+'/search']">
       Search Flickr
     </a>
   </div>
@@ -46,7 +46,7 @@
 
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
-    <a [routerLink]="['/user/'+this._userId]"
+    <a [routerLink]="['/profile']"
        class="navbar-link navbar-text ml-auto cl-text-white cl-icon-padding">
       <span class="fas fa-user fontawsome_icon"></span>
     </a>

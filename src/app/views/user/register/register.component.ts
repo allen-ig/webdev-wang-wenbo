@@ -3,6 +3,7 @@ import {NgForm} from '@angular/forms';
 import {UserService} from '../../../services/user.service';
 import {User} from '../../../models/User';
 import {Router} from '@angular/router';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-register',
@@ -24,7 +25,9 @@ export class RegisterComponent implements OnInit {
   private _duplicateRegisterErrorMsg =
     'The username has been registered, please try with another one.';
 
-  constructor(private _userService: UserService, private _router: Router) {
+  constructor(private _userService: UserService,
+              private _router: Router,
+              private _sharedService: SharedService) {
   }
 
   ngOnInit() {
@@ -61,7 +64,8 @@ export class RegisterComponent implements OnInit {
             console.log('Created new user: ');
             console.log(postedUser);
             this._newUserId = postedUser._id;
-            this._router.navigate(['/user', this._newUserId]);
+            this._sharedService.user = postedUser;
+            this._router.navigate(['/profile']);
           }
         );
         // this._userService.createUser(newUser).subscribe(postedUser => {

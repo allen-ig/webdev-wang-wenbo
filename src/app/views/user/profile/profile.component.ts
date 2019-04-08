@@ -3,6 +3,7 @@ import {UserService} from '../../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {User} from 'src/app/models/User';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-profile',
@@ -32,31 +33,35 @@ export class ProfileComponent implements OnInit {
   constructor(
     private _userService: UserService,
     private _activatedRoute: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    private _sharedService: SharedService
   ) {
   }
 
   ngOnInit() {
     // get uid parameter
-    this._activatedRoute.params.subscribe(params => {
-      console.log('User Id: ' + JSON.stringify(params));
-      this._userId = params['uid'];
-    });
+    // this._activatedRoute.params.subscribe(params => {
+    //   console.log('User Id: ' + JSON.stringify(params));
+    //   this._userId = params['uid'];
+    // });
     // use user service to find the user by Id
-    this._userService.findUserById(this._userId).subscribe(
-      data => {
-        console.log('data: ' + JSON.stringify(data));
-        this._user._id = data._id;
-        this._user.username = data.username;
-        this._user.email = data.email;
-        this._user.firstName = data.firstName;
-        this._user.lastName = data.lastName;
-        this._findUserByIdError = null;
-      },
-      error =>
-        (this._findUserByIdError =
-          error.message || 'Error getting the user by Id!')
-    );
+    // this._userService.findUserById(this._userId).subscribe(
+    //   data => {
+    //     console.log('data: ' + JSON.stringify(data));
+    //     this._user._id = data._id;
+    //     this._user.username = data.username;
+    //     this._user.email = data.email;
+    //     this._user.firstName = data.firstName;
+    //     this._user.lastName = data.lastName;
+    //     this._findUserByIdError = null;
+    //   },
+    //   error =>
+    //     (this._findUserByIdError =
+    //       error.message || 'Error getting the user by Id!')
+    // );
+    this._user = JSON.parse(JSON.stringify(this._sharedService.user));
+    this._userId = this._user._id;
+    console.log('data: ' + JSON.stringify(this._user));
   }
 
   // to update the user info
@@ -82,6 +87,7 @@ export class ProfileComponent implements OnInit {
         console.log(data);
         this._deleteUserError = null;
         this._user = null;
+        this._sharedService.user = null;
         this._router.navigate(['/login']);
         console.log('User successfully deleted!');
       },
@@ -98,6 +104,7 @@ export class ProfileComponent implements OnInit {
       data => {
         this._logoutError = null;
         this._user = null;
+        this._sharedService.user = null;
         this._router.navigate(['/login']);
         console.log('User successfully logged out!');
       },

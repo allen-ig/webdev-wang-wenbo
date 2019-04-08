@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {FlickrService} from '../../../../../services/flickr.service';
 import {WidgetService} from '../../../../../services/widget.service';
+import {SharedService} from '../../../../../services/shared.service';
 
 @Component({
   selector: 'app-flickr-image-search',
@@ -24,14 +25,15 @@ export class FlickrImageSearchComponent implements OnInit {
   constructor(private _activatedRoute: ActivatedRoute,
               private _flickrService: FlickrService,
               private _router: Router,
-              private _widgetService: WidgetService) {
+              private _widgetService: WidgetService,
+              private _sharedService: SharedService) {
   }
 
   ngOnInit() {
+    this._userId = this._sharedService.user._id;
     // update the properties using the route parameters
     this._activatedRoute.params.subscribe(params => {
         console.log(params);
-        this._userId = params.uid;
         this._websiteId = params.wid;
         this._pageId = params.pid;
         this._widgetId = params.wgid;
@@ -73,7 +75,7 @@ export class FlickrImageSearchComponent implements OnInit {
           updated => {
             // console.log('Updated the image with new url after search.');
             // console.log(updated);
-            this._router.navigate(['/user', this._userId, 'website', this._websiteId, 'page', this._pageId, 'widget']);
+            this._router.navigate(['/website', this._websiteId, 'page', this._pageId, 'widget']);
           }
         );
       }

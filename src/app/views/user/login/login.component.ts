@@ -73,7 +73,8 @@ export class LoginComponent implements OnInit {
           console.log('Login successful!');
           this.errorFlag = false;
           this._sharedService.user = user;
-          this._router.navigate(['/user', user._id]);
+          // this._router.navigate(['/user', user._id]);
+          this._router.navigate(['/profile']);
         } else {
           console.log('Login failed!');
           this.errorFlag = true;

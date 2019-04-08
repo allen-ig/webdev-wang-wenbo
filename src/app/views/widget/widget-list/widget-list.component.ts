@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-widget-list',
@@ -16,15 +17,16 @@ export class WidgetListComponent implements OnInit {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _widgetService: WidgetService
+    private _widgetService: WidgetService,
+    private _sharedService: SharedService
   ) {
   }
 
   ngOnInit() {
+    this._userId = this._sharedService.user._id;
     // update the properties using the route parameters
     this._activatedRoute.params.subscribe(params => {
       console.log(params);
-      this._userId = params.uid;
       this._websiteId = params.wid;
       this._pageId = params.pid;
 

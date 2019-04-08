@@ -1,14 +1,14 @@
 <nav class="navbar navbar-light bg-light fixed-top">
   <div class="container-fluid">
-    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page']"
+    <a [routerLink]="['/website/'+this._websiteId+'/page']"
        class="navbar-link cl-text-black cl-icon-padding float-left mr-4">
       <span class="fas fa-chevron-left fontawsome_icon"></span>
     </a>
     <a class="navbar-text cl-text-black cl-text-bold mr-auto"
-       [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page/new']">
+       [routerLink]="['/website/'+this._websiteId+'/page/new']">
       New Page
     </a>
-    <a [routerLink]="['/user/'+this._userId+'/website/'+this._websiteId+'/page']"
+    <a [routerLink]="['/website/'+this._websiteId+'/page']"
        class="navbar-link cl-icon-padding cl-text-black float-right"
        (click)="onCreateNewPage()">
       <button class="fas fa-check fontawesome_icon btn btn-light bg-light border-light cl-text-bold"
@@ -54,7 +54,7 @@
 <nav class="navbar navbar-light bg-light fixed-bottom">
   <div class="container-fluid">
     <div class="float-right navbar-text ml-auto">
-      <a [routerLink]="['/user/'+this._userId]"
+      <a [routerLink]="['/profile']"
          class="cl-icon-padding">
         <span class="fas fa-user fontawsome_icon cl-text-blue"></span>
       </a>

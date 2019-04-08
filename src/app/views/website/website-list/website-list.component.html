@@ -1,14 +1,14 @@
 <nav class="navbar fixed-top cl-blue-navbar">
   <div class="container-fluid">
-    <a [routerLink]="['/user/' + this._userId]"
+    <a [routerLink]="['/profile']"
        class="navbar-link cl-text-white float-left mr-4">
       <span class="fas fa-chevron-left fontawsome_icon"></span>
     </a>
     <a class="cl-text-white navbar-brand cl-text-bold mr-auto"
-       [routerLink]="['/user/' + this._userId + '/website']">
+       [routerLink]="['/website']">
       Websites
     </a>
-    <a [routerLink]="['/user/' + this._userId + '/website/new']"
+    <a [routerLink]="['/website/new']"
        class="navbar-link navbar-text float-right cl-text-white cl-icon-padding">
       <span class="fas fa-plus fontawsome_icon"></span>
     </a>
@@ -20,10 +20,10 @@
   <ul class="list-group cl-list-group-borderless"
       *ngFor="let website of this._websites; index as i">
     <li class="list-group-item cl-list-item-borderless">
-      <a [routerLink]="['/user/' + this._userId + '/website/' + website._id]">
+      <a [routerLink]="['/website/' + website._id]">
         <span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span>
       </a>
-      <a [routerLink]="['/user/' + this._userId + '/website/' + website._id + '/page']"
+      <a [routerLink]="['/website/' + website._id + '/page']"
          class="cl-text-blue">
         {{ website.name }}
       </a>
@@ -33,7 +33,7 @@
 
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
-    <a [routerLink]="['/user/' + this._userId]"
+    <a [routerLink]="['/profile']"
        class="navbar-link navbar-text ml-auto cl-text-white cl-icon-padding">
       <span class="fas fa-user fontawsome_icon"></span>
     </a>

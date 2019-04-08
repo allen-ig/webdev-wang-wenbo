@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {WebsiteService} from '../../../services/website.service';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-website-edit',
@@ -21,15 +22,16 @@ export class WebsiteEditComponent implements OnInit {
 
   constructor(
     private _activatedRoute: ActivatedRoute,
-    private _websiteService: WebsiteService
+    private _websiteService: WebsiteService,
+    private _sharedService: SharedService
   ) {
   }
 
   ngOnInit() {
+    this._userId = this._sharedService.user._id;
     this._activatedRoute.params.subscribe(params => {
       console.log(params);
       // firstly, find both uid and wid
-      this._userId = params.uid;
       this._websiteId = params.wid;
 
       // secondly, find the website associated with the wid

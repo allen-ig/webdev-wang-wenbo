@@ -2,15 +2,15 @@
   <div class="container-fluid">
     <div class="col-4 hidden-xs d-none d-md-block">
       <div class="container pl-0">
-        <a [routerLink]="['/user/' + this._userId + '/website']"
+        <a [routerLink]="['/website']"
            class="navbar-link cl-text-white mr-4">
           <span class="fas fa-chevron-left fontawsome_icon"></span>
         </a>
         <a class="cl-text-white navbar-brand cl-text-bold m-auto"
-           [routerLink]="['/user/' + this._userId + '/website/' + this._websiteId]">
+           [routerLink]="['/website/' + this._websiteId]">
           Websites
         </a>
-        <a [routerLink]="['/user/' + this._userId + '/website/new']"
+        <a [routerLink]="['/website/new']"
            class="navbar-link float-right">
           <button class="fas fa-plus fontawsome_icon mr-2 color-white btn cl-text-white cl-text-bold cl-blue-navbar">
           </button>
@@ -20,10 +20,10 @@
     <div class="col-8 p-0">
       <div class="container">
         <a class="cl-text-white navbar-brand cl-text-bold"
-           [routerLink]="['/user/' + this._userId + '/website/' + this._websiteId]">
+           [routerLink]="['/website/' + this._websiteId]">
           Edit Websites
         </a>
-        <a [routerLink]="['/user/' + this._userId + '/website']"
+        <a [routerLink]="['/website']"
            (click)="onEditWebsite()"
            class="navbar-link float-right cl-text-white">
           <button class="fas fa-check fontawsome_icon color-white btn cl-text-white cl-text-bold cl-blue-navbar"
@@ -42,10 +42,10 @@
         <ul class="list-group cl-list-group-borderless"
             *ngFor="let website of this._websites; index as i">
           <li class="list-group-item cl-list-item-borderless">
-            <a [routerLink]="['/user/' + website.developerId + '/website/' + website._id]">
+            <a [routerLink]="['/website/' + website._id]">
               <span class="fas fa-cog fontawsome_icon float-right cl-text-blue"></span>
             </a>
-            <a [routerLink]="['/user/' + website.developerId + '/website/' + website._id + '/page']"
+            <a [routerLink]="['/website/' + website._id + '/page']"
                class="cl-text-blue">
               {{ website.name }}
             </a>
@@ -91,7 +91,7 @@
         </div>
         <button type="button"
                 class="btn btn-danger  btn-block"
-                [routerLink]="['/user/' + this._userId + '/website']"
+                [routerLink]="['/website']"
                 (click)="onDeleteWebsite()">
           Delete
         </button>
@@ -102,7 +102,7 @@
 
 <nav class="navbar fixed-bottom cl-blue-navbar">
   <div class="container-fluid">
-    <a [routerLink]="['/user/' + this._userId]"
+    <a [routerLink]="['/profile']"
        class="navbar-link navbar-text ml-auto cl-text-white cl-icon-padding">
       <span class="fas fa-user fontawsome_icon"></span>
     </a>

@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {WidgetService} from '../../../services/widget.service';
+import {SharedService} from '../../../services/shared.service';
 
 @Component({
   selector: 'app-widget-chooser',
@@ -16,15 +17,16 @@ export class WidgetChooserComponent implements OnInit {
   constructor(
     private _activatedRoute: ActivatedRoute,
     private _widgetService: WidgetService,
-    private _router: Router
+    private _router: Router,
+    private _sharedService: SharedService
   ) {
   }
 
   ngOnInit() {
+    this._userId = this._sharedService.user._id;
     // update the properties using the route parameters
     this._activatedRoute.params.subscribe(params => {
       console.log(params);
-      this._userId = params.uid;
       this._websiteId = params.wid;
       this._pageId = params.pid;
     });
@@ -95,9 +97,7 @@ export class WidgetChooserComponent implements OnInit {
 
         // then navigate to widget edit page
         this._router.navigate([
-          '/user',
-          this._userId,
-          'website',
+          '/website',
           this._websiteId,
           'page',
           this._pageId,

@@ -44,14 +44,28 @@ const routes: Routes = [
   {path: 'user/:uid/website/:wid/page/:pid/widget/header', component: WidgetHeaderComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/image', component: WidgetImageComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/youtube', component: WidgetYoutubeComponent},
+  {path: 'website/:wid/page/:pid/widget/header', component: WidgetHeaderComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid/widget/image', component: WidgetImageComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid/widget/youtube', component: WidgetYoutubeComponent, canActivate: [AuthGuardService]},
   {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent},
   {path: 'user/:uid/website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent},
   {path: 'todos', component: TodosComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService]},
+  {path: 'website', component: WebsiteListComponent, canActivate: [AuthGuardService]},
+  {path: 'website/new', component: WebsiteNewComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid', component: WebsiteEditComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page', component: PageListComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/new', component: PageNewComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid', component: PageEditComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid/widget', component: WidgetListComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid/widget/new', component: WidgetChooserComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid/widget/:wgid', component: WidgetEditComponent, canActivate: [AuthGuardService]},
+  {path: 'website/:wid/page/:pid/widget/:wgid/search', component: FlickrImageSearchComponent, canActivate: [AuthGuardService]}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {useHash: true})],
   exports: [RouterModule]
 })
 
