@@ -9,7 +9,11 @@ const userSchema = new Schema({
   email: String,
   phone: String,
   websites: [{type: mongoose.Schema.Types.ObjectId, ref: 'Website'}],
-  dateCreated: {type: Date, default: Date.now()}
+  dateCreated: {type: Date, default: Date.now()},
+  facebook: {
+    id: String,
+    token: String
+  }
 });
 
 module.exports = userSchema;

@@ -7,11 +7,18 @@ module.exports = function (app) {
   const widgetModel = require('../models/widget/widget.model.server');
   const passport = require('passport');
   const LocalStrategy = require('passport-local').Strategy;
+  const FacebookStrategy = require('passport-facebook').Strategy;
+  const facebookConfig = {
+    clientID: process.env.FACEBOOK_CLIENT_ID,
+    clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
+    callbackURL: process.env.FACEBOOK_CALLBACK_URL
+  };
 
   // to serialize and deserialize the user
   passport.serializeUser(serializeUser);
   passport.deserializeUser(deserializeUser);
   passport.use(new LocalStrategy(localStrategyCallback));
+  passport.use(new FacebookStrategy(facebookConfig, facebookStrategyCallback));
 
   function serializeUser(user, done) {
     done(null, user);
@@ -40,6 +47,43 @@ module.exports = function (app) {
       }
     );
   }
+
+  function facebookStrategyCallback(token, refreshToken, profile, done) {
+    userModel.findUserByFacebookId(profile.id).then(
+      (user) => {
+        if (user) {
+          return done(null, user);
+        } else {
+          const names = profile.displayName.split(' ');
+          const newFacebookUser = {
+            firstName: names[0],
+            lastName: names[1],
+            email: profile.emails ? profile.emails[0].value : '',
+            facebook: {
+              id: profile.id,
+              token: token
+            }
+          };
+          return userModel.createUser(newFacebookUser);
+        }
+      },
+      (err) => {
+        if (err) {
+          return done(err, null);
+        }
+      }
+    );
+  }
+
+  // delegate the authentication to facebook
+  app.get('/facebook/login', passport.authenticate('facebook', {scope: 'email'}));
+  app.get('/auth/facebook/callback',
+    passport.authenticate('facebook', {failureRedirect: '/login'}),
+    (req, res) => {
+      const userId = req.user._id;
+      const url = '/user/' + userId;
+      return res.redirect(url);
+    });
 
   // login service call
   app.post('/api/login', passport.authenticate('local'), (req, res) => {
