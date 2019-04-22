@@ -11,9 +11,11 @@ Heroku link: https://webdev-wenbowang-cs5610.herokuapp.com/
 ## Updates:
 Updates so far:
 
-v6.1: Homework 6
+v6.2: Homework 6 - the latest release for HW6
 
-  - 1. minor update on upload image functionality
+  1. Minor update on Facebook Login functionality
+
+v6.1: Homework 6
 
 v6.0: Homework 6
 
