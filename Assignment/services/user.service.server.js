@@ -73,7 +73,13 @@ module.exports = function (app) {
           return done(err, null);
         }
       }
-    );
+    ).then(function (user) {
+      return done(null, user);
+    }, function (err) {
+      if (err) {
+        return done(err);
+      }
+    });
   }
 
   // delegate the authentication to facebook
